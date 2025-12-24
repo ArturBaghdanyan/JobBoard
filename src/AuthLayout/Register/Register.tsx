@@ -1,26 +1,29 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import type { SubmitHandler } from "react-hook-form";
-import type { Form } from "../../types/auth";
-import { registerUser } from "../../helpers/api";
+import type { UserProfile } from "../../types/auth";
+import { useAuth } from "../../hooks/useAuth";
 
 import styles from "../style.module.scss";
 
+
 export const Register = () => {
   const navigate = useNavigate();
+
+  const { register: registerAction, error: authError } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<Form>();
+  } = useForm<UserProfile>();
 
-  const onSubmit: SubmitHandler<Form> = async (data) => {
-    try {
-      await registerUser(data);
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Register failed", error);
+  const onSubmit: SubmitHandler<UserProfile> = async (data) => {
+    const success = await registerAction(data);
+
+    if (success) {
+      alert("Registration successful! You can now login.");
+      navigate("/login");
     }
   };
 
@@ -29,13 +32,17 @@ export const Register = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1 className={styles.title}>Create Account</h1>
 
+        {authError && <p className={styles.error_summary}>{authError}</p>}
+
         <div className={styles.field}>
           <label className={styles.label}>Name</label>
           <input
             className={styles.input}
-            {...register("name", { required: "Name is required" })}
+            {...register("username", { required: "Name is required" })}
           />
-          {errors.name && <p className={styles.error}>{errors.name.message}</p>}
+          {errors.username && (
+            <p className={styles.error}>{errors.username.message}</p>
+          )}
         </div>
 
         <div className={styles.field}>
@@ -47,7 +54,7 @@ export const Register = () => {
               required: "Email is required",
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: "Invalid email",
+                message: "Invalid email format",
               },
             })}
           />
@@ -77,8 +84,9 @@ export const Register = () => {
         <button type="submit" disabled={isSubmitting} className={styles.button}>
           {isSubmitting ? "Creating account..." : "Register"}
         </button>
+
         <div className={styles.signs}>
-          <Link to="/register" className={styles.signs_button}>
+          <Link to="/login" className={styles.signs_button}>
             Already have an account? Login
           </Link>
         </div>

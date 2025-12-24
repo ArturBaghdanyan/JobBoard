@@ -1,24 +1,28 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import type { SubmitHandler } from "react-hook-form";
-import type { Form } from "../../types/auth";
-import { loginUser } from "../../helpers/api";
+import type { UserProfile } from "../../types/auth";
+import { useAuth } from "../../hooks/useAuth";
 
 import styles from "../style.module.scss";
 
+
 export const Login = () => {
   const navigate = useNavigate();
+  const { login, error: authError } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<Form>();
+  } = useForm<UserProfile>();
 
-  const onSubmit: SubmitHandler<Form> = async (data) => {
+  const onSubmit: SubmitHandler<UserProfile> = async (data) => {
     try {
-      await loginUser(data);
-      navigate("/dashboard");
+      const success = await login(data.email, data.password);
+      if (success) {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Login failed", error);
     }
@@ -28,14 +32,16 @@ export const Login = () => {
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={styles.title}>Login</h1>
-
+        {authError && <p className={styles.error_summary}>{authError}</p>}
         <div className={styles.field}>
           <label className={styles.label}>Name</label>
           <input
             className={styles.input}
-            {...register("name", { required: "Name is required" })}
+            {...register("username", { required: "Name is required" })}
           />
-          {errors.name && <p className={styles.error}>{errors.name.message}</p>}
+          {errors.username && (
+            <p className={styles.error}>{errors.username.message}</p>
+          )}
         </div>
 
         <div className={styles.field}>
@@ -75,7 +81,7 @@ export const Login = () => {
         </div>
 
         <button type="submit" disabled={isSubmitting} className={styles.button}>
-          {isSubmitting ? "Logging in..." : "SignIn"}
+          {isSubmitting ? "Logging in..." : "Sign In"}
         </button>
         <div className={styles.signs}>
           <Link to="/register" className={styles.signs_button}>
