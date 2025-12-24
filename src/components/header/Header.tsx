@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Login from "../../AuthLayout/Login/Login";
-import Register from "../../AuthLayout/Register/Register";
 
 import style from "./header.module.scss";
 
-const Header = () => {
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
-
+interface PropsHeader {
+  onSignIn: () => void;
+  onSignUp: () => void;
+}
+const Header = ({ onSignIn, onSignUp }: PropsHeader) => {
   return (
     <header>
       <div className={style.header}>
@@ -42,15 +40,8 @@ const Header = () => {
         </nav>
 
         <div className={style.header_buttons}>
-          <button onClick={() => setShowSignInModal(!showSignInModal)}>
-            Sign In
-          </button>
-          {showSignInModal && <Login />}
-
-          <button onClick={() => setShowSignUpModal(!showSignUpModal)}>
-            Sign Up
-          </button>
-          {showSignUpModal && <Register />}
+          <button onClick={onSignIn}>Sign In</button>
+          <button onClick={onSignUp}>Sign Up</button>
         </div>
       </div>
     </header>
