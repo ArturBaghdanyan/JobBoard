@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { IoPerson } from "react-icons/io5";
 
 import style from "./header.module.scss";
 
@@ -7,6 +9,8 @@ interface PropsHeader {
   onSignUp: () => void;
 }
 const Header = ({ onSignIn, onSignUp }: PropsHeader) => {
+  const { user, logout } = useAuth();
+
   return (
     <header>
       <div className={style.header}>
@@ -39,10 +43,19 @@ const Header = ({ onSignIn, onSignUp }: PropsHeader) => {
           </NavLink>
         </nav>
 
-        <div className={style.header_buttons}>
-          <button onClick={onSignIn}>Sign In</button>
-          <button onClick={onSignUp}>Sign Up</button>
-        </div>
+        {user ? (
+          <div className={style.header_account}>
+            <IoPerson />
+            <button onClick={logout} className={style.header_account_log}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className={style.header_buttons}>
+            <button onClick={onSignIn}>Sign In</button>
+            <button onClick={onSignUp}>Sign Up</button>
+          </div>
+        )}
       </div>
     </header>
   );

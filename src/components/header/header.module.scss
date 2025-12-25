@@ -30,21 +30,30 @@ header {
       color: white;
     }
   }
+  &_account {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &_log {
+      &:hover {
+        color: red !important;
+      }
+    }
+  }
   &_buttons {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+  button {
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
 
-    > button {
-      border: none;
-      background: none;
-      color: white;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-
-      &:hover {
-        color: #67fa3e;
-      }
+    &:hover {
+      color: #67fa3e;
     }
   }
 }
