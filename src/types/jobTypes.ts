@@ -1,0 +1,23 @@
+
+export type Job = {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  salary?: string;
+  description?: string;
+  applied?: boolean;
+};
+export type JobsQueryResponse = Job[];
+
+export type JobQueryResponse = {
+  job: Job | null;
+};
+
+export type ApplyJobMutationRequest = {
+  id: string;
+};
+
+export type ApplyJobMutationResponse = {
+  success: boolean; 
+};

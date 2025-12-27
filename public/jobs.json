@@ -1,0 +1,31 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "title": "Frontend Developer",
+      "company": "TechCorp",
+      "location": "Yerevan, Armenia",
+      "salary": "500$ - 1000$",
+      "description": "Work on React projects, build UI components.",
+      "applied": false
+    },
+    {
+      "id": 2,
+      "title": "Backend Developer",
+      "company": "CodeLab",
+      "location": "Remote",
+      "salary": "600$ - 1200$",
+      "description": "Build REST APIs.",
+      "applied": false
+    },
+    {
+      "id": 3,
+      "title": "Fullstack Developer",
+      "company": "WebSolutions",
+      "location": "Tbilisi, Georgia",
+      "salary": "700$ - 1500$",
+      "description": "Work with React + Node.js projects.",
+      "applied": false
+    }
+  ]
+}

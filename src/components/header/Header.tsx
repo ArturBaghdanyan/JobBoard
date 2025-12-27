@@ -7,8 +7,9 @@ import style from "./header.module.scss";
 interface PropsHeader {
   onSignIn: () => void;
   onSignUp: () => void;
+  onCreateJob: () => void;
 }
-const Header = ({ onSignIn, onSignUp }: PropsHeader) => {
+const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
   const { user, logout } = useAuth();
 
   return (
@@ -33,14 +34,9 @@ const Header = ({ onSignIn, onSignUp }: PropsHeader) => {
           >
             Jobs
           </NavLink>
-          <NavLink
-            to="/create"
-            className={({ isActive }) =>
-              `${style.link} ${isActive ? style.active : style.notActive}`
-            }
-          >
+          <button onClick={onCreateJob} className={style.link}>
             Create Jobs
-          </NavLink>
+          </button>
         </nav>
 
         {user ? (

@@ -4,22 +4,30 @@ import Footer from "../components/footer/Footer";
 import { Login } from "../AuthLayout/Login/Login";
 import { Register } from "../AuthLayout/Register/Register";
 import Modal from "../components/Modal/Modal";
+import CreateJob from "../components/createJob/CreateJob";
+
 import style from "./layout.module.scss";
+import { useState } from "react";
 
 const MainLayout = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   const isLoginOpen = location.pathname === "/login";
   const isRegisterOpen = location.pathname === "/register";
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const handleClose = () => navigate("/");
 
   return (
     <div className={style.layout}>
       <Header
-        onSignIn={() => navigate("/login")} 
+        onSignIn={() => navigate("/login")}
         onSignUp={() => navigate("/register")}
+        onCreateJob={openModal}
       />
 
       {isLoginOpen && (
@@ -38,9 +46,11 @@ const MainLayout = () => {
         <Outlet />
       </main>
 
+      {isModalOpen && <CreateJob onClose={closeModal} />}
+
       <Footer />
     </div>
   );
 };
 
-export default MainLayout
+export default MainLayout;

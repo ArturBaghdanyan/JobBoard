@@ -1,7 +1,7 @@
-import HomePage from "./pages/Home/HomePage";
 import { Routes, Route } from "react-router-dom";
-import JobsPage from "./pages/Jobs/JobsPage";
 import MainLayout from "./layout/MainLayout";
+import HomePage from "./pages/Home/HomePage";
+import JobsPage from "./pages/Jobs/JobsPage";
 
 function App() {
   return (
