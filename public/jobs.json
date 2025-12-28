@@ -26,6 +26,187 @@
       "salary": "700$ - 1500$",
       "description": "Work with React + Node.js projects.",
       "applied": false
+    },
+
+    {
+      "id": 4,
+      "title": "UI/UX Designer",
+      "company": "DesignHub",
+      "location": "Remote",
+      "salary": "400$ - 900$",
+      "description": "Design user-friendly interfaces and prototypes.",
+      "applied": false
+    },
+    {
+      "id": 5,
+      "title": "React Developer",
+      "company": "StartupX",
+      "location": "Yerevan, Armenia",
+      "salary": "600$ - 1300$",
+      "description": "Develop SPA applications using React and TypeScript.",
+      "applied": false
+    },
+    {
+      "id": 6,
+      "title": "Node.js Developer",
+      "company": "API Masters",
+      "location": "Remote",
+      "salary": "700$ - 1400$",
+      "description": "Create scalable backend services with Node.js.",
+      "applied": false
+    },
+    {
+      "id": 7,
+      "title": "QA Engineer",
+      "company": "QualitySoft",
+      "location": "Yerevan, Armenia",
+      "salary": "400$ - 800$",
+      "description": "Manual and automated testing of web applications.",
+      "applied": false
+    },
+    {
+      "id": 8,
+      "title": "DevOps Engineer",
+      "company": "CloudNine",
+      "location": "Remote",
+      "salary": "900$ - 1800$",
+      "description": "Maintain CI/CD pipelines and cloud infrastructure.",
+      "applied": false
+    },
+    {
+      "id": 9,
+      "title": "Product Manager",
+      "company": "InnovateX",
+      "location": "Tbilisi, Georgia",
+      "salary": "800$ - 1600$",
+      "description": "Manage product roadmap and team communication.",
+      "applied": false
+    },
+    {
+      "id": 10,
+      "title": "Junior Frontend Developer",
+      "company": "LearnIT",
+      "location": "Yerevan, Armenia",
+      "salary": "300$ - 600$",
+      "description": "Assist in building UI components with React.",
+      "applied": false
+    },
+    {
+      "id": 11,
+      "title": "Senior Frontend Developer",
+      "company": "ScaleApps",
+      "location": "Remote",
+      "salary": "1200$ - 2200$",
+      "description": "Lead frontend architecture and mentor developers.",
+      "applied": false
+    },
+    {
+      "id": 12,
+      "title": "Mobile App Developer",
+      "company": "AppWorks",
+      "location": "Yerevan, Armenia",
+      "salary": "700$ - 1400$",
+      "description": "Build mobile applications using React Native.",
+      "applied": false
+    },
+    {
+      "id": 13,
+      "title": "Flutter Developer",
+      "company": "MobileLab",
+      "location": "Remote",
+      "salary": "600$ - 1300$",
+      "description": "Develop cross-platform mobile apps using Flutter.",
+      "applied": false
+    },
+    {
+      "id": 14,
+      "title": "Data Analyst",
+      "company": "DataCore",
+      "location": "Tbilisi, Georgia",
+      "salary": "700$ - 1500$",
+      "description": "Analyze business data and generate reports.",
+      "applied": false
+    },
+    {
+      "id": 15,
+      "title": "Python Developer",
+      "company": "AI Labs",
+      "location": "Remote",
+      "salary": "800$ - 1700$",
+      "description": "Develop backend services and automation scripts.",
+      "applied": false
+    },
+    {
+      "id": 16,
+      "title": "PHP Developer",
+      "company": "WebCore",
+      "location": "Yerevan, Armenia",
+      "salary": "500$ - 1100$",
+      "description": "Maintain and develop PHP-based web applications.",
+      "applied": false
+    },
+    {
+      "id": 17,
+      "title": "Software Architect",
+      "company": "EnterpriseSoft",
+      "location": "Remote",
+      "salary": "1500$ - 3000$",
+      "description": "Design scalable and maintainable software systems.",
+      "applied": false
+    },
+    {
+      "id": 18,
+      "title": "Tech Lead",
+      "company": "DevTeam",
+      "location": "Yerevan, Armenia",
+      "salary": "1300$ - 2500$",
+      "description": "Lead development team and review code quality.",
+      "applied": false
+    },
+    {
+      "id": 19,
+      "title": "Intern Frontend Developer",
+      "company": "FutureDevs",
+      "location": "Yerevan, Armenia",
+      "salary": "200$ - 400$",
+      "description": "Learn frontend development with real projects.",
+      "applied": false
+    },
+    {
+      "id": 20,
+      "title": "System Administrator",
+      "company": "NetSecure",
+      "location": "Remote",
+      "salary": "700$ - 1400$",
+      "description": "Manage servers, networks, and system security.",
+      "applied": false
+    },
+    {
+      "id": 21,
+      "title": "Project Manager",
+      "company": "AgileWorks",
+      "location": "Tbilisi, Georgia",
+      "salary": "800$ - 1700$",
+      "description": "Coordinate development teams and project timelines.",
+      "applied": false
+    },
+    {
+      "id": 22,
+      "title": "Business Analyst",
+      "company": "BizTech",
+      "location": "Remote",
+      "salary": "700$ - 1500$",
+      "description": "Analyze requirements and improve business processes.",
+      "applied": false
+    },
+    {
+      "id": 23,
+      "title": "Cybersecurity Specialist",
+      "company": "SecureIT",
+      "location": "Remote",
+      "salary": "1000$ - 2200$",
+      "description": "Ensure application and infrastructure security.",
+      "applied": false
     }
   ]
 }

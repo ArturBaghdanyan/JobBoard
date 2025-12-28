@@ -21,14 +21,14 @@ export const jobsApi = createApi({
       providesTags: (result) =>
         result?.job ? [{ type: "Jobs" as const, id: result.job.id }] : [],
     }),
-   addJob: builder.mutation<Job, Omit<Job, 'id'>>({
-  query: (newJob) => ({
-    url: "/jobs",
-    method: "POST",
-    body: { ...newJob, applied: false },
-  }),
-  invalidatesTags: ["Jobs"],
-}),
+    addJob: builder.mutation<Job, Omit<Job, "id">>({
+      query: (newJob) => ({
+        url: "/jobs",
+        method: "POST",
+        body: { ...newJob, applied: false },
+      }),
+      invalidatesTags: ["Jobs"],
+    }),
     applyJob: builder.mutation<
       ApplyJobMutationResponse,
       ApplyJobMutationRequest
@@ -43,5 +43,9 @@ export const jobsApi = createApi({
   }),
 });
 
-export const { useGetJobsQuery, useAddJobMutation, useGetJobByIdQuery, useApplyJobMutation } =
-  jobsApi;
+export const {
+  useGetJobsQuery,
+  useAddJobMutation,
+  useGetJobByIdQuery,
+  useApplyJobMutation,
+} = jobsApi;

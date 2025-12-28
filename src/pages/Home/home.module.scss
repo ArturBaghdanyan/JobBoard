@@ -1,0 +1,47 @@
+.home {
+  width: 100%;
+  height: auto;
+  margin: auto;
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+
+    > form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 10px;
+      margin-top: 30px;
+
+      input,
+      select {
+        width: 200px;
+        height: 40px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      button {
+        width: 130px;
+        height: auto;
+        padding: 8px 0;
+        border-radius: 10px;
+        border: none;
+        background: rgb(17, 151, 17);
+        color: white;
+
+        > svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
