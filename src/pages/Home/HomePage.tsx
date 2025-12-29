@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 import { useAuth } from "../../hooks/useAuth";
-import { CiSearch } from "react-icons/ci";
 
 import style from "./home.module.scss";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const [applyJob] = useApplyJobMutation();
-  const { user } = useAuth();
+
   const [searchText, setSearchText] = useState("");
 
   const handleApply = (jobId: string) => {
@@ -21,36 +22,13 @@ const HomePage = () => {
     applyJob({ id: jobId });
   };
 
-  //   const filteredJobs = jobs.filter(
-  //     (job) =>
-  //       job.title.toLowerCase().includes(searchText.toLowerCase()) ||
-  //       job.company.toLowerCase().includes(searchText.toLowerCase())
-  //   );
-
-//   const searchJob = () => {
-//     if(user) {
-//         setSearchText('')
-
-//     }
-//   }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchText.trim()) return;
+    navigate(`/jobs?search=${encodeURIComponent(searchText)}`);
+  };
 
   if (isLoading) return <p>Loading...</p>;
-
-  const selectList = [
-    "Frontend Developer",
-    "Backend Developer",
-    "Fullstack Developer",
-    "React Developer",
-    "Node.js Developer",
-    "UI/UX Designer",
-    "QA Engineer",
-    "DevOps Engineer",
-    "Flutter Developer",
-    "Project Manager",
-    "Data Analyst",
-    "Python Developer",
-    "PHP Developer",
-  ];
 
   return (
     <div className={style.home}>
@@ -60,28 +38,21 @@ const HomePage = () => {
           <p>Search thousands of jobs from top companies</p>
         </div>
 
-        <form>
+        <div className={style.jobs}>
           <input
-            type="text"
-            name="keywords"
-            placeholder="All keywords"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            type="text"
+            placeholder="Search by title, position"
           />
-
-          <select name="categories">
-            {selectList.map((item, index) => (
-              <option value={index}>{item}</option>
-            ))}
-          </select>
-          <button type="submit">
-            <CiSearch />
-          </button>
-        </form>
+          <button onClick={handleSubmit}>Search</button>
+        </div>
       </div>
 
       <JobList jobs={jobs.slice(0, 3)} onApply={handleApply} />
-      <Link to='/jobs' className={style.home_view}>View All Jobs</Link>
+      <Link to="/jobs" className={style.home_view}>
+        View All Jobs
+      </Link>
     </div>
   );
 };

@@ -8,7 +8,7 @@ interface JobListProps {
 
 export const JobList = ({ jobs, onApply }: JobListProps) => {
   return (
-    <div className={style.jobs}>
+    <div className={`${style.jobs} container`}>
       {jobs.map((job) => (
         <div key={job.id} className={style.jobs_container}>
           <h2>{job.title}</h2>

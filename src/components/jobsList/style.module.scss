@@ -1,6 +1,9 @@
 .jobs {
   width: 100%;
   margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 
   &_container {
     display: flex;
@@ -35,4 +38,10 @@
       background: none;
     }
   }
+}
+
+@media (max-width: 1024px) {
+    .jobs {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,37 +1,46 @@
-main {
+section {
   padding: 1.5rem;
 
-  > .jobs {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    width: 60%;
-    border: 1px solid #f2f2f2;
-    border-radius: 30px;
-    margin: auto;
-    position: relative;
-    background: white;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    font-family: "Montserrat", sans-serif;
+    .form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 10px;
+      margin-top: 30px;
 
-    input {
-      width: 77%;
-      height: auto;
-      border: none;
+      input,
+      select {
+        width: 200px;
+        height: 40px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      button {
+        width: 130px;
+        height: auto;
+        padding: 8px 0;
+        border-radius: 10px;
+        border: none;
+        background: rgb(17, 151, 17);
+        color: white;
+
+        > svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
-    input:focus {
-      outline: none;
+
+    @media (max-width: 992px) {
+        .form {
+            flex-direction: column;
+        }
     }
-    button {
-      width: 100px;
-      height: auto;
-      padding: 8px 0;
-      border-radius: 40px;
-      border: none;
-      position: absolute;
-      right: 10px;
-      background: rgb(17, 151, 17);
-      color: white;
-    }
-  }
 }

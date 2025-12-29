@@ -1,7 +1,8 @@
 import { useGetJobsQuery, useApplyJobMutation } from "../../api/jobsApi";
 import { useAuth } from "../../hooks/useAuth";
-import { JobList } from "../../components/jobsList";
 import { useState } from "react";
+import { JobList } from "../../components/jobsList";
+import { CiSearch } from "react-icons/ci";
 
 import style from "./style.module.scss";
 
@@ -10,13 +11,6 @@ const JobsPage = () => {
   const [applyJob] = useApplyJobMutation();
   const { user } = useAuth();
   const [searchText, setSearchText] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSearchQuery(searchText);
-    console.log("search job", searchQuery);
-  };
 
   const filteredJobs = jobs.filter(
     (job) =>
@@ -32,22 +26,59 @@ const JobsPage = () => {
     applyJob({ id: jobId });
   };
 
+  const selectList = [
+    "Frontend Developer",
+    "Backend Developer",
+    "Fullstack Developer",
+    "React Developer",
+    "Node.js Developer",
+    "UI/UX Designer",
+    "QA Engineer",
+    "DevOps Engineer",
+    "Flutter Developer",
+    "Project Manager",
+    "Data Analyst",
+    "Python Developer",
+    "PHP Developer",
+  ];
+
+  const positions = ["Intern", "Junior", "Middle", "Senior", "Team Lead"];
+
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <main>
-      <div className={style.jobs}>
+    <section>
+      <form className={style.form}>
         <input
           type="text"
+          name="keywords"
+          placeholder="All keywords"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search by title, position"
         />
-        <button onClick={(e) => handleSubmit(e)}>Search</button>
-      </div>
+
+        <select name="categories">
+          {selectList.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        <select name="positions">
+          {positions.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+
+        <button type="submit">
+          <CiSearch />
+        </button>
+      </form>
 
       <JobList jobs={filteredJobs} onApply={handleApply} />
-    </main>
+    </section>
   );
 };
 

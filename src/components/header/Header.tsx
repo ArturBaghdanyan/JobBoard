@@ -14,7 +14,7 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
 
   return (
     <header>
-      <div className={style.header}>
+      <div className={`${style.header} container`}>
         <h2>Job Board</h2>
 
         <nav>
