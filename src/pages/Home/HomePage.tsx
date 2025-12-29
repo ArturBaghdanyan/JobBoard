@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 import { useAuth } from "../../hooks/useAuth";
 import { CiSearch } from "react-icons/ci";
 
 import style from "./home.module.scss";
-import { useState } from "react";
 
 const HomePage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();
@@ -20,11 +21,18 @@ const HomePage = () => {
     applyJob({ id: jobId });
   };
 
-  const filteredJobs = jobs.filter(
-    (job) =>
-      job.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      job.company.toLowerCase().includes(searchText.toLowerCase())
-  );
+  //   const filteredJobs = jobs.filter(
+  //     (job) =>
+  //       job.title.toLowerCase().includes(searchText.toLowerCase()) ||
+  //       job.company.toLowerCase().includes(searchText.toLowerCase())
+  //   );
+
+//   const searchJob = () => {
+//     if(user) {
+//         setSearchText('')
+
+//     }
+//   }
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -73,6 +81,7 @@ const HomePage = () => {
       </div>
 
       <JobList jobs={jobs.slice(0, 3)} onApply={handleApply} />
+      <Link to='/jobs' className={style.home_view}>View All Jobs</Link>
     </div>
   );
 };

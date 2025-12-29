@@ -10,10 +10,12 @@ const JobsPage = () => {
   const [applyJob] = useApplyJobMutation();
   const { user } = useAuth();
   const [searchText, setSearchText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("search job");
+    setSearchQuery(searchText);
+    console.log("search job", searchQuery);
   };
 
   const filteredJobs = jobs.filter(

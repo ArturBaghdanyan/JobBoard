@@ -50,4 +50,25 @@
       }
     }
   }
+  &_view {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem auto;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    background: #d8d8d8;
+    color: black;
+    text-transform: uppercase;
+    cursor: pointer;
+    font: 500 13px "Poppins", sans-serif;
+    text-decoration: none;
+
+    &:hover {
+      background-color: rgb(59, 186, 59);
+      transition: 1s ease-in;
+      color: white;
+    }
+  }
 }
