@@ -1,4 +1,5 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import { Login } from "../AuthLayout/Login/Login";
@@ -7,7 +8,6 @@ import Modal from "../components/Modal/Modal";
 import CreateJob from "../components/createJob/CreateJob";
 
 import style from "./layout.module.scss";
-import { useState } from "react";
 
 const MainLayout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

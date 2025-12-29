@@ -4,11 +4,13 @@ import { useAuth } from "../../hooks/useAuth";
 import { CiSearch } from "react-icons/ci";
 
 import style from "./home.module.scss";
+import { useState } from "react";
 
 const HomePage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const [applyJob] = useApplyJobMutation();
   const { user } = useAuth();
+  const [searchText, setSearchText] = useState("");
 
   const handleApply = (jobId: string) => {
     if (!user) {
@@ -17,6 +19,12 @@ const HomePage = () => {
     }
     applyJob({ id: jobId });
   };
+
+  const filteredJobs = jobs.filter(
+    (job) =>
+      job.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      job.company.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -39,11 +47,19 @@ const HomePage = () => {
   return (
     <div className={style.home}>
       <div className={style.home_container}>
-        <h1>Find Your Dream Job</h1>
-        <p>Search thousands of jobs from top companies</p>
+        <div className={style.home_container_title}>
+          <h1>Find Your Dream Job</h1>
+          <p>Search thousands of jobs from top companies</p>
+        </div>
 
         <form>
-          <input name="keywords" placeholder="All keywords" required />
+          <input
+            type="text"
+            name="keywords"
+            placeholder="All keywords"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
 
           <select name="categories">
             {selectList.map((item, index) => (

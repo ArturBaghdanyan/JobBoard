@@ -20,9 +20,12 @@ export const JobList = ({ jobs, onApply }: JobListProps) => {
           <button
             disabled={job.applied}
             onClick={() => onApply(job.id)}
+            className={style.jobs_container_apply}
           >
             {job.applied ? "Applied" : "Apply"}
           </button>
+
+          <button className={style.jobs_container_more}>View more</button>
         </div>
       ))}
     </div>
