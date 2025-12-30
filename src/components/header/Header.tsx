@@ -42,6 +42,7 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
         {user ? (
           <div className={style.header_account}>
             <IoPerson />
+
             <button onClick={logout} className={style.header_account_log}>
               Logout
             </button>
