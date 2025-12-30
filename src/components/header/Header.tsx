@@ -1,8 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { IoPerson } from "react-icons/io5";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 import style from "./header.module.scss";
+import { useState } from "react";
 
 interface PropsHeader {
   onSignIn: () => void;
@@ -11,6 +13,7 @@ interface PropsHeader {
 }
 const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
   const { user, logout } = useAuth();
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <header>
@@ -41,11 +44,22 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
 
         {user ? (
           <div className={style.header_account}>
-            <IoPerson />
+            <div className={style.header_account_title}>
+              <IoPerson />
 
-            <button onClick={logout} className={style.header_account_log}>
-              Logout
-            </button>
+              <button onClick={() => setShowPopup((prev) => !prev)}>
+                {showPopup ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
+              </button>
+              {showPopup && (
+                <div className={`${style.popup}`}>
+                  <Link to="/profile" onClick={() => setShowPopup(false)}>Profile</Link>
+                  <Link to="/saved-jobs" onClick={() => setShowPopup(false)}>Saved Jobs</Link>
+                  <button onClick={logout} className={style.header_account_log}>
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <div className={style.header_buttons}>
