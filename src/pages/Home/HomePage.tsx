@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 import { useAuth } from "../../hooks/useAuth";
-import Modal from "../../components/Modal/Modal";
 
 import style from "./home.module.scss";
+import ShowModal from "../../utils/showModal";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -13,15 +13,24 @@ const HomePage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const [applyJob] = useApplyJobMutation();
   const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<"login" | "success" | null>(null);
 
   const [searchText, setSearchText] = useState("");
 
-  const handleApply = (jobId: string) => {
+  const handleApply = async (jobId: string) => {
     if (!user) {
+      setModalType("login");
       setShowModal(true);
       return;
     }
-    applyJob({ id: jobId });
+
+    try {
+      await applyJob({ id: jobId }).unwrap();
+      setModalType("success");
+      setShowModal(true);
+    } catch (err) {
+      console.error("Apply failed", err);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -53,37 +62,13 @@ const HomePage = () => {
 
       <JobList jobs={jobs.slice(0, 3)} onApply={handleApply} />
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <div className="modal-column">
-            <div className="modal-icon">🔒</div>
-
-            <h2 className="modal-title">Login required</h2>
-
-            <p className="modal-text">
-              You need to be logged in to apply for this job.
-            </p>
-          </div>
-
-          <div className="modal-actions">
-            <button
-              className="modal-cancel"
-              onClick={() => setShowModal(false)}
-            >
-              Cancel
-            </button>
-
-            <button
-              className="modal-login"
-              onClick={() => {
-                setShowModal(false);
-                navigate("/login");
-              }}
-            >
-              Go to login
-            </button>
-          </div>
-        </Modal>
+        <ShowModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          modalType={modalType}
+        />
       )}
+
       <Link to="/jobs" className={style.home_view}>
         View All Jobs
       </Link>

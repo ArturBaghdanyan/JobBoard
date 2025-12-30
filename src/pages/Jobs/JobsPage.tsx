@@ -1,28 +1,38 @@
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useGetJobsQuery, useApplyJobMutation } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
-import Modal from "../../components/Modal/Modal";
 
 import style from "./style.module.scss";
+import ShowModal from "../../utils/showModal";
 
 const JobsPage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const [applyJob] = useApplyJobMutation();
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
 
-  const filteredJobs = jobs.filter(
-    (job) =>
+  const [selectedCategory, setSelectedCategory] = useState("select category");
+  const [selectedPosition, setSelectedPosition] = useState("select position");
+
+  const filteredJobs = jobs.filter((job) => {
+    const matchesSearch =
       job.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      job.company.toLowerCase().includes(searchText.toLowerCase())
-  );
+      job.company.toLowerCase().includes(searchText.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "select category" || job.title === selectedCategory;
+
+    const matchesPosition =
+      selectedPosition === "select position" ||
+      job.position === selectedPosition;
+
+    return matchesSearch && matchesCategory && matchesPosition;
+  });
 
   const handleApply = async (jobId: string) => {
     if (!user) {
@@ -62,7 +72,7 @@ const JobsPage = () => {
 
   return (
     <section className={style.section}>
-      <form className={style.form}>
+      <form className={style.form} onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           name="keywords"
@@ -71,14 +81,25 @@ const JobsPage = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
 
-        <select name="categories">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="select category">All Categories</option>
           {selectList.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
           ))}
         </select>
-        <select name="positions">
+
+        <select
+          name="positions"
+          value={selectedPosition}
+          onChange={(e) => setSelectedPosition(e.target.value)}
+        >
+          <option value="select position">All Positions</option>
+
           {positions.map((item) => (
             <option key={item} value={item}>
               {item}
@@ -94,55 +115,11 @@ const JobsPage = () => {
       <JobList jobs={filteredJobs} onApply={handleApply} />
 
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          {modalType === "login" && (
-            <>
-              <div className="modal-column">
-                <div className="modal-icon">🔒</div>
-                <h2 className="modal-title">Login required</h2>
-                <p className="modal-text">
-                  You need to be logged in to apply for this job.
-                </p>
-              </div>
-
-              <div className="modal-actions">
-                <button
-                  className="modal-cancel"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="modal-login"
-                  onClick={() => navigate("/login")}
-                >
-                  Go to login
-                </button>
-              </div>
-            </>
-          )}
-
-          {modalType === "success" && (
-            <>
-              <div className="modal-column">
-                <div className="modal-icon">✅</div>
-                <h2 className="modal-title">Application sent</h2>
-                <p className="modal-text">
-                  You have successfully applied for this job.
-                </p>
-              </div>
-
-              <div className="modal-actions">
-                <button
-                  className="modal-login"
-                  onClick={() => setShowModal(false)}
-                >
-                  OK
-                </button>
-              </div>
-            </>
-          )}
-        </Modal>
+        <ShowModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          modalType={modalType}
+        />
       )}
     </section>
   );

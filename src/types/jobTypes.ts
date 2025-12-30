@@ -2,6 +2,7 @@
 export type Job = {
   id: string;
   title: string;
+  position: string;
   company: string;
   location: string;
   salary?: string;

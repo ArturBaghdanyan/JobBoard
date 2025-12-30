@@ -11,6 +11,7 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
 
   const [formData, setFormData] = useState({
     title: "",
+    position: "",
     company: "",
     location: "",
     salary: "",

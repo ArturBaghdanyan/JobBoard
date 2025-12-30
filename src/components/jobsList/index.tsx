@@ -15,6 +15,7 @@ export const JobList = ({ jobs, onApply }: JobListProps) => {
           <p>
             {job.company} | {job.location} | {job.salary}
           </p>
+          <p>{job.position}</p>
           <p>{job.description}</p>
 
           <button

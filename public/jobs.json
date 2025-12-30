@@ -3,33 +3,37 @@
     {
       "id": "1",
       "title": "Frontend Developer",
+      "position": "Junior",
       "company": "TechCorp",
       "location": "Yerevan, Armenia",
       "salary": "500$ - 1000$",
       "description": "Work on React projects, build UI components.",
-      "applied": true
+      "applied": false
     },
     {
       "id": "2",
       "title": "Backend Developer",
+      "position": "Middle",
       "company": "CodeLab",
       "location": "Remote",
       "salary": "600$ - 1200$",
       "description": "Build REST APIs.",
-      "applied": true
+      "applied": false
     },
     {
       "id": "3",
       "title": "Fullstack Developer",
+      "position": "Junior",
       "company": "WebSolutions",
       "location": "Tbilisi, Georgia",
       "salary": "700$ - 1500$",
       "description": "Work with React + Node.js projects.",
-      "applied": false
+      "applied": true
     },
     {
       "id": "4",
       "title": "UI/UX Designer",
+      "position": "Senior",
       "company": "DesignHub",
       "location": "Remote",
       "salary": "400$ - 900$",
@@ -39,6 +43,7 @@
     {
       "id": "5",
       "title": "React Developer",
+      "position": "Junior",
       "company": "StartupX",
       "location": "Yerevan, Armenia",
       "salary": "600$ - 1300$",
@@ -48,6 +53,7 @@
     {
       "id": "6",
       "title": "Node.js Developer",
+      "position": "Senior",
       "company": "API Masters",
       "location": "Remote",
       "salary": "700$ - 1400$",
@@ -57,6 +63,7 @@
     {
       "id": "7",
       "title": "QA Engineer",
+      "position": "Team Lead",
       "company": "QualitySoft",
       "location": "Yerevan, Armenia",
       "salary": "400$ - 800$",
@@ -66,6 +73,7 @@
     {
       "id": "8",
       "title": "DevOps Engineer",
+      "position": "Middle",
       "company": "CloudNine",
       "location": "Remote",
       "salary": "900$ - 1800$",
@@ -75,6 +83,7 @@
     {
       "id": "9",
       "title": "Product Manager",
+      "position": "Senior",
       "company": "InnovateX",
       "location": "Tbilisi, Georgia",
       "salary": "800$ - 1600$",
@@ -83,7 +92,8 @@
     },
     {
       "id": "10",
-      "title": "Junior Frontend Developer",
+      "title": "Frontend Developer",
+      "position": "Junior",
       "company": "LearnIT",
       "location": "Yerevan, Armenia",
       "salary": "300$ - 600$",
@@ -92,7 +102,8 @@
     },
     {
       "id": "11",
-      "title": "Senior Frontend Developer",
+      "title": "Frontend Developer",
+      "position": "Senior",
       "company": "ScaleApps",
       "location": "Remote",
       "salary": "1200$ - 2200$",
@@ -102,6 +113,7 @@
     {
       "id": "12",
       "title": "Mobile App Developer",
+      "position": "Senior",
       "company": "AppWorks",
       "location": "Yerevan, Armenia",
       "salary": "700$ - 1400$",
@@ -111,6 +123,7 @@
     {
       "id": "13",
       "title": "Flutter Developer",
+      "position": "Team Lead",
       "company": "MobileLab",
       "location": "Remote",
       "salary": "600$ - 1300$",
@@ -120,6 +133,7 @@
     {
       "id": "14",
       "title": "Data Analyst",
+      "position": "Junior",
       "company": "DataCore",
       "location": "Tbilisi, Georgia",
       "salary": "700$ - 1500$",
@@ -129,6 +143,7 @@
     {
       "id": "15",
       "title": "Python Developer",
+      "position": "Middle",
       "company": "AI Labs",
       "location": "Remote",
       "salary": "800$ - 1700$",
@@ -138,6 +153,7 @@
     {
       "id": "16",
       "title": "PHP Developer",
+      "position": "Junior",
       "company": "WebCore",
       "location": "Yerevan, Armenia",
       "salary": "500$ - 1100$",
@@ -147,6 +163,7 @@
     {
       "id": "17",
       "title": "Software Architect",
+      "position": "Team Lead",
       "company": "EnterpriseSoft",
       "location": "Remote",
       "salary": "1500$ - 3000$",
@@ -156,6 +173,7 @@
     {
       "id": "18",
       "title": "Tech Lead",
+      "position": "Team Lead",
       "company": "DevTeam",
       "location": "Yerevan, Armenia",
       "salary": "1300$ - 2500$",
@@ -164,7 +182,8 @@
     },
     {
       "id": "19",
-      "title": "Intern Frontend Developer",
+      "title": "Frontend Developer",
+      "position": "Intern",
       "company": "FutureDevs",
       "location": "Yerevan, Armenia",
       "salary": "200$ - 400$",
@@ -174,15 +193,17 @@
     {
       "id": "20",
       "title": "System Administrator",
+      "position": "Junior",
       "company": "NetSecure",
       "location": "Remote",
       "salary": "700$ - 1400$",
       "description": "Manage servers, networks, and system security.",
-      "applied": false
+      "applied": true
     },
     {
       "id": "21",
       "title": "Project Manager",
+      "position": "Intern",
       "company": "AgileWorks",
       "location": "Tbilisi, Georgia",
       "salary": "800$ - 1700$",
@@ -192,6 +213,7 @@
     {
       "id": "22",
       "title": "Business Analyst",
+      "position": "Intern",
       "company": "BizTech",
       "location": "Remote",
       "salary": "700$ - 1500$",
@@ -201,6 +223,7 @@
     {
       "id": "23",
       "title": "Cybersecurity Specialist",
+      "position": "Senior",
       "company": "SecureIT",
       "location": "Remote",
       "salary": "1000$ - 2200$",
@@ -210,6 +233,7 @@
     {
       "id": "faa34e33-c9ae-47cb-b29d-665c7957f4b5",
       "title": "Frontend developer",
+      "position": "Middle",
       "company": "Solutions",
       "location": "Yerevan",
       "salary": "2000$",
@@ -219,6 +243,7 @@
     {
       "id": "46d2",
       "title": "backend developer",
+      "position": "Senior",
       "company": "Solutions",
       "location": "Yerevan",
       "salary": "2000$",

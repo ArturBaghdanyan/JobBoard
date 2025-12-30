@@ -1,4 +1,3 @@
-// store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
 import { jobsApi } from "../api/jobsApi";
 
