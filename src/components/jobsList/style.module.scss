@@ -14,6 +14,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: relative;
 
+    &_save {
+      position: absolute;
+      top: 15px;
+      right: 90px;
+      font-size: 25px;
+    }
+
     &_apply {
       position: absolute;
       top: 10px;
@@ -41,7 +48,7 @@
 }
 
 @media (max-width: 1024px) {
-    .jobs {
-        grid-template-columns: 1fr;
-    }
+  .jobs {
+    grid-template-columns: 1fr;
+  }
 }
