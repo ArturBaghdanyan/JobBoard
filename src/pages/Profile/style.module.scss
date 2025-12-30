@@ -1,0 +1,37 @@
+.profile {
+  width: 100%;
+  .menu {
+    width: 27%;
+    height: 100vh;
+    background: rgb(83 83 212);
+    padding-top: 10px;
+
+    &_pages {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .menu_item {
+      position: relative;
+
+      > a {
+        display: inline-block;
+        color: whitesmoke;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 6px 20px;
+      }
+      > a:hover {
+        width: 100%;
+        background: rgb(40, 40, 242);
+        transition: all 1s;
+        color: white;
+      }
+      > a.active {
+        border-left-width: 2px;
+        border-left-style: solid;
+        border-left-color: white;
+      }
+    }
+  }
+}
