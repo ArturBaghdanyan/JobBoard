@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 import { useAuth } from "../../hooks/useAuth";
+import Modal from "../../components/Modal/Modal";
 
 import style from "./home.module.scss";
 
@@ -11,12 +12,13 @@ const HomePage = () => {
   const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const [applyJob] = useApplyJobMutation();
+  const [showModal, setShowModal] = useState(false);
 
   const [searchText, setSearchText] = useState("");
 
   const handleApply = (jobId: string) => {
     if (!user) {
-      alert("Please log in to apply for jobs");
+      setShowModal(true);
       return;
     }
     applyJob({ id: jobId });
@@ -50,6 +52,38 @@ const HomePage = () => {
       </div>
 
       <JobList jobs={jobs.slice(0, 3)} onApply={handleApply} />
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <div className="modal-column">
+            <div className="modal-icon">🔒</div>
+
+            <h2 className="modal-title">Login required</h2>
+
+            <p className="modal-text">
+              You need to be logged in to apply for this job.
+            </p>
+          </div>
+
+          <div className="modal-actions">
+            <button
+              className="modal-cancel"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              className="modal-login"
+              onClick={() => {
+                setShowModal(false);
+                navigate("/login");
+              }}
+            >
+              Go to login
+            </button>
+          </div>
+        </Modal>
+      )}
       <Link to="/jobs" className={style.home_view}>
         View All Jobs
       </Link>

@@ -34,8 +34,8 @@ export const jobsApi = createApi({
       ApplyJobMutationRequest
     >({
       query: ({ id }) => ({
-        url: `/jobs/${id}/apply`,
-        method: "POST",
+        url: `/jobs/${id}`,
+        method: "PATCH",
         body: { applied: true },
       }),
       invalidatesTags: ["Jobs"],

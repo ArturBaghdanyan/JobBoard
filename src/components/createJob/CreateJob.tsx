@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useApplyJobMutation } from "../../api/jobsApi";
-import { v4 } from "uuid";
+import { useAddJobMutation } from "../../api/jobsApi";
 
 import styles from "./style.module.scss";
 
@@ -8,10 +7,9 @@ interface CreateJobProps {
     onClose: () => void;
 }
 const CreateJob = ({ onClose }: CreateJobProps) => {
-  const [addJob, { isLoading }] = useApplyJobMutation();
+  const [addJob, { isLoading }] = useAddJobMutation();
 
   const [formData, setFormData] = useState({
-    id: v4(),
     title: "",
     company: "",
     location: "",
@@ -38,6 +36,7 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
     } catch (err) {
       console.error("Failed to create job:", err);
     }
+    onClose()
   };
 
   return (

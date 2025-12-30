@@ -1,8 +1,10 @@
-import { useGetJobsQuery, useApplyJobMutation } from "../../api/jobsApi";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { JobList } from "../../components/jobsList";
 import { CiSearch } from "react-icons/ci";
+import { useGetJobsQuery, useApplyJobMutation } from "../../api/jobsApi";
+import { JobList } from "../../components/jobsList";
+import Modal from "../../components/Modal/Modal";
 
 import style from "./style.module.scss";
 
@@ -10,7 +12,11 @@ const JobsPage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const [applyJob] = useApplyJobMutation();
   const { user } = useAuth();
+  const navigate = useNavigate();
+
   const [searchText, setSearchText] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<"login" | "success" | null>(null);
 
   const filteredJobs = jobs.filter(
     (job) =>
@@ -18,12 +24,20 @@ const JobsPage = () => {
       job.company.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const handleApply = (jobId: string) => {
+  const handleApply = async (jobId: string) => {
     if (!user) {
-      alert("Please log in to apply for jobs");
+      setModalType("login");
+      setShowModal(true);
       return;
     }
-    applyJob({ id: jobId });
+
+    try {
+      await applyJob({ id: jobId }).unwrap();
+      setModalType("success");
+      setShowModal(true);
+    } catch (err) {
+      console.error("Apply failed", err);
+    }
   };
 
   const selectList = [
@@ -47,7 +61,7 @@ const JobsPage = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <section>
+    <section className={style.section}>
       <form className={style.form}>
         <input
           type="text"
@@ -78,6 +92,58 @@ const JobsPage = () => {
       </form>
 
       <JobList jobs={filteredJobs} onApply={handleApply} />
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          {modalType === "login" && (
+            <>
+              <div className="modal-column">
+                <div className="modal-icon">🔒</div>
+                <h2 className="modal-title">Login required</h2>
+                <p className="modal-text">
+                  You need to be logged in to apply for this job.
+                </p>
+              </div>
+
+              <div className="modal-actions">
+                <button
+                  className="modal-cancel"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="modal-login"
+                  onClick={() => navigate("/login")}
+                >
+                  Go to login
+                </button>
+              </div>
+            </>
+          )}
+
+          {modalType === "success" && (
+            <>
+              <div className="modal-column">
+                <div className="modal-icon">✅</div>
+                <h2 className="modal-title">Application sent</h2>
+                <p className="modal-text">
+                  You have successfully applied for this job.
+                </p>
+              </div>
+
+              <div className="modal-actions">
+                <button
+                  className="modal-login"
+                  onClick={() => setShowModal(false)}
+                >
+                  OK
+                </button>
+              </div>
+            </>
+          )}
+        </Modal>
+      )}
     </section>
   );
 };
