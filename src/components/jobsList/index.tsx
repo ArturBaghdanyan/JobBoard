@@ -1,9 +1,9 @@
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import type { Job } from "../../types/jobTypes";
 import { AiFillHeart } from "react-icons/ai";
 
 import style from "./style.module.scss";
-import { useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
 
 interface JobListProps {
   jobs: Job[];

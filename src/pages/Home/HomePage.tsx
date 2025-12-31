@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
-import { useAuth } from "../../hooks/useAuth";
+import ShowModal from "../../utils/showModal";
 
 import style from "./home.module.scss";
-import ShowModal from "../../utils/showModal";
 
 const HomePage = () => {
   const navigate = useNavigate();

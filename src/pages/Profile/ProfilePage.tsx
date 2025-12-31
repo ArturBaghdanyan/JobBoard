@@ -1,50 +1,67 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+
+import person from "../../assets/person.jpg";
+import { IoPerson } from "react-icons/io5";
+import { CiHeart } from "react-icons/ci";
+import { BsBriefcaseFill } from "react-icons/bs";
 
 import style from "./style.module.scss";
 
+
 const ProfilePage = () => {
+  const { user } = useAuth();
+  
   return (
     <div className={style.profile}>
-      <menu className={`${style.menu}`}>
+      <menu className={style.menu}>
         <div className={style.menu_pages}>
-          <div className={style.menu_item}>
-            <NavLink
-              to="/profile"
-              className={({ isActive }) =>
-                isActive ? style.active : undefined
-              }
-            >
-              My Profile
-            </NavLink>
-            <span></span>
-          </div>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              `${style.menu_link} ${isActive ? style.active : ""}`
+            }
+          >
+            <IoPerson />
+            My Profile
+          </NavLink>
 
-          <div className={style.menu_item}>
-            <NavLink
-              to="/reserved"
-              className={({ isActive }) =>
-                isActive ? style.active : undefined
-              }
-            >
-              Reserved Jobs
-            </NavLink>
-            <span></span>
-          </div>
+          <NavLink
+            to="/reserved"
+            className={({ isActive }) =>
+              `${style.menu_link} ${isActive ? style.active : ""}`
+            }
+          >
+            <BsBriefcaseFill />
+            Reserved Jobs
+          </NavLink>
 
-          <div className={style.menu_item}>
-            <NavLink
-              to="/savedJobs"
-              className={({ isActive }) =>
-                isActive ? style.active : undefined
-              }
-            >
-              Saved Jobs
-            </NavLink>
-            <span></span>
-          </div>
+          <NavLink
+            to="/savedJobs"
+            className={({ isActive }) =>
+              `${style.menu_link} ${isActive ? style.active : ""}`
+            }
+          >
+            <CiHeart />
+            Saved Jobs
+          </NavLink>
         </div>
       </menu>
-      <main></main>
+
+      <main className="container">
+        <div className={style.profile_header}>
+          <div className={style.profile_avatar}>
+            <img src={person} alt="avatar" />
+          </div>
+
+          {user && (
+            <div className={style.profile_info}>
+              <h2>{user.username}</h2>
+              <p>{user.email}</p>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 };
