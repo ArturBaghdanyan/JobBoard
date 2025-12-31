@@ -45,15 +45,21 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
         {user ? (
           <div className={style.header_account}>
             <div className={style.header_account_title}>
-              <IoPerson />
+              <div className={style.header_account_user}>
+                <IoPerson />
+              </div>
 
               <button onClick={() => setShowPopup((prev) => !prev)}>
                 {showPopup ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </button>
               {showPopup && (
                 <div className={`${style.popup}`}>
-                  <Link to="/profile" onClick={() => setShowPopup(false)}>Profile</Link>
-                  <Link to="/saved-jobs" onClick={() => setShowPopup(false)}>Saved Jobs</Link>
+                  <Link to="/profile" onClick={() => setShowPopup(false)}>
+                    Profile
+                  </Link>
+                  <Link to="/saved-jobs" onClick={() => setShowPopup(false)}>
+                    Saved Jobs
+                  </Link>
                   <button onClick={logout} className={style.header_account_log}>
                     Logout
                   </button>

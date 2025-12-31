@@ -1,17 +1,16 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
-import person from "../../assets/person.jpg";
 import { IoPerson } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import { BsBriefcaseFill } from "react-icons/bs";
 
 import style from "./style.module.scss";
-
+import Personal from "./Personal";
 
 const ProfilePage = () => {
   const { user } = useAuth();
-  
+
   return (
     <div className={style.profile}>
       <menu className={style.menu}>
@@ -33,7 +32,7 @@ const ProfilePage = () => {
             }
           >
             <BsBriefcaseFill />
-            Reserved Jobs
+            Applied Jobs
           </NavLink>
 
           <NavLink
@@ -48,20 +47,7 @@ const ProfilePage = () => {
         </div>
       </menu>
 
-      <main className="container">
-        <div className={style.profile_header}>
-          <div className={style.profile_avatar}>
-            <img src={person} alt="avatar" />
-          </div>
-
-          {user && (
-            <div className={style.profile_info}>
-              <h2>{user.username}</h2>
-              <p>{user.email}</p>
-            </div>
-          )}
-        </div>
-      </main>
+      <main className="container">{user && <Personal user={user} />}</main>
     </div>
   );
 };
