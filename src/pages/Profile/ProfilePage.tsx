@@ -7,10 +7,12 @@ import { BsBriefcaseFill } from "react-icons/bs";
 
 import style from "./style.module.scss";
 import Personal from "./Personal";
+import { useState } from "react";
 
 const ProfilePage = () => {
   const { user } = useAuth();
-
+  const [showUserDetails, setShowUserDetails] = useState(false);
+  
   return (
     <div className={style.profile}>
       <menu className={style.menu}>
@@ -47,7 +49,15 @@ const ProfilePage = () => {
         </div>
       </menu>
 
-      <main className="container">{user && <Personal user={user} />}</main>
+      <main className="container">
+        {user && (
+          <Personal
+            user={user}
+            showUserDetails={showUserDetails}
+            setShowUserDetails={setShowUserDetails}
+          />
+        )}
+      </main>
     </div>
   );
 };

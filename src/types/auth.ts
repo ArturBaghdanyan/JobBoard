@@ -4,6 +4,14 @@ export interface UserProfile {
   password: string;
 }
 
+export interface UserDetails {
+  username: string;
+  city: string;
+  address: string;
+  birthday: string;
+  telephone: string;
+}
+
 export interface MockApi {
   MOCK_JWT: string;
   TOKEN_KEY: string;

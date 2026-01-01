@@ -10,11 +10,11 @@
 
 .modal {
   width: 100%;
-  max-width: 420px;
+  max-width: 450px;
   background: #fff;
   border-radius: 12px;
-  padding: 24px;
   animation: fadeIn 0.25s ease;
+  position: relative;
 }
 
 @keyframes fadeIn {
