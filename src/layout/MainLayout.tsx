@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Header from "../components/header/Header";
+import { AppHeader } from "../components/header/AppHeader";
 import Footer from "../components/footer/Footer";
 import { Login } from "../AuthLayout/Login/Login";
 import { Register } from "../AuthLayout/Register/Register";
@@ -24,7 +24,7 @@ const MainLayout = () => {
 
   return (
     <div className={style.layout}>
-      <Header
+      <AppHeader
         onSignIn={() => navigate("/login")}
         onSignUp={() => navigate("/register")}
         onCreateJob={openModal}

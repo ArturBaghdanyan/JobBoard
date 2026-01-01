@@ -1,0 +1,95 @@
+import { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { IoMenu, IoClose, IoPerson } from "react-icons/io5";
+import { useAuth } from "../../../hooks/useAuth";
+
+import styles from "./mobile.module.scss";
+
+interface MobileHeaderProps {
+  onSignIn: () => void;
+  onSignUp: () => void;
+  onCreateJob: () => void;
+}
+
+const MobileHeader = ({
+  onSignIn,
+  onSignUp,
+  onCreateJob,
+}: MobileHeaderProps) => {
+  const { user, logout } = useAuth();
+  const [open, setOpen] = useState(false);
+
+  const logoutUser = () => {
+    logout();
+    setOpen(false);
+  };
+
+  return (
+    <header className={styles.mobileHeader}>
+      <div className={styles.top}>
+        <h2>Job Board</h2>
+
+        <button onClick={() => setOpen(!open)}>
+          {open ? <IoClose /> : <IoMenu />}
+        </button>
+      </div>
+
+      {open && (
+        <nav className={styles.menu}>
+          <NavLink to="/" onClick={() => setOpen(false)}>
+            Home
+          </NavLink>
+          <NavLink to="/jobs" onClick={() => setOpen(false)}>
+            Jobs
+          </NavLink>
+
+          <button
+            onClick={() => {
+              onCreateJob();
+              setOpen(false);
+            }}
+          >
+            Create Job
+          </button>
+
+          <div className={styles.divider} />
+
+          {user ? (
+            <>
+              <Link to="/profile" onClick={() => setOpen(false)}>
+                <IoPerson /> Profile
+              </Link>
+              <Link to="/saved-jobs" onClick={() => setOpen(false)}>
+                Saved Jobs
+              </Link>
+              <button className={styles.logout} onClick={logoutUser}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  onSignIn();
+                  setOpen(false);
+                }}
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => {
+                  onSignUp();
+                  setOpen(false);
+                }}
+              >
+                Sign Up
+              </button>
+            </>
+          )}
+        </nav>
+      )}
+    </header>
+  );
+};
+
+export default MobileHeader;

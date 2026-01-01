@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
+import { useState } from "react";
 import { IoPerson } from "react-icons/io5";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 import style from "./header.module.scss";
-import { useState } from "react";
 
 interface PropsHeader {
   onSignIn: () => void;
@@ -19,12 +19,11 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
     <header>
       <div className={`${style.header} container`}>
         <h2>Job Board</h2>
-
-        <nav>
+        <nav className={style.nav}>
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `${style.link} ${isActive ? style.active : style.notActive}`
+              `${style.link} ${isActive ? style.active : style.notActive} `
             }
           >
             Home
@@ -41,14 +40,12 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
             Create Jobs
           </button>
         </nav>
-
         {user ? (
           <div className={style.header_account}>
             <div className={style.header_account_title}>
               <div className={style.header_account_user}>
                 <IoPerson />
               </div>
-
               <button onClick={() => setShowPopup((prev) => !prev)}>
                 {showPopup ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </button>
@@ -77,5 +74,4 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
     </header>
   );
 };
-
 export default Header;
