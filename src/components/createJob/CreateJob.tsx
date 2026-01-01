@@ -1,10 +1,11 @@
 import { useState } from "react";
+import Buttons from "../../shared/buttons/Buttons";
 import { useAddJobMutation } from "../../api/jobsApi";
 
 import styles from "./style.module.scss";
 
 interface CreateJobProps {
-    onClose: () => void;
+  onClose: () => void;
 }
 const CreateJob = ({ onClose }: CreateJobProps) => {
   const [addJob, { isLoading }] = useAddJobMutation();
@@ -37,7 +38,7 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
     } catch (err) {
       console.error("Failed to create job:", err);
     }
-    onClose()
+    onClose();
   };
 
   return (
@@ -77,12 +78,11 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
           />
 
           <div className={styles.actions}>
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? "Saving..." : "Create Job"}
-            </button>
+            <Buttons
+              onCancel={onClose}
+              submitText="Create Job"
+              isLoading={isLoading}
+            />
           </div>
         </form>
       </div>

@@ -4,7 +4,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import { Login } from "../AuthLayout/Login/Login";
 import { Register } from "../AuthLayout/Register/Register";
-import Modal from "../components/Modal/Modal";
+import Modal from "../shared/Modal/Modal";
 import CreateJob from "../components/createJob/CreateJob";
 
 import style from "./layout.module.scss";

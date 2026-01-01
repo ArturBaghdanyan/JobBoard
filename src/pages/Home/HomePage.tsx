@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
-import ShowModal from "../../utils/showModal";
+import ShowModal from "../../shared/utils/showModal";
 
 import style from "./home.module.scss";
 

@@ -1,0 +1,66 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  > h2 {
+    font-size: 16px;
+  }
+}
+
+.profile_info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+  &_item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &_icon {
+      background: rgb(235 235 235);
+      height: 35px;
+      width: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    &_text {
+      display: flex;
+      flex-direction: column;
+      > span:nth-of-type(1) {
+        color: lightgray;
+        font-size: 12px;
+      }
+      > span:nth-of-type(2) {
+        font-size: 13px;
+      }
+    }
+  }
+}
+@media (max-width: 1024px) {
+  .profile_info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .profile_info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile {
+    .user {
+      margin-left: 10px;
+    }
+  }
+}

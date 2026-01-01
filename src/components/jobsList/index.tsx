@@ -26,12 +26,14 @@ export const JobList = ({ jobs, onApply }: JobListProps) => {
     console.log("saved job", id);
   };
 
+  const reversedJobs = [...jobs].reverse();
+
   return (
     <div className={`${style.jobs} container`}>
-      {jobs.map((job) => {
+      {reversedJobs.map((job) => {
         const isCurrentlySaved = savedJobsId.includes(job.id);
         const savedJob = !!user && isCurrentlySaved;
-        
+
         return (
           <div key={job.id} className={style.jobs_container}>
             <h2>{job.title}</h2>

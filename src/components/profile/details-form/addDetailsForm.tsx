@@ -1,7 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import type { UserDetails, UserProfile } from "../../types/auth";
+import type { UserDetails, UserProfile } from "../../../types/auth";
 
 import style from "./style.module.scss";
+import Buttons from "../../../shared/buttons/Buttons";
 
 interface IDetails {
   initialData?: UserProfile["details"];
@@ -53,7 +54,7 @@ export const AddDetailsForm = ({ initialData, onSave }: IDetails) => {
         </div>
         <div className={style.form_column}>
           <div className={style.field}>
-            <label className={style.label}>date</label>
+            <label className={style.label}>Date</label>
             <input
               type="date"
               className={style.input}
@@ -78,18 +79,8 @@ export const AddDetailsForm = ({ initialData, onSave }: IDetails) => {
             )}
           </div>
         </div>
-        <div className={style.buttons}>
-          <button
-            type="submit"
-            onClick={() => onSave(initialData)}
-            className={style.button}
-          >
-            Cancel
-          </button>
-          <button type="submit" className={style.button}>
-            Save
-          </button>
-        </div>
+
+        <Buttons onCancel={() => onSave(initialData)} submitText="Save" />
       </form>
     </>
   );

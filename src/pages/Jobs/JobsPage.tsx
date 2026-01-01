@@ -5,7 +5,7 @@ import { useGetJobsQuery, useApplyJobMutation } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 
 import style from "./style.module.scss";
-import ShowModal from "../../utils/showModal";
+import ShowModal from "../../shared/utils/showModal";
 
 const JobsPage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();

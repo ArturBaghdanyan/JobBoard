@@ -2,8 +2,8 @@ import { CiCalendarDate } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { MdLocationCity, MdOutlineEmail } from "react-icons/md";
 
+import type { UserProfile } from "../../../types/auth";
 import style from "./style.module.scss";
-import type { UserProfile } from "../../types/auth";
 
 interface UserHeaderProps {
   user: UserProfile;

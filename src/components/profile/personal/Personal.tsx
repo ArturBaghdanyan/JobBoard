@@ -1,14 +1,15 @@
-import { authService } from "../../services/authService";
-import type { UserProfile } from "../../types/auth";
+import { authService } from "../../../services/authService";
+import type { UserProfile } from "../../../types/auth";
 import { useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { AddDetailsForm } from "./addDetailsForm";
-import person from "../../assets/person.jpg";
+import { AddDetailsForm } from "../details-form/addDetailsForm";
+import UserHeader from "../user-header/UserHeader";
+import Modal from "../../../shared/Modal/Modal";
+
+import person from "../../../assets/person.jpg";
 import { MdEdit } from "react-icons/md";
-import Modal from "../../components/Modal/Modal";
 
 import style from "./style.module.scss";
-import UserHeader from "./UserHeader";
 
 interface IPersonal {
   user: UserProfile;
@@ -39,7 +40,7 @@ const Personal = ({
   };
 
   return (
-    <div className={style.profile_header}>
+    <>
       <div className={style.profile_avatar}>
         <img src={person} alt="avatar" />
       </div>
@@ -56,7 +57,7 @@ const Personal = ({
           />
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 

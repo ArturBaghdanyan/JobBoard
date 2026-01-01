@@ -249,6 +249,16 @@
       "salary": "2000$",
       "description": "backend developer",
       "applied": true
+    },
+    {
+      "id": "2fb1",
+      "title": "Node JS developer",
+      "position": "",
+      "company": "Star llc",
+      "location": "Remote",
+      "salary": "2000$",
+      "description": "We are seeking Node js developer",
+      "applied": false
     }
   ]
 }
