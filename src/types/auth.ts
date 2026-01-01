@@ -2,13 +2,13 @@ export interface UserProfile {
   username: string;
   email: string;
   password: string;
+  details?: UserDetails;
 }
 
 export interface UserDetails {
   username: string;
   city: string;
-  address: string;
-  birthday: string;
+  date: string;
   telephone: string;
 }
 

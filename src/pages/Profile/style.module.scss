@@ -97,11 +97,53 @@
       height: 100px;
     }
   }
-  &_info {
+  .user {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    > h2 {
+      font-size: 16px;
+    }
+  }
+  &_info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    &_item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &_icon {
+        background: rgb(235 235 235);
+        height: 35px;
+        width: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        > span:nth-of-type(1) {
+          color: lightgray;
+          font-size: 12px;
+        }
+        > span:nth-of-type(2) {
+          font-size: 13px;
+        }
+      }
+    }
   }
 }
+
 .detailTitle {
   display: flex;
   justify-content: space-between;
@@ -161,19 +203,20 @@
   }
 
   &_column {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 15px;
-
-    @media (max-width: 640px) {
-      grid-template-columns: 1fr;
-    }
 
     &_field {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
+  }
+
+  &_column:nth-of-type(3) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .field {
@@ -221,6 +264,22 @@
     flex-direction: column;
 
     .menu {
+      &_link::before {
+        background: transparent;
+      }
+
+      .active::before {
+        background: black;
+      }
+    }
+    &_header {
+      width: 80%;
+      margin: 0 auto;
+    }
+    &_info {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .menu {
       width: 100%;
       height: 100%;
       background: white;
@@ -233,6 +292,25 @@
       &_link {
         color: black;
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile {
+    &_info {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .profile {
+    &_header {
+      flex-direction: column;
+    }
+    .user {
+      margin-left: 10px;
     }
   }
 }

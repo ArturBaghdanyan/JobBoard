@@ -1,14 +1,14 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import type { UserDetails } from "../../types/auth";
-import type { Dispatch, SetStateAction } from "react";
+import type { UserDetails, UserProfile } from "../../types/auth";
 
 import style from "./style.module.scss";
 
 interface IDetails {
-  setShowUserDetails: Dispatch<SetStateAction<boolean>>;
+  initialData?: UserProfile["details"];
+  onSave: (details: UserProfile["details"]) => void;
 }
 
-export const AddDetailsForm = ({ setShowUserDetails }: IDetails) => {
+export const AddDetailsForm = ({ initialData, onSave }: IDetails) => {
   const {
     register,
     handleSubmit,
@@ -16,25 +16,17 @@ export const AddDetailsForm = ({ setShowUserDetails }: IDetails) => {
   } = useForm<UserDetails>();
 
   const onSubmit: SubmitHandler<UserDetails> = (data) => {
-    try {
-      console.log("adding details", data);
-      setShowUserDetails(false);
-    } catch (error) {
-      console.error("Save failed", error);
-    }
+    console.log("data updated", data);
+    onSave(data);
   };
   return (
     <>
       <div className={style.detailTitle}>
         <h2>Personal data</h2>
-        <button
-          className={style.close}
-          onClick={() => setShowUserDetails(false)}
-        >
+        <button className={style.close} onClick={() => onSave(initialData)}>
           x
         </button>
       </div>
-
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={style.field}>
           <label className={style.label}>Username</label>
@@ -58,28 +50,17 @@ export const AddDetailsForm = ({ setShowUserDetails }: IDetails) => {
               <p className={style.error}>{errors.city.message}</p>
             )}
           </div>
-
-          <div className={style.field}>
-            <label className={style.label}>Address</label>
-            <input
-              className={style.input}
-              {...register("address", { required: "Address is required" })}
-            />
-            {errors.address && (
-              <p className={style.error}>{errors.address.message}</p>
-            )}
-          </div>
         </div>
         <div className={style.form_column}>
           <div className={style.field}>
-            <label className={style.label}>Birthday</label>
+            <label className={style.label}>date</label>
             <input
               type="date"
               className={style.input}
-              {...register("birthday", { required: "Birthday is required" })}
+              {...register("date", { required: "date is required" })}
             />
-            {errors.birthday && (
-              <p className={style.error}>{errors.birthday.message}</p>
+            {errors.date && (
+              <p className={style.error}>{errors.date.message}</p>
             )}
           </div>
 
@@ -98,7 +79,11 @@ export const AddDetailsForm = ({ setShowUserDetails }: IDetails) => {
           </div>
         </div>
         <div className={style.buttons}>
-          <button type="submit" className={style.button}>
+          <button
+            type="submit"
+            onClick={() => onSave(initialData)}
+            className={style.button}
+          >
             Cancel
           </button>
           <button type="submit" className={style.button}>

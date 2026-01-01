@@ -7,7 +7,13 @@ export const authService = {
 
   saveUser: (user: UserProfile) => {
     const users = authService.getUsers();
-    users.push(user);
+    const existingIndex = users.findIndex((u) => u.email === user.email);
+
+    if (existingIndex >= 0) {
+      users[existingIndex] = { ...users[existingIndex], details: user.details };
+    } else {
+      users.push(user);
+    }
     localStorage.setItem("users_db", JSON.stringify(users));
   },
 
