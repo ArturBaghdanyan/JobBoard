@@ -8,7 +8,6 @@ import type {
   ToggleSavedJobResponse,
 } from "../types/jobTypes";
 
-
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000" }),
@@ -46,7 +45,7 @@ export const jobsApi = createApi({
         method: "PATCH",
         body: { applied: true },
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: "Jobs", id }],
+      invalidatesTags: (_result, _error, { id }) => [{ type: "Jobs", id }],
     }),
     toggleSavedJob: builder.mutation<
       ToggleSavedJobResponse,
@@ -57,7 +56,7 @@ export const jobsApi = createApi({
         method: "PATCH",
         body: { saved },
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: "Jobs", id }],
+      invalidatesTags: (_result, _error, { id }) => [{ type: "Jobs", id }],
     }),
   }),
 });

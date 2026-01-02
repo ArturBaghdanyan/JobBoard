@@ -22,7 +22,7 @@
       align-items: center;
       color: white;
     }
-    > .jobs {
+    &_jobs {
       display: flex;
       align-items: center;
       padding: 15px;
@@ -87,7 +87,7 @@
     &_container {
       height: 450px;
 
-      > .jobs {
+      &_jobs {
         width: 50%;
       }
     }
@@ -97,12 +97,42 @@
     &_container {
       height: 400px;
 
-      > .jobs {
-        width: 60%;
-        padding: 12px;
+      &_title {
+        text-align: center;
 
+        > h1 {
+          font-size: 23px;
+        }
+        > p {
+          font-size: 16px;
+        }
+      }
+
+      &_jobs {
         button {
           padding: 6px 16px;
+        }
+      }
+    }
+  }
+  @media (max-width: 600px) {
+    &_container {
+      &_jobs {
+        width: 80%;
+
+        > button {
+          width: auto;
+        }
+      }
+    }
+  }
+  @media (max-width: 375px) {
+    &_container {
+      &_jobs {
+        width: 100%;
+
+        > button {
+          width: auto;
         }
       }
     }

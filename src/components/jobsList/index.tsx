@@ -22,7 +22,7 @@ export const JobList = ({ jobs }: JobListProps) => {
           saved={savedJobs.some((j) => j.id === job.id)}
           applied={appliedJobs.some((j) => j.id === job.id)}
           onToggleSave={toggleSave}
-          onApply={onApply} // <-- pass down prop
+          onApply={onApply}
         />
       ))}
     </div>

@@ -24,25 +24,28 @@ export const JobCard = ({
     <p>{job.position}</p>
     <p>{job.description}</p>
 
-    <AiFillHeart
-      className="jobs_container_save"
-      onClick={() => onToggleSave?.(job)}
-      style={{
-        fill: saved ? "red" : "white",
-        stroke: "red",
-        strokeWidth: "50px",
-        cursor: "pointer",
-      }}
-    />
+    <div className="jobs-right">
+      <div className="jobs-left">
+        <AiFillHeart
+          className="jobs_container_save"
+          onClick={() => onToggleSave?.(job)}
+          style={{
+            fill: saved ? "red" : "white",
+            stroke: "red",
+            strokeWidth: "50px",
+            cursor: "pointer",
+          }}
+        />
 
-    <button
-      disabled={applied}
-      onClick={() => onApply?.(job)}
-      className="jobs_container_apply"
-    >
-      {applied ? "Applied" : "Apply"}
-    </button>
-
-    <button className="jobs_container_more">View more</button>
+        <button
+          disabled={applied}
+          onClick={() => onApply?.(job)}
+          className="jobs_container_apply"
+        >
+          {applied ? "Applied" : "Apply"}
+        </button>
+      </div>
+      <button className="jobs_container_more">View more</button>
+    </div>
   </div>
 );

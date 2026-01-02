@@ -127,4 +127,53 @@
   .jobs {
     grid-template-columns: 1fr;
   }
+
+  .jobs_container {
+    padding: 1.25rem;
+  }
+
+  .jobs_container_save {
+    right: 90px;
+  }
+}
+@media (max-width: 580px) {
+  .jobs_container {
+    padding: 1rem;
+  }
+
+  .jobs-right {
+    display: flex;
+    justify-content: space-between;
+  }
+  .jobs-left {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .jobs_container_apply,
+  .jobs_container_save {
+    position: static;
+  }
+
+  .jobs_container_apply {
+    text-align: center;
+  }
+
+  .jobs_container_save {
+    font-size: 22px;
+  }
+
+  .jobs_container_more {
+    text-align: left;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 14px;
+  }
 }

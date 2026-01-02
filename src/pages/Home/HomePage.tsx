@@ -31,7 +31,7 @@ const HomePage = () => {
           <p>Search thousands of jobs from top companies</p>
         </div>
 
-        <div className={style.jobs}>
+        <div className={style.home_container_jobs}>
           <input
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
