@@ -1,4 +1,4 @@
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../shared/hooks/useAuth";
 import { useRef, useState } from "react";
 import Personal from "../../components/profile/personal/Personal";
 import UploadFile from "../../components/profile/uploaded-file/UploadedFile";

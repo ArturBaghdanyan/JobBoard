@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Buttons from "../../shared/buttons/Buttons";
+import Buttons from "../../shared/components/buttons/Buttons";
 import { useAddJobMutation } from "../../api/jobsApi";
 
 import styles from "./style.module.scss";

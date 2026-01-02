@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../shared/hooks/useAuth";
 import { useState } from "react";
 import { IoPerson } from "react-icons/io5";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
@@ -53,6 +53,9 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
                 <div className={`${style.popup}`}>
                   <Link to="/profile" onClick={() => setShowPopup(false)}>
                     Profile
+                  </Link>
+                  <Link to="/applied-jobs" onClick={() => setShowPopup(false)}>
+                    Applied Jobs
                   </Link>
                   <Link to="/saved-jobs" onClick={() => setShowPopup(false)}>
                     Saved Jobs

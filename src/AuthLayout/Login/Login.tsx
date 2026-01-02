@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../shared/hooks/useAuth";
 import type { SubmitHandler } from "react-hook-form";
 import type { UserProfile } from "../../types/auth";
 
 import styles from "../style.module.scss";
-
 
 export const Login = () => {
   const navigate = useNavigate();

@@ -5,7 +5,9 @@ import type {
   ApplyJobMutationRequest,
   ApplyJobMutationResponse,
   Job,
+  ToggleSavedJobResponse,
 } from "../types/jobTypes";
+
 
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
@@ -14,7 +16,13 @@ export const jobsApi = createApi({
   endpoints: (builder) => ({
     getJobs: builder.query<JobsQueryResponse, void>({
       query: () => "/jobs",
-      providesTags: ["Jobs"],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map((job) => ({ type: "Jobs" as const, id: job.id })),
+              { type: "Jobs", id: "LIST" },
+            ]
+          : [{ type: "Jobs", id: "LIST" }],
     }),
     getJobById: builder.query<JobQueryResponse, string>({
       query: (id) => `/jobs/${id}`,
@@ -27,7 +35,7 @@ export const jobsApi = createApi({
         method: "POST",
         body: { ...newJob, applied: false },
       }),
-      invalidatesTags: ["Jobs"],
+      invalidatesTags: [{ type: "Jobs", id: "LIST" }],
     }),
     applyJob: builder.mutation<
       ApplyJobMutationResponse,
@@ -38,7 +46,18 @@ export const jobsApi = createApi({
         method: "PATCH",
         body: { applied: true },
       }),
-      invalidatesTags: ["Jobs"],
+      invalidatesTags: (result, error, { id }) => [{ type: "Jobs", id }],
+    }),
+    toggleSavedJob: builder.mutation<
+      ToggleSavedJobResponse,
+      ApplyJobMutationRequest & { saved: boolean }
+    >({
+      query: ({ id, saved }) => ({
+        url: `/jobs/${id}`,
+        method: "PATCH",
+        body: { saved },
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: "Jobs", id }],
     }),
   }),
 });
@@ -48,4 +67,5 @@ export const {
   useAddJobMutation,
   useGetJobByIdQuery,
   useApplyJobMutation,
+  useToggleSavedJobMutation,
 } = jobsApi;

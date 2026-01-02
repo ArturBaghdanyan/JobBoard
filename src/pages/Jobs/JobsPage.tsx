@@ -1,54 +1,27 @@
-import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { useGetJobsQuery, useApplyJobMutation } from "../../api/jobsApi";
+import ShowModal from "../../shared/components/showModal";
+import { useJobFilters } from "../../shared/hooks/useFilterJob";
+import { useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
+import { CiSearch } from "react-icons/ci";
 
 import style from "./style.module.scss";
-import ShowModal from "../../shared/utils/showModal";
 
 const JobsPage = () => {
   const { data: jobs = [], isLoading } = useGetJobsQuery();
-  const [applyJob] = useApplyJobMutation();
-  const { user } = useAuth();
 
-  const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState<"login" | "success" | null>(null);
+  const [modalType] = useState<"login" | "success" | null>(null);
 
-  const [selectedCategory, setSelectedCategory] = useState("select category");
-  const [selectedPosition, setSelectedPosition] = useState("select position");
-
-  const filteredJobs = jobs.filter((job) => {
-    const matchesSearch =
-      job.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      job.company.toLowerCase().includes(searchText.toLowerCase());
-
-    const matchesCategory =
-      selectedCategory === "select category" || job.title === selectedCategory;
-
-    const matchesPosition =
-      selectedPosition === "select position" ||
-      job.position === selectedPosition;
-
-    return matchesSearch && matchesCategory && matchesPosition;
-  });
-
-  const handleApply = async (jobId: string) => {
-    if (!user) {
-      setModalType("login");
-      setShowModal(true);
-      return;
-    }
-
-    try {
-      await applyJob({ id: jobId }).unwrap();
-      setModalType("success");
-      setShowModal(true);
-    } catch (err) {
-      console.error("Apply failed", err);
-    }
-  };
+    const {
+    searchText,
+    setSearchText,
+    selectedCategory,
+    setSelectedCategory,
+    selectedPosition,
+    setSelectedPosition,
+    filteredJobs,
+  } = useJobFilters(jobs);
 
   const selectList = [
     "Frontend Developer",
@@ -65,7 +38,6 @@ const JobsPage = () => {
     "Python Developer",
     "PHP Developer",
   ];
-
   const positions = ["Intern", "Junior", "Middle", "Senior", "Team Lead"];
 
   if (isLoading) return <p>Loading...</p>;
@@ -112,7 +84,7 @@ const JobsPage = () => {
         </button>
       </form>
 
-      <JobList jobs={filteredJobs} onApply={handleApply} />
+      <JobList jobs={filteredJobs} />
 
       {showModal && (
         <ShowModal

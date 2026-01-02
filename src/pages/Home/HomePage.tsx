@@ -1,37 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { useApplyJobMutation, useGetJobsQuery } from "../../api/jobsApi";
+import { useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
-import ShowModal from "../../shared/utils/showModal";
+import ShowModal from "../../shared/components/showModal";
 
 import style from "./home.module.scss";
 
+
 const HomePage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
-  const [applyJob] = useApplyJobMutation();
+
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState<"login" | "success" | null>(null);
-
+  const [modalType] = useState<"login" | "success" | null>(null);
   const [searchText, setSearchText] = useState("");
-
-  const handleApply = async (jobId: string) => {
-    if (!user) {
-      setModalType("login");
-      setShowModal(true);
-      return;
-    }
-
-    try {
-      await applyJob({ id: jobId }).unwrap();
-      setModalType("success");
-      setShowModal(true);
-    } catch (err) {
-      console.error("Apply failed", err);
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +42,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <JobList jobs={jobs.slice(0, 3)} onApply={handleApply} />
+      <JobList jobs={jobs.slice(0, 3)} />
       {showModal && (
         <ShowModal
           showModal={showModal}

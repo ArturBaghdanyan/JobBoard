@@ -2,10 +2,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import type { SubmitHandler } from "react-hook-form";
 import type { UserProfile } from "../../types/auth";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../shared/hooks/useAuth";
 
 import styles from "../style.module.scss";
-
 
 export const Register = () => {
   const navigate = useNavigate();

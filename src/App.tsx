@@ -5,8 +5,12 @@ import JobsPage from "./pages/Jobs/JobsPage";
 import { Login } from "./AuthLayout/Login/Login";
 import { Register } from "./AuthLayout/Register/Register";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import AppliedJobsPage from "./pages/applied-jobs/ApplyJobsPage";
+import SavedJobs from "./pages/saved-jobs/SavedJobs";
+import { useAuth } from "./shared/hooks/useAuth";
 
 function App() {
+    const {user} = useAuth()
   return (
     <Routes>
       <Route element={<MainLayout />}>
@@ -15,6 +19,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/applied-jobs" element={<AppliedJobsPage user={user} />} />
+        <Route path="/saved-jobs" element={<SavedJobs user={user} />} />
       </Route>
     </Routes>
   );

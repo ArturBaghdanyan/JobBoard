@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Modal from "../Modal/Modal";
+import Modal from "./Modal/Modal";
 
 interface IShowModal {
   showModal: boolean;

@@ -72,3 +72,59 @@
     opacity: 1;
   }
 }
+
+.jobs {
+  width: 100%;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.jobs_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.jobs_container_save {
+  position: absolute;
+  top: 15px;
+  right: 90px;
+  font-size: 25px;
+}
+
+.jobs_container_apply {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border-radius: 20px;
+  width: 70px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid lightgray;
+  font-family: "Montserrat", sans-serif;
+}
+
+.jobs_container_apply:hover {
+  background-color: lightseagreen;
+  transition: 1s ease-in-out;
+  color: white;
+}
+
+.jobs_container_more {
+  text-align: end;
+  border: none;
+  background: none;
+}
+
+@media (max-width: 1024px) {
+  .jobs {
+    grid-template-columns: 1fr;
+  }
+}

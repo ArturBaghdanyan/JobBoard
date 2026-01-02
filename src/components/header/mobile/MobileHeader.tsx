@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { IoMenu, IoClose, IoPerson } from "react-icons/io5";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../shared/hooks/useAuth";
 
 import styles from "./mobile.module.scss";
 
@@ -58,6 +58,9 @@ const MobileHeader = ({
             <>
               <Link to="/profile" onClick={() => setOpen(false)}>
                 <IoPerson /> Profile
+              </Link>
+              <Link to="/applied-jobs" onClick={() => setOpen(false)}>
+                Applied Jobs
               </Link>
               <Link to="/saved-jobs" onClick={() => setOpen(false)}>
                 Saved Jobs

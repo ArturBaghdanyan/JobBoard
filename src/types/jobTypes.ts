@@ -22,3 +22,8 @@ export type ApplyJobMutationRequest = {
 export type ApplyJobMutationResponse = {
   success: boolean; 
 };
+
+export interface ToggleSavedJobResponse {
+  id: string;
+  saved: boolean;
+}
