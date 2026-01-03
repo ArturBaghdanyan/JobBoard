@@ -8,8 +8,12 @@ export type Job = {
   about: string;
   requirements: string[];
   applied?: boolean;
+  saved?: boolean; 
 };
-export type JobsQueryResponse = Job[];
+
+export type JobsQueryResponse = {
+  jobs: Job[];
+};
 
 export type JobQueryResponse = {
   job: Job | null;

@@ -8,15 +8,25 @@ import type {
   ToggleSavedJobResponse,
 } from "../types/jobTypes";
 
-const api = "http://localhost:4000"
+const isProduction = import.meta.env.PROD;
+
+const baseUrl = isProduction
+  ? "/"
+  : import.meta.env.VITE_APP_API_URL || "http://localhost:4000";
 
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: api }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseUrl,
+  }),
   tagTypes: ["Jobs"],
   endpoints: (builder) => ({
-    getJobs: builder.query<JobsQueryResponse, void>({
-      query: () => "jobs",
+    getJobs: builder.query<Job[], void>({
+      query: () => (isProduction ? "jobs.json" : "jobs"),
+      transformResponse: (response: JobsQueryResponse | Job[]) => {
+        if (Array.isArray(response)) return response;
+        return response.jobs || [];
+      },
       providesTags: (result) =>
         result
           ? [
@@ -25,40 +35,94 @@ export const jobsApi = createApi({
             ]
           : [{ type: "Jobs", id: "LIST" }],
     }),
-    getJobById: builder.query<JobQueryResponse, string>({
-      query: (id) => `/jobs/${id}`,
-      providesTags: (result) =>
-        result?.job ? [{ type: "Jobs" as const, id: result.job.id }] : [],
+
+    getJobById: builder.query<Job | undefined, string>({
+      query: (id) => (isProduction ? "jobs.json" : `jobs/${id}`),
+      transformResponse: (
+        response: JobQueryResponse | Job | JobsQueryResponse,
+        _meta,
+        arg
+      ) => {
+        if (!isProduction) {
+          return (response as JobQueryResponse).job || (response as Job);
+        }
+        return (response as JobsQueryResponse).jobs?.find(
+          (j: Job) => j.id === arg
+        );
+      },
+      providesTags: (_result, _error, id) => [{ type: "Jobs", id }],
     }),
+
     addJob: builder.mutation<Job, Omit<Job, "id">>({
       query: (newJob) => ({
-        url: "/jobs",
-        method: "POST",
-        body: { ...newJob, applied: false },
+        url: isProduction ? "jobs.json" : "/jobs",
+        method: isProduction ? "GET" : "POST",
+        body: isProduction ? undefined : { ...newJob, applied: false },
       }),
-      invalidatesTags: [{ type: "Jobs", id: "LIST" }],
+      async onQueryStarted(newJob, { dispatch, queryFulfilled }) {
+        if (isProduction) {
+          const tempId = crypto.randomUUID();
+          const patchResult = dispatch(
+            jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
+              draft.push({ ...newJob, id: tempId, applied: false } as Job);
+            })
+          );
+          try {
+            await queryFulfilled;
+          } catch {
+            patchResult.undo();
+          }
+        }
+      },
+      invalidatesTags: isProduction ? [] : [{ type: "Jobs", id: "LIST" }],
     }),
+
     applyJob: builder.mutation<
       ApplyJobMutationResponse,
       ApplyJobMutationRequest
     >({
       query: ({ id }) => ({
-        url: `/jobs/${id}`,
-        method: "PATCH",
-        body: { applied: true },
+        url: isProduction ? "jobs.json" : `jobs/${id}`,
+        method: isProduction ? "GET" : "PATCH",
+        body: isProduction ? undefined : { applied: true },
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: "Jobs", id }],
+      async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
+            const job = draft.find((j) => j.id === id);
+            if (job) job.applied = true;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
+
     toggleSavedJob: builder.mutation<
       ToggleSavedJobResponse,
       ApplyJobMutationRequest & { saved: boolean }
     >({
       query: ({ id, saved }) => ({
-        url: `/jobs/${id}`,
-        method: "PATCH",
-        body: { saved },
+        url: isProduction ? "jobs.json" : `jobs/${id}`,
+        method: isProduction ? "GET" : "PATCH",
+        body: isProduction ? undefined : { saved },
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: "Jobs", id }],
+      async onQueryStarted({ id, saved }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
+            const job = draft.find((j) => j.id === id);
+            if (job) job.saved = saved;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });
