@@ -5,13 +5,15 @@ import { IoPerson } from "react-icons/io5";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 import style from "./header.module.scss";
+import { CiDark, CiLight } from "react-icons/ci";
 
 interface PropsHeader {
   onSignIn: () => void;
   onSignUp: () => void;
   onCreateJob: () => void;
+  darkMode: boolean;
 }
-const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
+const Header = ({ onSignIn, onSignUp, onCreateJob, darkMode }: PropsHeader) => {
   const { user, logout } = useAuth();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -66,6 +68,15 @@ const Header = ({ onSignIn, onSignUp, onCreateJob }: PropsHeader) => {
                 </div>
               )}
             </div>
+            {darkMode ? (
+              <div className={style.darkOverlay}>
+                <CiDark />
+              </div>
+            ) : (
+              <div>
+                <CiLight />
+              </div>
+            )}
           </div>
         ) : (
           <div className={style.header_buttons}>

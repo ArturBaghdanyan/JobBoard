@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "./desktop/Header";
 import MobileHeader from "./mobile/MobileHeader";
 
@@ -10,10 +11,13 @@ interface AppHeaderProps {
 }
 
 export const AppHeader = (props: AppHeaderProps) => {
+  const [darkMode] = useState(false);
+
   return (
     <>
+   
       <div className={style.desktop}>
-        <Header {...props} />
+        <Header {...props} darkMode={darkMode} />
       </div>
 
       <div className={style.mobile}>
