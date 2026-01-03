@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-      url("../../assets/bg.jpg");
+      url("../../assets/images/bg.jpg");
     background-repeat: no-repeat;
     background-position: top center;
     background-size: cover;
@@ -39,6 +39,7 @@
         width: 77%;
         height: auto;
         border: none;
+        background: none;
       }
       input:focus {
         outline: none;
@@ -65,7 +66,7 @@
     border: none;
     border-radius: 12px;
     background: #d8d8d8;
-    color: black;
+    color: white;
     text-transform: uppercase;
     cursor: pointer;
     font: 500 13px "Poppins", sans-serif;
@@ -75,6 +76,14 @@
       background-color: rgb(59, 186, 59);
       transition: 1s ease-in;
       color: white;
+    }
+    &_dark {
+      background: #595959;
+      color: white;
+    }
+    &_light {
+      background: #f2f2f2;
+      color: black;
     }
   }
   @media (max-width: 1280px) {

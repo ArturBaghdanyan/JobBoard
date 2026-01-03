@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Header from "./desktop/Header";
 import MobileHeader from "./mobile/MobileHeader";
 
@@ -8,20 +7,20 @@ interface AppHeaderProps {
   onSignIn: () => void;
   onSignUp: () => void;
   onCreateJob: () => void;
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppHeader = (props: AppHeaderProps) => {
-  const [darkMode] = useState(false);
 
   return (
     <>
-   
       <div className={style.desktop}>
-        <Header {...props} darkMode={darkMode} />
+        <Header {...props} darkMode={props.darkMode} setDarkMode={props.setDarkMode} />
       </div>
 
       <div className={style.mobile}>
-        <MobileHeader {...props} />
+        <MobileHeader {...props} darkMode={props.darkMode} setDarkMode={props.setDarkMode}/>
       </div>
     </>
   );

@@ -1,8 +1,11 @@
 import "./footer.css"
 
-const Footer = () => {
+interface FooterProps {
+  darkMode: boolean;
+}
+const Footer = ({darkMode}: FooterProps) => {
   return (
-    <footer>
+    <footer className={`${darkMode ? "footerDark" : "footerLight"} footer`}>
       <p>© 2025 Job Board</p>
     </footer>
   );

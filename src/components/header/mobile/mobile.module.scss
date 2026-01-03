@@ -31,7 +31,20 @@
   padding: 16px;
   border-radius: 12px;
   animation: slideDown 0.25s ease;
+  position: relative;
 
+  &_mode {
+    background: none;
+    border: none;
+    height: 20px;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    
+    > svg {
+      font-size: 20px;
+    }
+  }
   a,
   button {
     all: unset;

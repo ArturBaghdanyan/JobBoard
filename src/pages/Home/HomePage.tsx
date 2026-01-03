@@ -10,8 +10,11 @@ import type { Job } from "../../types/jobTypes";
 
 import style from "./home.module.scss";
 
+interface HomePageProps {
+  darkMode: boolean;
+}
 
-const HomePage = () => {
+const HomePage = ({darkMode}: HomePageProps) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
@@ -62,9 +65,9 @@ const HomePage = () => {
         appliedJobs={appliedJobs}
         onToggleSave={handleToggleSave}
         onApply={onApply}
-        modalType={modalType} 
-        setModalType={setModalType} 
-        showModal={showModal} 
+        modalType={modalType}
+        setModalType={setModalType}
+        showModal={showModal}
         setShowModal={setShowModal}
       />
       {showModal && (
@@ -75,7 +78,7 @@ const HomePage = () => {
         />
       )}
 
-      <Link to="/jobs" className={style.home_view}>
+      <Link to="/jobs" className={`${darkMode ? style.home_view_dark : style.home_view_light} ${style.home_view}`}>
         View All Jobs
       </Link>
     </div>

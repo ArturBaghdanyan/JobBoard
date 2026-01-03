@@ -9,7 +9,12 @@ import CreateJob from "../components/createJob/CreateJob";
 
 import style from "./layout.module.scss";
 
-const MainLayout = () => {
+interface MainLayoutProps {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +33,8 @@ const MainLayout = () => {
         onSignIn={() => navigate("/login")}
         onSignUp={() => navigate("/register")}
         onCreateJob={openModal}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
 
       {isLoginOpen && (
@@ -42,13 +49,13 @@ const MainLayout = () => {
         </Modal>
       )}
 
-      <main className={style.content}>
+      <main className={`${darkMode ? "dark" : "light"} ${style.content}`}>
         <Outlet />
       </main>
 
       {isModalOpen && <CreateJob onClose={closeModal} />}
 
-      <Footer />
+      <Footer darkMode={darkMode} />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { AddDetailsForm } from "../details-form/addDetailsForm";
 import UserHeader from "../user-header/UserHeader";
 import Modal from "../../../shared/components/Modal/Modal";
 
-import person from "../../../assets/person.jpg";
+import person from "../../../assets/images/person.jpg";
 import { MdEdit } from "react-icons/md";
 
 import style from "./style.module.scss";
