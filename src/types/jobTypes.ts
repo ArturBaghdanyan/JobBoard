@@ -1,4 +1,3 @@
-
 export type Job = {
   id: string;
   title: string;
@@ -6,7 +5,8 @@ export type Job = {
   company: string;
   location: string;
   salary?: string;
-  description?: string;
+  about: string;
+  requirements: string[];
   applied?: boolean;
 };
 export type JobsQueryResponse = Job[];
@@ -20,7 +20,7 @@ export type ApplyJobMutationRequest = {
 };
 
 export type ApplyJobMutationResponse = {
-  success: boolean; 
+  success: boolean;
 };
 
 export interface ToggleSavedJobResponse {

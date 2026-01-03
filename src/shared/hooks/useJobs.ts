@@ -24,6 +24,7 @@ export const useJobs = (user: UserProfile | null) => {
 
   const toggleSave = (job: Job) => {
     const isSaved = savedJobs.some((j) => j.id === job.id);
+    
     if (isSaved) removeSavedJob(job.id);
     else if (user) saveJob(job);
     setSavedJobs(getSavedJobs());

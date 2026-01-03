@@ -7,7 +7,14 @@
       "company": "TechCorp",
       "location": "Yerevan, Armenia",
       "salary": "500$ - 1000$",
-      "description": "Work on React projects, build UI components.",
+      "about": "You will work on modern React applications, building reusable UI components and responsive layouts. You will collaborate with designers and backend developers to deliver high-quality user experiences.",
+      "requirements": [
+        "Basic knowledge of HTML, CSS, and JavaScript",
+        "Understanding of React fundamentals",
+        "Familiarity with component-based architecture",
+        "Ability to work with REST APIs",
+        "Willingness to learn and grow"
+      ],
       "applied": true,
       "saved": true
     },
@@ -18,7 +25,14 @@
       "company": "CodeLab",
       "location": "Remote",
       "salary": "600$ - 1200$",
-      "description": "Build REST APIs.",
+      "about": "You will design and maintain backend services and RESTful APIs, focusing on performance, scalability, and security.",
+      "requirements": [
+        "Strong knowledge of Node.js or similar backend technologies",
+        "Experience with REST APIs",
+        "Understanding of databases (SQL or NoSQL)",
+        "Basic knowledge of authentication and authorization",
+        "Problem-solving skills"
+      ],
       "applied": true
     },
     {
@@ -28,7 +42,14 @@
       "company": "WebSolutions",
       "location": "Tbilisi, Georgia",
       "salary": "700$ - 1500$",
-      "description": "Work with React + Node.js projects.",
+      "about": "You will work on both frontend and backend parts of applications using React and Node.js, contributing to feature development and bug fixing.",
+      "requirements": [
+        "Experience with JavaScript and React",
+        "Basic knowledge of Node.js",
+        "Understanding of REST APIs",
+        "Familiarity with Git",
+        "Good communication skills"
+      ],
       "applied": true
     },
     {
@@ -38,7 +59,14 @@
       "company": "DesignHub",
       "location": "Remote",
       "salary": "400$ - 900$",
-      "description": "Design user-friendly interfaces and prototypes.",
+      "about": "You will design intuitive user interfaces and interactive prototypes, ensuring excellent usability and visual consistency.",
+      "requirements": [
+        "Strong portfolio of UI/UX projects",
+        "Experience with Figma or similar tools",
+        "Understanding of user-centered design",
+        "Knowledge of accessibility principles",
+        "Ability to collaborate with developers"
+      ],
       "applied": false
     },
     {
@@ -48,7 +76,14 @@
       "company": "StartupX",
       "location": "Yerevan, Armenia",
       "salary": "600$ - 1300$",
-      "description": "Develop SPA applications using React and TypeScript.",
+      "about": "You will develop single-page applications using React and TypeScript, focusing on performance and clean architecture.",
+      "requirements": [
+        "Good understanding of React",
+        "Basic knowledge of TypeScript",
+        "Experience with modern CSS",
+        "Understanding of state management basics",
+        "Attention to detail"
+      ],
       "applied": true
     },
     {
@@ -58,7 +93,14 @@
       "company": "API Masters",
       "location": "Remote",
       "salary": "700$ - 1400$",
-      "description": "Create scalable backend services with Node.js.",
+      "about": "You will create scalable backend services and APIs, working with cloud infrastructure and databases.",
+      "requirements": [
+        "Advanced knowledge of Node.js",
+        "Experience with Express or similar frameworks",
+        "Strong understanding of databases",
+        "Experience with cloud platforms",
+        "Knowledge of security best practices"
+      ],
       "applied": false
     },
     {
@@ -68,7 +110,14 @@
       "company": "QualitySoft",
       "location": "Yerevan, Armenia",
       "salary": "400$ - 800$",
-      "description": "Manual and automated testing of web applications.",
+      "about": "You will lead testing efforts, perform manual and automated testing, and ensure high software quality standards.",
+      "requirements": [
+        "Experience in manual and automated testing",
+        "Knowledge of testing methodologies",
+        "Ability to write test cases",
+        "Leadership skills",
+        "Attention to detail"
+      ],
       "applied": true
     },
     {
@@ -78,7 +127,14 @@
       "company": "CloudNine",
       "location": "Remote",
       "salary": "900$ - 1800$",
-      "description": "Maintain CI/CD pipelines and cloud infrastructure.",
+      "about": "You will maintain CI/CD pipelines and manage cloud infrastructure to ensure system reliability and performance.",
+      "requirements": [
+        "Experience with CI/CD tools",
+        "Knowledge of cloud platforms",
+        "Understanding of Linux systems",
+        "Experience with Docker or similar tools",
+        "Monitoring and troubleshooting skills"
+      ],
       "applied": true
     },
     {
@@ -88,7 +144,14 @@
       "company": "InnovateX",
       "location": "Tbilisi, Georgia",
       "salary": "800$ - 1600$",
-      "description": "Manage product roadmap and team communication.",
+      "about": "You will define product vision and roadmap, working closely with stakeholders and development teams.",
+      "requirements": [
+        "Experience in product management",
+        "Strong communication skills",
+        "Ability to gather and analyze requirements",
+        "Understanding of Agile methodologies",
+        "Leadership skills"
+      ],
       "applied": true
     },
     {
@@ -98,7 +161,14 @@
       "company": "LearnIT",
       "location": "Yerevan, Armenia",
       "salary": "300$ - 600$",
-      "description": "Assist in building UI components with React.",
+      "about": "You will assist in building UI components with React and learn best practices from senior developers.",
+      "requirements": [
+        "Basic knowledge of HTML, CSS, and JavaScript",
+        "Interest in React development",
+        "Willingness to learn",
+        "Ability to work in a team",
+        "Attention to detail"
+      ],
       "applied": true
     },
     {
@@ -108,7 +178,14 @@
       "company": "ScaleApps",
       "location": "Remote",
       "salary": "1200$ - 2200$",
-      "description": "Lead frontend architecture and mentor developers.",
+      "about": "You will lead frontend architecture decisions and mentor junior developers while delivering scalable UI solutions.",
+      "requirements": [
+        "Strong experience with React",
+        "Deep understanding of frontend architecture",
+        "Mentoring skills",
+        "Performance optimization knowledge",
+        "Code review experience"
+      ],
       "applied": true
     },
     {
@@ -118,7 +195,14 @@
       "company": "AppWorks",
       "location": "Yerevan, Armenia",
       "salary": "700$ - 1400$",
-      "description": "Build mobile applications using React Native.",
+      "about": "You will build mobile applications using React Native, focusing on performance and user experience.",
+      "requirements": [
+        "Experience with React Native",
+        "Understanding of mobile app architecture",
+        "Experience with REST APIs",
+        "Knowledge of app deployment",
+        "Problem-solving skills"
+      ],
       "applied": false
     },
     {
@@ -128,7 +212,14 @@
       "company": "MobileLab",
       "location": "Remote",
       "salary": "600$ - 1300$",
-      "description": "Develop cross-platform mobile apps using Flutter.",
+      "about": "You will develop cross-platform mobile applications using Flutter and lead a small mobile development team.",
+      "requirements": [
+        "Strong experience with Flutter",
+        "Knowledge of mobile app architecture",
+        "Leadership skills",
+        "Experience with REST APIs",
+        "Code review experience"
+      ],
       "applied": false
     },
     {
@@ -138,7 +229,14 @@
       "company": "DataCore",
       "location": "Tbilisi, Georgia",
       "salary": "700$ - 1500$",
-      "description": "Analyze business data and generate reports.",
+      "about": "You will analyze business data and generate reports to support decision-making.",
+      "requirements": [
+        "Basic knowledge of data analysis",
+        "Experience with Excel or similar tools",
+        "Understanding of SQL basics",
+        "Attention to detail",
+        "Analytical thinking"
+      ],
       "applied": false
     },
     {
@@ -148,7 +246,14 @@
       "company": "AI Labs",
       "location": "Remote",
       "salary": "800$ - 1700$",
-      "description": "Develop backend services and automation scripts.",
+      "about": "You will develop backend services and automation scripts using Python.",
+      "requirements": [
+        "Strong knowledge of Python",
+        "Experience with backend development",
+        "Understanding of REST APIs",
+        "Experience with databases",
+        "Problem-solving skills"
+      ],
       "applied": true
     },
     {
@@ -158,7 +263,14 @@
       "company": "WebCore",
       "location": "Yerevan, Armenia",
       "salary": "500$ - 1100$",
-      "description": "Maintain and develop PHP-based web applications.",
+      "about": "You will maintain and develop PHP-based web applications and implement new features.",
+      "requirements": [
+        "Basic knowledge of PHP",
+        "Understanding of web development basics",
+        "Experience with databases",
+        "Willingness to learn",
+        "Ability to work in a team"
+      ],
       "applied": true
     },
     {
@@ -168,7 +280,14 @@
       "company": "EnterpriseSoft",
       "location": "Remote",
       "salary": "1500$ - 3000$",
-      "description": "Design scalable and maintainable software systems.",
+      "about": "You will design scalable and maintainable software systems and guide development teams.",
+      "requirements": [
+        "Strong system design experience",
+        "Knowledge of software architecture patterns",
+        "Leadership skills",
+        "Code review experience",
+        "Excellent communication skills"
+      ],
       "applied": true
     },
     {
@@ -178,7 +297,14 @@
       "company": "DevTeam",
       "location": "Yerevan, Armenia",
       "salary": "1300$ - 2500$",
-      "description": "Lead development team and review code quality.",
+      "about": "You will lead a development team, review code quality, and ensure best engineering practices.",
+      "requirements": [
+        "Strong technical background",
+        "Experience leading development teams",
+        "Code review skills",
+        "Problem-solving abilities",
+        "Mentoring skills"
+      ],
       "applied": false
     },
     {
@@ -188,7 +314,14 @@
       "company": "FutureDevs",
       "location": "Yerevan, Armenia",
       "salary": "200$ - 400$",
-      "description": "Learn frontend development with real projects.",
+      "about": "You will learn frontend development by working on real projects and gaining hands-on experience.",
+      "requirements": [
+        "Basic knowledge of HTML and CSS",
+        "Understanding of JavaScript basics",
+        "Interest in React",
+        "Motivation to learn",
+        "Good communication skills"
+      ],
       "applied": true
     },
     {
@@ -198,7 +331,14 @@
       "company": "NetSecure",
       "location": "Remote",
       "salary": "700$ - 1400$",
-      "description": "Manage servers, networks, and system security.",
+      "about": "You will manage servers, networks, and system security while ensuring system stability.",
+      "requirements": [
+        "Basic knowledge of Linux",
+        "Understanding of networking fundamentals",
+        "Interest in system administration",
+        "Problem-solving skills",
+        "Attention to security"
+      ],
       "applied": true,
       "saved": true
     },
@@ -209,7 +349,14 @@
       "company": "AgileWorks",
       "location": "Tbilisi, Georgia",
       "salary": "800$ - 1700$",
-      "description": "Coordinate development teams and project timelines.",
+      "about": "You will assist in coordinating development teams and managing project timelines.",
+      "requirements": [
+        "Good organizational skills",
+        "Basic understanding of project management",
+        "Strong communication skills",
+        "Ability to work with teams",
+        "Willingness to learn"
+      ],
       "applied": true
     },
     {
@@ -219,7 +366,14 @@
       "company": "BizTech",
       "location": "Remote",
       "salary": "700$ - 1500$",
-      "description": "Analyze requirements and improve business processes.",
+      "about": "You will analyze business requirements and help translate them into technical solutions.",
+      "requirements": [
+        "Analytical thinking",
+        "Good communication skills",
+        "Basic understanding of business processes",
+        "Ability to document requirements",
+        "Attention to detail"
+      ],
       "applied": true
     },
     {
@@ -229,7 +383,14 @@
       "company": "SecureIT",
       "location": "Remote",
       "salary": "1000$ - 2200$",
-      "description": "Ensure application and infrastructure security.",
+      "about": "You will ensure application and infrastructure security by identifying risks and implementing security measures.",
+      "requirements": [
+        "Strong knowledge of cybersecurity principles",
+        "Experience with security tools",
+        "Understanding of network security",
+        "Incident response experience",
+        "Attention to detail"
+      ],
       "applied": true
     },
     {
@@ -239,29 +400,14 @@
       "company": "Solutions",
       "location": "Yerevan",
       "salary": "2000$",
-      "description": "frontend developer",
-      "applied": true,
-      "saved": true
-    },
-    {
-      "id": "46d2",
-      "title": "backend developer",
-      "position": "Senior",
-      "company": "Solutions",
-      "location": "Yerevan",
-      "salary": "2000$",
-      "description": "backend developer",
-      "applied": true,
-      "saved": true
-    },
-    {
-      "id": "2fb1",
-      "title": "Node JS developer",
-      "position": "",
-      "company": "Star llc",
-      "location": "Remote",
-      "salary": "2000$",
-      "description": "We are seeking Node js developer",
+      "about": "You will work on real-world commercial projects, contributing to frontend or backend development depending on your role.",
+      "requirements": [
+        "Relevant experience for the position",
+        "Understanding of modern development practices",
+        "Ability to work independently",
+        "Good communication skills",
+        "Problem-solving mindset"
+      ],
       "applied": true,
       "saved": true
     }

@@ -8,13 +8,14 @@ import type {
   ToggleSavedJobResponse,
 } from "../types/jobTypes";
 
+const api = import.meta.env.VITE_APP_API_URL;
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: api }),
   tagTypes: ["Jobs"],
   endpoints: (builder) => ({
     getJobs: builder.query<JobsQueryResponse, void>({
-      query: () => "/jobs",
+      query: () => "jobs",
       providesTags: (result) =>
         result
           ? [
