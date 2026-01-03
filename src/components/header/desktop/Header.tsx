@@ -56,8 +56,10 @@ const Header = ({
         {user ? (
           <div className={style.header_account}>
             <div className={style.header_account_title}>
-              <div className={style.header_account_user}
-              style={{ backgroundColor: darkMode ? "#ddd" : "#444" }}>
+              <div
+                className={style.header_account_user}
+                style={{ backgroundColor: darkMode ? "#ddd" : "#444" }}
+              >
                 <IoPerson />
               </div>
               <button
@@ -96,8 +98,24 @@ const Header = ({
           </div>
         ) : (
           <div className={style.header_buttons}>
-            <button onClick={onSignIn}>Sign In</button>
-            <button onClick={onSignUp}>Sign Up</button>
+            <button
+              onClick={onSignIn}
+              className={`${darkMode ? style.darkIcon : style.lightIcon}`}
+            >
+              Sign In
+            </button>
+            <button
+              onClick={onSignUp}
+              className={`${darkMode ? style.darkIcon : style.lightIcon}`}
+            >
+              Sign Up
+            </button>
+            <button
+              onClick={() => setDarkMode((prev) => !prev)}
+              className={style.header_account_mode}
+            >
+              {darkMode ? <MdOutlineLightMode /> : <MdDarkMode color="black" />}
+            </button>
           </div>
         )}
       </div>
