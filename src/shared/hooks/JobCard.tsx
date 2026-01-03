@@ -21,8 +21,9 @@ export const JobCard = ({
   return (
     <div className="jobs_container">
       <h2>{job.title}</h2>
+      <p>Company: {job.company}</p>
       <p>
-        {job.company} | {job.location} | {job.salary}
+        {job.location} | {job.salary}
       </p>
       <p>{job.position}</p>
 
@@ -42,7 +43,7 @@ export const JobCard = ({
           <button
             disabled={applied}
             onClick={() => onApply?.(job)}
-            className="jobs_container_apply"
+            className={`${applied ? "applied" : "jobs_container_apply"}`}
           >
             {applied ? "Applied" : "Apply"}
           </button>
