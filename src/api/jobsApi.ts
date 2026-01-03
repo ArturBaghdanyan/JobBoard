@@ -8,9 +8,11 @@ import type {
   ToggleSavedJobResponse,
 } from "../types/jobTypes";
 
+const api = "http://localhost:4000"
+
 export const jobsApi = createApi({
   reducerPath: "jobsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: api }),
   tagTypes: ["Jobs"],
   endpoints: (builder) => ({
     getJobs: builder.query<JobsQueryResponse, void>({
