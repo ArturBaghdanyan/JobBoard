@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
 import type { Job } from "../../types/jobTypes";
 
-export const useJobFilters = (jobs: Job[]) => {
-  const [searchText, setSearchText] = useState("");
+export const useJobFilters = (jobs: Job[], initialSearch: string = "") => {
+  const [searchText, setSearchText] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState("select category");
   const [selectedPosition, setSelectedPosition] = useState("select position");
 

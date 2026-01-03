@@ -34,7 +34,7 @@ const HomePage = ({darkMode}: HomePageProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchText.trim()) return;
+    if (!searchText.trim()) navigate("/jobs");
     navigate(`/jobs?search=${encodeURIComponent(searchText)}`);
   };
 

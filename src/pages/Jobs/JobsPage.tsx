@@ -8,14 +8,17 @@ import { JobList } from "../../components/jobsList";
 import { CiSearch } from "react-icons/ci";
 
 import style from "./style.module.scss";
+import { useSearchParams } from "react-router-dom";
 
 const JobsPage = () => {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
 
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
+  const searchTerm = searchParams.get("search") || "";
 
   const {
     searchText,
@@ -25,7 +28,7 @@ const JobsPage = () => {
     selectedPosition,
     setSelectedPosition,
     filteredJobs,
-  } = useJobFilters(jobs);
+  } = useJobFilters(jobs, searchTerm);
 
   const selectList = [
     "Frontend Developer",
@@ -87,7 +90,6 @@ const JobsPage = () => {
           <CiSearch />
         </button>
       </form>
-
       <JobList
         jobs={filteredJobs}
         savedJobs={savedJobs}
