@@ -15,7 +15,7 @@
         "Ability to work with REST APIs",
         "Willingness to learn and grow"
       ],
-      "applied": true,
+      "applied": false,
       "saved": true
     },
     {
@@ -33,7 +33,7 @@
         "Basic knowledge of authentication and authorization",
         "Problem-solving skills"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "3",
@@ -50,7 +50,7 @@
         "Familiarity with Git",
         "Good communication skills"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "4",
@@ -271,7 +271,7 @@
         "Willingness to learn",
         "Ability to work in a team"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "17",
@@ -288,7 +288,7 @@
         "Code review experience",
         "Excellent communication skills"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "18",
@@ -322,7 +322,7 @@
         "Motivation to learn",
         "Good communication skills"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "20",
@@ -339,7 +339,7 @@
         "Problem-solving skills",
         "Attention to security"
       ],
-      "applied": true,
+      "applied": false,
       "saved": true
     },
     {
@@ -357,7 +357,7 @@
         "Ability to work with teams",
         "Willingness to learn"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "22",
@@ -374,7 +374,7 @@
         "Ability to document requirements",
         "Attention to detail"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "23",
@@ -391,7 +391,7 @@
         "Incident response experience",
         "Attention to detail"
       ],
-      "applied": true
+      "applied": false
     },
     {
       "id": "faa34e33-c9ae-47cb-b29d-665c7957f4b5",
@@ -408,8 +408,8 @@
         "Good communication skills",
         "Problem-solving mindset"
       ],
-      "applied": true,
-      "saved": true
+      "applied": false,
+      "saved": false
     }
   ]
 }

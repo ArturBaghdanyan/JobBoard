@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { JobCard } from "../../shared/hooks/JobCard";
 import { useJobs } from "../../shared/hooks/useJobs";
 import type { UserProfile } from "../../types/auth";
+import ShowModal from "../../shared/components/showModal";
 
 interface Props {
   user: UserProfile | null;
@@ -8,7 +10,10 @@ interface Props {
 
 const AppliedJobsPage = ({ user }: Props) => {
   const { appliedJobs, savedJobs, toggleSave, onApply } = useJobs(user);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType] = useState<"login" | "success" | null>(null);
 
+  
   if (!appliedJobs.length) return <p>No applied jobs yet</p>;
 
   const reversed = [...appliedJobs].reverse();
@@ -25,8 +30,16 @@ const AppliedJobsPage = ({ user }: Props) => {
           onApply={onApply}
         />
       ))}
+      {showModal && (
+        <ShowModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          modalType={modalType}
+        />
+      )}
     </div>
   );
 };
 
 export default AppliedJobsPage;
+

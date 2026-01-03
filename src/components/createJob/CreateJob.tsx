@@ -1,22 +1,25 @@
 import { useState } from "react";
 import Buttons from "../../shared/components/buttons/Buttons";
 import { useAddJobMutation } from "../../api/jobsApi";
+import type { Job } from "../../types/jobTypes";
 
 import styles from "./style.module.scss";
 
 interface CreateJobProps {
   onClose: () => void;
 }
+
 const CreateJob = ({ onClose }: CreateJobProps) => {
   const [addJob, { isLoading }] = useAddJobMutation();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Omit<Job, "id" | "applied">>({
     title: "",
     position: "",
     company: "",
     location: "",
     salary: "",
-    description: "",
+    about: "",
+    requirements: [],
   });
 
   const handleChange = (
@@ -24,21 +27,27 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
   ) => {
     const { name, value } = e.currentTarget;
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "requirements") {
+      setFormData({
+        ...formData,
+        requirements: value.split(",").map((r) => r.trim()),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       await addJob(formData).unwrap();
+      onClose();
     } catch (err) {
       console.error("Failed to create job:", err);
     }
-    onClose();
   };
 
   return (
@@ -49,6 +58,12 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
           <input
             name="title"
             placeholder="Job Title"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="position"
+            placeholder="Position (e.g. Junior, Senior)"
             onChange={handleChange}
             required
           />
@@ -68,13 +83,17 @@ const CreateJob = ({ onClose }: CreateJobProps) => {
             name="salary"
             placeholder="Salary Range"
             onChange={handleChange}
-            required
           />
           <textarea
-            name="description"
+            name="about"
             placeholder="Job Description"
             onChange={handleChange}
             required
+          />
+          <textarea
+            name="requirements"
+            placeholder="Requirements (comma separated)"
+            onChange={handleChange}
           />
 
           <div className={styles.actions}>

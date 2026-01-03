@@ -18,7 +18,7 @@
 
 .jobs_container_save {
   position: absolute;
-  top: 15px;
+  top: 10px;
   right: 90px;
   font-size: 25px;
 }
@@ -160,7 +160,6 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 580px) {
   .jobs_container_description {
     padding: 0.75rem;

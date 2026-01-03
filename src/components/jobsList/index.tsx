@@ -1,30 +1,56 @@
 import { useAuth } from "../../shared/hooks/useAuth";
-import { useJobs } from "../../shared/hooks/useJobs";
 import { JobCard } from "../../shared/hooks/JobCard";
 import type { Job } from "../../types/jobTypes";
-import Modal from "../../shared/components/Modal/Modal";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import ShowModal from "../../shared/components/showModal";
 
 interface JobListProps {
   jobs: Job[];
+  savedJobs: Job[];
+  appliedJobs: Job[];
+  onToggleSave: (job: Job) => void;
+  onApply: (job: Job) => void;
+  modalType: "login" | "success" | null;
+  setModalType: (type: "login" | "success" | null) => void;
+  showModal: boolean;
+  setShowModal: (show: boolean) => void;
 }
 
-export const JobList = ({ jobs }: JobListProps) => {
+export const JobList = ({
+  jobs,
+  savedJobs,
+  appliedJobs,
+  onToggleSave,
+  onApply,
+  modalType,
+  setModalType,
+  showModal,
+  setShowModal,
+}: JobListProps) => {
   const { user } = useAuth();
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { savedJobs, toggleSave, appliedJobs, onApply } = useJobs(user);
 
-  const reversedJobs = [...jobs].reverse();
 
-  const handleToggleSave = (jobId: Job) => {
+  const handleToggleSave = (job: Job) => {
     if (!user) {
-      setIsModalOpen(true);
+      setModalType("login");
+      setShowModal(true);
       return;
     }
-    toggleSave(jobId);
+    onToggleSave(job);
   };
+
+  const handleApply = (job: Job) => {
+    if (!user) {
+      setModalType("login");
+      setShowModal(true);
+      return;
+    }
+    onApply(job);
+    setModalType("success");
+    setShowModal(true);
+  };
+  
+  const reversedJobs = [...jobs].reverse();
+
   return (
     <div className="jobs container">
       {reversedJobs.map((job) => (
@@ -34,16 +60,16 @@ export const JobList = ({ jobs }: JobListProps) => {
           saved={savedJobs.some((j) => j.id === job.id)}
           applied={appliedJobs.some((j) => j.id === job.id)}
           onToggleSave={handleToggleSave}
-          onApply={onApply}
+          onApply={handleApply}
         />
       ))}
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <div className="modal-content">
-            <h2>Please log in to save jobs</h2>
-            <button onClick={() => navigate("/login")}>Go to Login</button>
-          </div>
-        </Modal>
+
+      {showModal && (
+        <ShowModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          modalType={modalType}
+        />
       )}
     </div>
   );

@@ -1,8 +1,8 @@
 import React from "react";
-
-import style from "./style.module.scss";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { MdOutlineFileDownload } from "react-icons/md";
+
+import style from "./style.module.scss";
 
 interface IUpload {
   cvFile: File | null;

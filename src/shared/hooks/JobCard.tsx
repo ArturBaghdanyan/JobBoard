@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import type { Job } from "../../types/jobTypes";
-import { useState } from "react";
 
 interface JobCardProps {
   job: Job;

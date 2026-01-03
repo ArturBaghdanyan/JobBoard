@@ -1,8 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { UserDetails, UserProfile } from "../../../types/auth";
+import Buttons from "../../../shared/components/buttons/Buttons";
 
 import style from "./style.module.scss";
-import Buttons from "../../../shared/components/buttons/Buttons";
 
 interface IDetails {
   initialData?: UserProfile["details"];

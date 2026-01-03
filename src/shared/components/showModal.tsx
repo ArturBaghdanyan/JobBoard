@@ -4,7 +4,7 @@ import Modal from "./Modal/Modal";
 interface IShowModal {
   showModal: boolean;
   setShowModal: (e: boolean) => void;
-  modalType: string | null;
+  modalType?: string | null;
 }
 
 const ShowModal = ({ showModal, setShowModal, modalType }: IShowModal) => {

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuth } from "../../shared/hooks/useAuth";
+import { useJobs } from "../../shared/hooks/useJobs";
 import ShowModal from "../../shared/components/showModal";
 import { useJobFilters } from "../../shared/hooks/useFilterJob";
 import { useGetJobsQuery } from "../../api/jobsApi";
@@ -8,12 +10,14 @@ import { CiSearch } from "react-icons/ci";
 import style from "./style.module.scss";
 
 const JobsPage = () => {
+  const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
+  const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
 
   const [showModal, setShowModal] = useState(false);
-  const [modalType] = useState<"login" | "success" | null>(null);
+  const [modalType, setModalType] = useState<"login" | "success" | null>(null);
 
-    const {
+  const {
     searchText,
     setSearchText,
     selectedCategory,
@@ -84,7 +88,17 @@ const JobsPage = () => {
         </button>
       </form>
 
-      <JobList jobs={filteredJobs} />
+      <JobList
+        jobs={filteredJobs}
+        savedJobs={savedJobs}
+        appliedJobs={appliedJobs}
+        onToggleSave={toggleSave}
+        onApply={onApply}
+        modalType={modalType}
+        setModalType={setModalType}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
 
       {showModal && (
         <ShowModal
