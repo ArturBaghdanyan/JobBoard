@@ -14,6 +14,15 @@ export const saveJob = (job: Job): void => {
   }
 };
 
+export const editJob = (job: Job): void => {
+    const saved = getSavedJobs();
+    const index = saved.findIndex((j) => j.id === job.id);
+    if (index !== -1) {
+      saved[index] = job;
+      localStorage.setItem("saved-job", JSON.stringify(saved));
+    }
+}
+
 export const applyJob = (job: Job): void => {
   const applied = getAppliedJobs();
   if (!applied.some((j) => j.id === job.id)) {

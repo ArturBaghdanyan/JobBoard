@@ -1,13 +1,12 @@
 {
   "jobs": [
     {
-      "id": "1",
-      "title": "Frontend Developer",
-      "position": "Junior",
-      "company": "TechCorp",
+      "title": "Backend developer",
+      "position": "Senior",
+      "company": "TechComp",
       "location": "Yerevan, Armenia",
-      "salary": "500$ - 1000$",
-      "about": "You will work on modern React applications, building reusable UI components and responsive layouts. You will collaborate with designers and backend developers to deliver high-quality user experiences.",
+      "salary": "$3500-5000",
+      "about": "We are seeking Senior Backend developer",
       "requirements": [
         "Basic knowledge of HTML, CSS, and JavaScript",
         "Understanding of React fundamentals",
@@ -15,8 +14,7 @@
         "Ability to work with REST APIs",
         "Willingness to learn and grow"
       ],
-      "applied": false,
-      "saved": true
+      "id": "1"
     },
     {
       "id": "2",

@@ -6,6 +6,7 @@ import type {
   ApplyJobMutationResponse,
   Job,
   ToggleSavedJobResponse,
+  EditJobRequest,
 } from "../types/jobTypes";
 
 const isProduction = import.meta.env.PROD;
@@ -77,6 +78,17 @@ export const jobsApi = createApi({
       invalidatesTags: isProduction ? [] : [{ type: "Jobs", id: "LIST" }],
     }),
 
+    editJob: builder.mutation<Job, EditJobRequest>({
+      query: ({ id, data }) => {
+        return {
+          url: isProduction ? "jobs.json" : `/jobs/${id}`,
+          method: isProduction ? "GET" : "PUT",
+          body: isProduction ? undefined : data,
+        };
+      },
+      invalidatesTags: isProduction ? [] : [{ type: "Jobs", id: "LIST" }],
+    }),
+
     applyJob: builder.mutation<
       ApplyJobMutationResponse,
       ApplyJobMutationRequest
@@ -131,6 +143,7 @@ export const {
   useGetJobsQuery,
   useAddJobMutation,
   useGetJobByIdQuery,
+  useEditJobMutation,
   useApplyJobMutation,
   useToggleSavedJobMutation,
 } = jobsApi;

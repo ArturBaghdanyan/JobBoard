@@ -7,7 +7,11 @@ import { Register } from "../AuthLayout/Register/Register";
 import Modal from "../shared/components/Modal/Modal";
 import CreateJob from "../components/createJob/CreateJob";
 
+import UpdateJob from "../components/update-job/UpdateJob";
 import style from "./layout.module.scss";
+import type { Job } from "../types/jobTypes";
+import { useJobs } from "../shared/hooks/useJobs";
+import { useAuth } from "../shared/hooks/useAuth";
 
 interface MainLayoutProps {
   darkMode: boolean;
@@ -15,15 +19,30 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useAuth();
+  const { updateJob } = useJobs(user);
+  const [modalType, setModalType] = useState<"create" | "edit" | null>(null);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
   const isLoginOpen = location.pathname === "/login";
   const isRegisterOpen = location.pathname === "/register";
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openCreateModal = () => {
+    setSelectedJob(null);
+    setModalType("create");
+  };
+
+  const openEditModal = (job: Job) => {
+    setSelectedJob(job);
+    setModalType("edit");
+  };
+
+  const closeModal = () => {
+    setModalType(null);
+    setSelectedJob(null);
+  };
 
   const handleClose = () => navigate("/");
 
@@ -32,7 +51,7 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
       <AppHeader
         onSignIn={() => navigate("/login")}
         onSignUp={() => navigate("/register")}
-        onCreateJob={openModal}
+        onCreateJob={openCreateModal}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
@@ -50,11 +69,18 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
       )}
 
       <main className={`${darkMode ? "dark" : "light"} ${style.content}`}>
-        <Outlet />
+        <Outlet context={{ openEditModal }} />
       </main>
 
-      {isModalOpen && <CreateJob onClose={closeModal} />}
+      {modalType === "create" && <CreateJob onClose={closeModal} />}
 
+      {modalType === "edit" && selectedJob && (
+        <UpdateJob
+          job={selectedJob}
+          onClose={closeModal}
+          onUpdate={updateJob}
+        />
+      )}
       <Footer darkMode={darkMode} />
     </div>
   );

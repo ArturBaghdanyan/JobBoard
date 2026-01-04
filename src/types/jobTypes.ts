@@ -8,7 +8,13 @@ export type Job = {
   about: string;
   requirements: string[];
   applied?: boolean;
-  saved?: boolean; 
+  saved?: boolean;
+  edited?: boolean;
+};
+
+export type EditJobRequest = {
+  id: string;
+  data: Omit<Job, "id">;
 };
 
 export type JobsQueryResponse = {

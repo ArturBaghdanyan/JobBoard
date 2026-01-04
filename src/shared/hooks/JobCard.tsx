@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import type { Job } from "../../types/jobTypes";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { MdEdit, MdDelete } from "react-icons/md";
 
 interface JobCardProps {
   job: Job;
   saved?: boolean;
   applied?: boolean;
   onApply?: (job: Job) => void;
+  onEdit?: (job: Job) => void;
   onToggleSave?: (job: Job) => void;
 }
 
@@ -16,8 +19,10 @@ export const JobCard = ({
   applied = false,
   onApply,
   onToggleSave,
+  onEdit,
 }: JobCardProps) => {
   const [showDescription, setShowDescription] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="jobs_container">
       <h2>{job.title}</h2>
@@ -49,12 +54,34 @@ export const JobCard = ({
           </button>
 
           <button
+            onClick={() => setIsModalOpen(!isModalOpen)}
+            className="jobs_container_menu"
+          >
+            <HiDotsHorizontal />
+          </button>
+
+          {isModalOpen && (
+            <div className="jobs_modal">
+              <div className="jobs_modal_row" onClick={() => onEdit?.(job)}>
+                <MdEdit />
+                <span>Edit</span>
+              </div>
+
+              <div className="jobs_modal_row">
+                <MdDelete />
+                <span>Delete</span>
+              </div>
+            </div>
+          )}
+
+          <button
             className="jobs_container_more"
             onClick={() => setShowDescription((prev) => !prev)}
           >
             {showDescription ? "Hide" : "View more"}
           </button>
         </div>
+
         {showDescription && job.requirements && (
           <div className="jobs_container_description">
             <h3>About the Job</h3>

@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { useAuth } from "../../shared/hooks/useAuth";
 import { useJobs } from "../../shared/hooks/useJobs";
+import { useOutletContext, useSearchParams } from "react-router-dom";
 import ShowModal from "../../shared/components/showModal";
 import { useJobFilters } from "../../shared/hooks/useFilterJob";
 import { useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 import { CiSearch } from "react-icons/ci";
+import type { Job } from "../../types/jobTypes";
 
 import style from "./style.module.scss";
-import { useSearchParams } from "react-router-dom";
 
 const JobsPage = () => {
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
+  const { openEditModal } = useOutletContext<{
+    openEditModal: (job: Job) => void;
+  }>();
 
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
@@ -96,6 +100,7 @@ const JobsPage = () => {
         appliedJobs={appliedJobs}
         onToggleSave={toggleSave}
         onApply={onApply}
+        onEdit={openEditModal}
         modalType={modalType}
         setModalType={setModalType}
         showModal={showModal}

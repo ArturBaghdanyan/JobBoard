@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import {
   getSavedJobs,
   getAppliedJobs,
-  saveJob,
+  saveJob as saveJobStorage,
   removeSavedJob,
-  applyJob,
+  applyJob as applyJobStorage,
+  editJob as editJobStorage,
 } from "../utils/localStorageJobs";
+
 import type { Job } from "../../types/jobTypes";
 import type { UserProfile } from "../../types/auth";
 
@@ -24,19 +26,24 @@ export const useJobs = (user: UserProfile | null) => {
 
   const toggleSave = (job: Job) => {
     const isSaved = savedJobs.some((j) => j.id === job.id);
-    
+
     if (isSaved) removeSavedJob(job.id);
-    else if (user) saveJob(job);
+    else if (user) saveJobStorage(job);
     setSavedJobs(getSavedJobs());
   };
 
+  const updateJob = (updatedJob: Job) => {
+    if (!user) return;
+
+    editJobStorage(updatedJob);
+    setSavedJobs(getSavedJobs());
+  };
   const onApply = (job: Job) => {
-    
     if (!appliedJobs.some((j) => j.id === job.id)) {
-      applyJob(job);
+      applyJobStorage(job);
       setAppliedJobs(getAppliedJobs());
     }
   };
 
-  return { savedJobs, appliedJobs, toggleSave, onApply };
+  return { savedJobs, appliedJobs, toggleSave, onApply, updateJob };
 };

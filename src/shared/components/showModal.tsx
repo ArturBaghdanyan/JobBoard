@@ -3,7 +3,7 @@ import Modal from "./Modal/Modal";
 
 interface IShowModal {
   showModal: boolean;
-  setShowModal: (e: boolean) => void;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   modalType?: string | null;
 }
 

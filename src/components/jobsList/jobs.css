@@ -26,15 +26,15 @@ p {
 
 .jobs_container_save {
   position: absolute;
-  top: 10px;
-  right: 90px;
+  top: 11px;
+  right: 120px;
   font-size: 25px;
 }
 
 .jobs_container_apply {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 45px;
   background: none;
   border-radius: 20px;
   width: 70px;
@@ -50,7 +50,7 @@ p {
   cursor: not-allowed;
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 45px;
   background: #dfdede;
   border-radius: 20px;
   width: 70px;
@@ -64,6 +64,13 @@ p {
   transition: 1s ease-in-out;
   color: white;
 }
+
+  .jobs-left {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
 .jobs_container_more {
   text-align: end;
@@ -91,8 +98,55 @@ p {
   }
 
   .jobs_container_save {
-    right: 90px;
+    position: static;
   }
+  .applied {
+    position: static;
+  }
+  .jobs_container_apply {
+    position: static;
+  }
+}
+
+.jobs_container_menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 18px;
+    z-index: 1000;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.jobs_modal {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    width: 165px;
+    background: white;
+    padding: 1rem 0 0 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.jobs_modal_row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    color: #333;
+}
+
+.jobs_modal_row:nth-of-type(1):hover {
+    color: lightseagreen;
+    transition: 0.3s ease-in-out;
+}
+.jobs_modal_row:nth-of-type(2):hover {
+    color: rgb(233, 31, 31);
+    transition: 0.3s ease-in-out;
 }
 @media (max-width: 580px) {
   .jobs_container {

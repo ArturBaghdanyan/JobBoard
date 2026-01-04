@@ -3,6 +3,9 @@ import { JobCard } from "../../shared/hooks/JobCard";
 import type { Job } from "../../types/jobTypes";
 import ShowModal from "../../shared/components/showModal";
 
+import "./jobs.css";
+import type React from "react";
+
 interface JobListProps {
   jobs: Job[];
   savedJobs: Job[];
@@ -12,7 +15,8 @@ interface JobListProps {
   modalType: "login" | "success" | null;
   setModalType: (type: "login" | "success" | null) => void;
   showModal: boolean;
-  setShowModal: (show: boolean) => void;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  onEdit?: (job: Job) => void;
 }
 
 export const JobList = ({
@@ -25,9 +29,9 @@ export const JobList = ({
   setModalType,
   showModal,
   setShowModal,
+  onEdit,
 }: JobListProps) => {
   const { user } = useAuth();
-
 
   const handleToggleSave = (job: Job) => {
     if (!user) {
@@ -38,6 +42,14 @@ export const JobList = ({
     onToggleSave(job);
   };
 
+  const handleEdit = (job: Job) => {
+    if (!user) {
+      setModalType("login");
+      setShowModal(true);
+      return;
+    }
+    onEdit?.(job);
+  };
   const handleApply = (job: Job) => {
     if (!user) {
       setModalType("login");
@@ -48,7 +60,7 @@ export const JobList = ({
     setModalType("success");
     setShowModal(true);
   };
-  
+
   const reversedJobs = [...jobs].reverse();
 
   return (
@@ -61,6 +73,7 @@ export const JobList = ({
           applied={appliedJobs.some((j) => j.id === job.id)}
           onToggleSave={handleToggleSave}
           onApply={handleApply}
+          onEdit={() => handleEdit(job)}
         />
       ))}
 

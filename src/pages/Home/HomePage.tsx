@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { useState } from "react";
 import { useJobs } from "../../shared/hooks/useJobs";
 import { useAuth } from "../../shared/hooks/useAuth";
@@ -14,7 +14,7 @@ interface HomePageProps {
   darkMode: boolean;
 }
 
-const HomePage = ({darkMode}: HomePageProps) => {
+const HomePage = ({ darkMode }: HomePageProps) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
@@ -22,6 +22,9 @@ const HomePage = ({darkMode}: HomePageProps) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
   const [searchText, setSearchText] = useState("");
+  const { openEditModal } = useOutletContext<{
+    openEditModal: (job: Job) => void;
+  }>();
 
   const handleToggleSave = (job: Job) => {
     if (!user) {
@@ -69,6 +72,7 @@ const HomePage = ({darkMode}: HomePageProps) => {
         setModalType={setModalType}
         showModal={showModal}
         setShowModal={setShowModal}
+        onEdit={openEditModal}
       />
       {showModal && (
         <ShowModal
@@ -78,7 +82,12 @@ const HomePage = ({darkMode}: HomePageProps) => {
         />
       )}
 
-      <Link to="/jobs" className={`${darkMode ? style.home_view_dark : style.home_view_light} ${style.home_view}`}>
+      <Link
+        to="/jobs"
+        className={`${
+          darkMode ? style.home_view_dark : style.home_view_light
+        } ${style.home_view}`}
+      >
         View All Jobs
       </Link>
     </div>
