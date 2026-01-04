@@ -5,13 +5,14 @@ import Footer from "../components/footer/Footer";
 import { Login } from "../AuthLayout/Login/Login";
 import { Register } from "../AuthLayout/Register/Register";
 import Modal from "../shared/components/Modal/Modal";
-import CreateJob from "../components/createJob/CreateJob";
+import CreateJob from "../components/create-job/CreateJob";
 
 import UpdateJob from "../components/update-job/UpdateJob";
 import style from "./layout.module.scss";
 import type { Job } from "../types/jobTypes";
 import { useJobs } from "../shared/hooks/useJobs";
 import { useAuth } from "../shared/hooks/useAuth";
+import RemoveJobItem from "../components/remove-job/RemoveJobItem";
 
 interface MainLayoutProps {
   darkMode: boolean;
@@ -20,11 +21,14 @@ interface MainLayoutProps {
 
 const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
   const { user } = useAuth();
-  const { updateJob } = useJobs(user);
-  const [modalType, setModalType] = useState<"create" | "edit" | null>(null);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { updateJob, removeJob } = useJobs(user);
+  const [modalType, setModalType] = useState<
+    "create" | "edit" | "remove" | null
+  >(null);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   const isLoginOpen = location.pathname === "/login";
   const isRegisterOpen = location.pathname === "/register";
@@ -37,6 +41,17 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
   const openEditModal = (job: Job) => {
     setSelectedJob(job);
     setModalType("edit");
+  };
+
+  const handleConfirmDelete = (job: Job) => {
+    // if (selectedJob && selectedJob.id) {
+    //   removeJob(selectedJob.id);
+    //   closeModal();
+    // }
+    if (job.id) {
+      removeJob(job.id);
+      closeModal();
+    }
   };
 
   const closeModal = () => {
@@ -69,7 +84,7 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
       )}
 
       <main className={`${darkMode ? "dark" : "light"} ${style.content}`}>
-        <Outlet context={{ openEditModal }} />
+        <Outlet context={{ openEditModal, handleConfirmDelete }} />
       </main>
 
       {modalType === "create" && <CreateJob onClose={closeModal} />}
@@ -79,6 +94,14 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
           job={selectedJob}
           onClose={closeModal}
           onUpdate={updateJob}
+        />
+      )}
+
+      {modalType === "remove" && selectedJob && (
+        <RemoveJobItem
+          closeModal={closeModal}
+          selectedJob={selectedJob}
+          handleConfirmDelete={() => handleConfirmDelete(selectedJob)}
         />
       )}
       <Footer darkMode={darkMode} />

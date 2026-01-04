@@ -17,6 +17,7 @@ interface JobListProps {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   onEdit?: (job: Job) => void;
+  onRemove?: (job: Job) => void;
 }
 
 export const JobList = ({
@@ -30,6 +31,7 @@ export const JobList = ({
   showModal,
   setShowModal,
   onEdit,
+  onRemove,
 }: JobListProps) => {
   const { user } = useAuth();
 
@@ -61,6 +63,10 @@ export const JobList = ({
     setShowModal(true);
   };
 
+  const handleRemoveJob = (job: Job) => {
+    onRemove?.(job);
+  }
+
   const reversedJobs = [...jobs].reverse();
 
   return (
@@ -74,6 +80,7 @@ export const JobList = ({
           onToggleSave={handleToggleSave}
           onApply={handleApply}
           onEdit={() => handleEdit(job)}
+          onRemove={() => handleRemoveJob(job)}
         />
       ))}
 

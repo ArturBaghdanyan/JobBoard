@@ -11,6 +11,7 @@ interface JobCardProps {
   onApply?: (job: Job) => void;
   onEdit?: (job: Job) => void;
   onToggleSave?: (job: Job) => void;
+  onRemove?: (job: string) => void;
 }
 
 export const JobCard = ({
@@ -20,9 +21,11 @@ export const JobCard = ({
   onApply,
   onToggleSave,
   onEdit,
+  onRemove,
 }: JobCardProps) => {
   const [showDescription, setShowDescription] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   return (
     <div className="jobs_container">
       <h2>{job.title}</h2>
@@ -67,7 +70,10 @@ export const JobCard = ({
                 <span>Edit</span>
               </div>
 
-              <div className="jobs_modal_row">
+              <div
+                className="jobs_modal_row"
+                onClick={() => onRemove?.(job.id)}
+              >
                 <MdDelete />
                 <span>Delete</span>
               </div>

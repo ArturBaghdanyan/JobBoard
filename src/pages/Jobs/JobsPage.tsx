@@ -16,8 +16,9 @@ const JobsPage = () => {
   const [searchParams] = useSearchParams();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
-  const { openEditModal } = useOutletContext<{
+  const { openEditModal, openRemoveModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
+    openRemoveModal: (job: Job) => void;
   }>();
 
   const [showModal, setShowModal] = useState(false);
@@ -105,6 +106,7 @@ const JobsPage = () => {
         setModalType={setModalType}
         showModal={showModal}
         setShowModal={setShowModal}
+        onRemove={openRemoveModal}
       />
 
       {showModal && (

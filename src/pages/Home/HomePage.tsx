@@ -22,8 +22,9 @@ const HomePage = ({ darkMode }: HomePageProps) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
   const [searchText, setSearchText] = useState("");
-  const { openEditModal } = useOutletContext<{
+  const { openEditModal, openRemoveModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
+    openRemoveModal: (job: Job) => void;
   }>();
 
   const handleToggleSave = (job: Job) => {
@@ -73,6 +74,7 @@ const HomePage = ({ darkMode }: HomePageProps) => {
         showModal={showModal}
         setShowModal={setShowModal}
         onEdit={openEditModal}
+        onRemove={openRemoveModal}
       />
       {showModal && (
         <ShowModal

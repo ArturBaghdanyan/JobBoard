@@ -3,7 +3,7 @@ import {
   getSavedJobs,
   getAppliedJobs,
   saveJob as saveJobStorage,
-  removeSavedJob,
+  removeSavedJob as removeJobStorage,
   applyJob as applyJobStorage,
   editJob as editJobStorage,
 } from "../utils/localStorageJobs";
@@ -27,7 +27,7 @@ export const useJobs = (user: UserProfile | null) => {
   const toggleSave = (job: Job) => {
     const isSaved = savedJobs.some((j) => j.id === job.id);
 
-    if (isSaved) removeSavedJob(job.id);
+    if (isSaved) removeJobStorage(job.id);
     else if (user) saveJobStorage(job);
     setSavedJobs(getSavedJobs());
   };
@@ -45,5 +45,13 @@ export const useJobs = (user: UserProfile | null) => {
     }
   };
 
-  return { savedJobs, appliedJobs, toggleSave, onApply, updateJob };
+  const removeJob = (jobId: string) => {
+    if (!user) return;
+
+    removeJobStorage(jobId);
+    setSavedJobs(getSavedJobs());
+    window.dispatchEvent(new Event("storage"));
+  };
+
+  return { savedJobs, appliedJobs, toggleSave, onApply, updateJob, removeJob };
 };
