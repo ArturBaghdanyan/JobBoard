@@ -61,6 +61,7 @@ const ShowModal = ({ showModal, setShowModal, modalType }: IShowModal) => {
               </div>
             </>
           )}
+
         </Modal>
       )}
     </>

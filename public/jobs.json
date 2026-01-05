@@ -34,7 +34,6 @@
       "applied": false
     },
     {
-      "id": "3",
       "title": "Fullstack Developer",
       "position": "Junior",
       "company": "WebSolutions",
@@ -46,9 +45,9 @@
         "Basic knowledge of Node.js",
         "Understanding of REST APIs",
         "Familiarity with Git",
-        "Good communication skills"
+        "Good communication skills."
       ],
-      "applied": false
+      "id": "3"
     },
     {
       "id": "4",

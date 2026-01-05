@@ -1,10 +1,10 @@
 import { useAuth } from "../../shared/hooks/useAuth";
 import { JobCard } from "../../shared/hooks/JobCard";
 import type { Job } from "../../types/jobTypes";
-import ShowModal from "../../shared/components/showModal";
 
-import "./jobs.css";
 import type React from "react";
+import "./jobs.css";
+import ShowModal from "../../shared/components/showModal";
 
 interface JobListProps {
   jobs: Job[];
@@ -26,12 +26,12 @@ export const JobList = ({
   appliedJobs,
   onToggleSave,
   onApply,
-  modalType,
   setModalType,
-  showModal,
   setShowModal,
+  showModal,
   onEdit,
   onRemove,
+  modalType,
 }: JobListProps) => {
   const { user } = useAuth();
 
@@ -63,10 +63,14 @@ export const JobList = ({
     setShowModal(true);
   };
 
-  const handleRemoveJob = (job: Job) => {
+  const handleRemoveClick = (job: Job) => {
+    if (!user) {
+      setModalType("login");
+      setShowModal(true);
+      return;
+    }
     onRemove?.(job);
-  }
-
+  };
   const reversedJobs = [...jobs].reverse();
 
   return (
@@ -80,10 +84,12 @@ export const JobList = ({
           onToggleSave={handleToggleSave}
           onApply={handleApply}
           onEdit={() => handleEdit(job)}
-          onRemove={() => handleRemoveJob(job)}
+          onRemove={handleRemoveClick}
+          modalType={modalType}
+          showModal={showModal}
+          setShowModal={setShowModal}
         />
       ))}
-
       {showModal && (
         <ShowModal
           showModal={showModal}

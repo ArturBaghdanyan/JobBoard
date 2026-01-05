@@ -11,7 +11,10 @@ interface JobCardProps {
   onApply?: (job: Job) => void;
   onEdit?: (job: Job) => void;
   onToggleSave?: (job: Job) => void;
-  onRemove?: (job: string) => void;
+  onRemove?: (job: Job) => void;
+  modalType?: "login" | "success" | null;
+  showModal?: boolean | undefined;
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const JobCard = ({
@@ -25,7 +28,7 @@ export const JobCard = ({
 }: JobCardProps) => {
   const [showDescription, setShowDescription] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   return (
     <div className="jobs_container">
       <h2>{job.title}</h2>
@@ -72,7 +75,10 @@ export const JobCard = ({
 
               <div
                 className="jobs_modal_row"
-                onClick={() => onRemove?.(job.id)}
+                onClick={() => {
+                  onRemove?.(job);
+                  setIsModalOpen(false);
+                }}
               >
                 <MdDelete />
                 <span>Delete</span>

@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../shared/hooks/useAuth";
 import { useJobs } from "../../shared/hooks/useJobs";
 import { useOutletContext, useSearchParams } from "react-router-dom";
-import ShowModal from "../../shared/components/showModal";
 import { useJobFilters } from "../../shared/hooks/useFilterJob";
 import { useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
@@ -10,21 +9,27 @@ import { CiSearch } from "react-icons/ci";
 import type { Job } from "../../types/jobTypes";
 
 import style from "./style.module.scss";
+import RemoveJobItem from "../../components/remove-job/RemoveJobItem";
 
 const JobsPage = () => {
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
-  const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
+  const { savedJobs, appliedJobs, toggleSave, onApply, syncServerData } =
+    useJobs(user);
   const { openEditModal, openRemoveModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
     openRemoveModal: (job: Job) => void;
   }>();
-
+  const [jobToDelete, setJobToDelete] = useState<Job | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
   const searchTerm = searchParams.get("search") || "";
-
+  const [displayJobs, setDisplayJobs] = useState<Job[]>(() => {
+    const stored = localStorage.getItem("jobs_list");
+    return stored ? JSON.parse(stored) : [];
+  });
   const {
     searchText,
     setSearchText,
@@ -32,7 +37,6 @@ const JobsPage = () => {
     setSelectedCategory,
     selectedPosition,
     setSelectedPosition,
-    filteredJobs,
   } = useJobFilters(jobs, searchTerm);
 
   const selectList = [
@@ -52,6 +56,43 @@ const JobsPage = () => {
   ];
   const positions = ["Intern", "Junior", "Middle", "Senior", "Team Lead"];
 
+  const handleConfirmDelete = () => {
+    if (jobToDelete) {
+      setIsDeleteModalOpen(false);
+      setJobToDelete(null);
+      setModalType("success");
+      setShowModal(true);
+    }
+  };
+
+  useEffect(() => {
+    const stored = localStorage.getItem("jobs_list");
+
+    if (!stored && jobs.length > 0) {
+      localStorage.setItem("jobs_list", JSON.stringify(jobs));
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDisplayJobs(jobs);
+      syncServerData(jobs);
+    } else if (stored) {
+      setDisplayJobs(JSON.parse(stored));
+    }
+  }, [jobs]);
+  useEffect(() => {
+    const handleSync = () => {
+      const stored = localStorage.getItem("jobs_list");
+      if (stored) {
+        setDisplayJobs(JSON.parse(stored));
+      }
+    };
+
+    window.addEventListener("storage", handleSync);
+    window.addEventListener("local-jobs-updated", handleSync);
+
+    return () => {
+      window.removeEventListener("storage", handleSync);
+      window.removeEventListener("local-jobs-updated", handleSync);
+    };
+  }, []);
   if (isLoading) return <p>Loading...</p>;
 
   return (
@@ -95,8 +136,9 @@ const JobsPage = () => {
           <CiSearch />
         </button>
       </form>
+
       <JobList
-        jobs={filteredJobs}
+        jobs={displayJobs}
         savedJobs={savedJobs}
         appliedJobs={appliedJobs}
         onToggleSave={toggleSave}
@@ -108,12 +150,11 @@ const JobsPage = () => {
         setShowModal={setShowModal}
         onRemove={openRemoveModal}
       />
-
-      {showModal && (
-        <ShowModal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          modalType={modalType}
+      {isDeleteModalOpen && jobToDelete && (
+        <RemoveJobItem
+          selectedJob={jobToDelete}
+          closeModal={() => setIsDeleteModalOpen(false)}
+          handleConfirmDelete={handleConfirmDelete}
         />
       )}
     </section>

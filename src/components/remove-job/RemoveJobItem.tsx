@@ -1,4 +1,3 @@
-import Modal from "../../shared/components/Modal/Modal";
 import style from "./style.module.scss";
 
 interface RemoveJobItemProps {
@@ -15,11 +14,11 @@ const RemoveJobItem = ({
   handleConfirmDelete,
 }: RemoveJobItemProps) => {
   return (
-    <Modal onClose={closeModal}>
-      <div className={style.delete_modal}>
+    <div onClick={closeModal} className={style.modal_overlay}>
+      <div className={style.modal_content} onClick={(e) => e.stopPropagation()}>
         <h2>Confirm Deletion</h2>
         <p>Are you sure you want to delete the job "{selectedJob.title}"?</p>
-        <div className={style.delete_modal_buttons}>
+        <div className={style.modal_content_buttons}>
           <button onClick={closeModal} className={style.cancel_button}>
             Cancel
           </button>
@@ -31,7 +30,7 @@ const RemoveJobItem = ({
           </button>
         </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 

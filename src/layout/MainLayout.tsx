@@ -8,11 +8,11 @@ import Modal from "../shared/components/Modal/Modal";
 import CreateJob from "../components/create-job/CreateJob";
 
 import UpdateJob from "../components/update-job/UpdateJob";
-import style from "./layout.module.scss";
 import type { Job } from "../types/jobTypes";
 import { useJobs } from "../shared/hooks/useJobs";
 import { useAuth } from "../shared/hooks/useAuth";
 import RemoveJobItem from "../components/remove-job/RemoveJobItem";
+import style from "./layout.module.scss";
 
 interface MainLayoutProps {
   darkMode: boolean;
@@ -43,22 +43,30 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
     setModalType("edit");
   };
 
-  const handleConfirmDelete = (job: Job) => {
-    // if (selectedJob && selectedJob.id) {
-    //   removeJob(selectedJob.id);
-    //   closeModal();
-    // }
-    if (job.id) {
-      removeJob(job.id);
-      closeModal();
-    }
-  };
-
   const closeModal = () => {
     setModalType(null);
     setSelectedJob(null);
   };
 
+  const openRemoveModal = (job: Job) => {
+    setSelectedJob(job);
+    setModalType("remove");
+  };
+  const handleConfirmDelete = () => {
+    if (selectedJob) {
+      removeJob(selectedJob.id);
+      const storedJobs = localStorage.getItem("jobs_list");
+      if (storedJobs) {
+        const parsedJobs: Job[] = JSON.parse(storedJobs);
+        const filteredJobs = parsedJobs.filter(
+          (item) => item.id !== selectedJob.id
+        );
+        localStorage.setItem("jobs_list", JSON.stringify(filteredJobs));
+      }
+    }
+    closeModal();
+    window.dispatchEvent(new Event("local-jobs-updated"));
+  };
   const handleClose = () => navigate("/");
 
   return (
@@ -84,7 +92,7 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
       )}
 
       <main className={`${darkMode ? "dark" : "light"} ${style.content}`}>
-        <Outlet context={{ openEditModal, handleConfirmDelete }} />
+        <Outlet context={{ openEditModal, openRemoveModal }} />
       </main>
 
       {modalType === "create" && <CreateJob onClose={closeModal} />}
@@ -96,12 +104,11 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
           onUpdate={updateJob}
         />
       )}
-
       {modalType === "remove" && selectedJob && (
         <RemoveJobItem
-          closeModal={closeModal}
           selectedJob={selectedJob}
-          handleConfirmDelete={() => handleConfirmDelete(selectedJob)}
+          closeModal={closeModal}
+          handleConfirmDelete={handleConfirmDelete}
         />
       )}
       <Footer darkMode={darkMode} />

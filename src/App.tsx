@@ -19,6 +19,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
+  
   return (
     <Routes>
       <Route

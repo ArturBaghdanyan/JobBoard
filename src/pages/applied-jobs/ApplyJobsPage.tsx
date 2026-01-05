@@ -28,6 +28,7 @@ const AppliedJobsPage = ({ user }: Props) => {
           applied={true}
           onToggleSave={toggleSave}
           onApply={onApply}
+          
         />
       ))}
       {showModal && (

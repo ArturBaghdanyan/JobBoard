@@ -15,6 +15,17 @@ export const useJobs = (user: UserProfile | null) => {
   const [savedJobs, setSavedJobs] = useState<Job[]>(getSavedJobs());
   const [appliedJobs, setAppliedJobs] = useState<Job[]>(getAppliedJobs());
 
+  const syncServerData = (serverJobs: Job[]) => {
+    localStorage.setItem("all_jobs", JSON.stringify(serverJobs));
+    window.dispatchEvent(new Event("storage"));
+  };
+
+  const syncStorage = () => {
+    setSavedJobs(getSavedJobs());
+    setAppliedJobs(getAppliedJobs());
+    window.dispatchEvent(new Event("storage"));
+  };
+
   useEffect(() => {
     const handleStorage = () => {
       setSavedJobs(getSavedJobs());
@@ -29,14 +40,14 @@ export const useJobs = (user: UserProfile | null) => {
 
     if (isSaved) removeJobStorage(job.id);
     else if (user) saveJobStorage(job);
-    setSavedJobs(getSavedJobs());
+    syncStorage();
   };
 
   const updateJob = (updatedJob: Job) => {
     if (!user) return;
 
     editJobStorage(updatedJob);
-    setSavedJobs(getSavedJobs());
+    syncStorage();
   };
   const onApply = (job: Job) => {
     if (!appliedJobs.some((j) => j.id === job.id)) {
@@ -45,13 +56,21 @@ export const useJobs = (user: UserProfile | null) => {
     }
   };
 
-  const removeJob = (jobId: string) => {
+  const removeJob = (job: string) => {
     if (!user) return;
 
-    removeJobStorage(jobId);
-    setSavedJobs(getSavedJobs());
+    removeJobStorage(job);
+    syncStorage();
     window.dispatchEvent(new Event("storage"));
   };
 
-  return { savedJobs, appliedJobs, toggleSave, onApply, updateJob, removeJob };
+  return {
+    savedJobs,
+    appliedJobs,
+    toggleSave,
+    onApply,
+    updateJob,
+    removeJob,
+    syncServerData,
+  };
 };
