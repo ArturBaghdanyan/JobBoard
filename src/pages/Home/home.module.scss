@@ -80,11 +80,11 @@
     }
     &_dark {
       background: var(--input-bg);
-      color: black;
+      color: var(--input-text);
     }
     &_light {
       background: #f2f2f2;
-      color: black;
+      color: var(--input-text);
     }
   }
   @media (max-width: 1280px) {
