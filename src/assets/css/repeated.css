@@ -1,8 +1,12 @@
 .dark {
-  --input-bg: #959595;
-  --input-text: black;
+  background: #959595;
+  color: black;
 }
 .light {
   background: white;
   color: black;
+}
+input {
+  background-color: var(--input-bg);
+  color: var(--input-text);
 }
