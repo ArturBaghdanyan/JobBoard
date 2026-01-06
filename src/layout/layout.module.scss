@@ -18,8 +18,8 @@ body {
 }
 
 .dark {
-  background: #2c2c2c;
-  color: white;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 .light {
   background: #c0deff;
