@@ -22,8 +22,7 @@ const HomePage = ({ darkMode }: HomePageProps) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
-  const { savedJobs, toggleSave, appliedJobs, onApply } =
-    useJobs(user);
+  const { savedJobs, toggleSave, appliedJobs, onApply } = useJobs(user);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
   const [displayJobs, setDisplayJobs] = useState<Job[]>(
@@ -84,10 +83,11 @@ const HomePage = ({ darkMode }: HomePageProps) => {
 
         <div className={style.home_container_jobs}>
           <input
+            type="text"
+            name="keywords"
+            placeholder="Search by title, position"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            type="text"
-            placeholder="Search by title, position"
           />
           <button onClick={handleSubmit}>Search</button>
         </div>
