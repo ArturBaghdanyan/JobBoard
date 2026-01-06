@@ -20,7 +20,7 @@ const ProfileMenu = () => {
         </NavLink>
 
         <NavLink
-          to="/reserved"
+          to="/applied-jobs"
           className={({ isActive }) =>
             `${style.menu_link} ${isActive ? style.active : ""}`
           }
@@ -30,7 +30,7 @@ const ProfileMenu = () => {
         </NavLink>
 
         <NavLink
-          to="/savedJobs"
+          to="/saved-jobs"
           className={({ isActive }) =>
             `${style.menu_link} ${isActive ? style.active : ""}`
           }
