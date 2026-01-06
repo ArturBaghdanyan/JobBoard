@@ -9,6 +9,10 @@ import ShowModal from "../../shared/components/showModal";
 import type { Job } from "../../types/jobTypes";
 
 import style from "./home.module.scss";
+import {
+  getAllJobsFromStorage,
+  saveAllJobs,
+} from "../../shared/utils/localStorageJobs";
 
 interface HomePageProps {
   darkMode: boolean;
@@ -18,14 +22,13 @@ const HomePage = ({ darkMode }: HomePageProps) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
-  const { savedJobs, toggleSave, appliedJobs, onApply, syncServerData } =
+  const { savedJobs, toggleSave, appliedJobs, onApply } =
     useJobs(user);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
-  const [displayJobs, setDisplayJobs] = useState<Job[]>(() => {
-    const stored = localStorage.getItem("jobs_list");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [displayJobs, setDisplayJobs] = useState<Job[]>(
+    getAllJobsFromStorage()
+  );
   const [searchText, setSearchText] = useState("");
   const { openEditModal, openRemoveModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
@@ -48,24 +51,16 @@ const HomePage = ({ darkMode }: HomePageProps) => {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("jobs_list");
-
-    if (!stored && jobs.length > 0) {
-      localStorage.setItem("jobs_list", JSON.stringify(jobs));
+    if (jobs.length > 0) {
+      saveAllJobs(jobs);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplayJobs(jobs);
-      syncServerData(jobs);
-    } else if (stored) {
-      setDisplayJobs(JSON.parse(stored));
     }
   }, [jobs]);
 
   useEffect(() => {
     const handleSync = () => {
-      const stored = localStorage.getItem("jobs_list");
-      if (stored) {
-        setDisplayJobs(JSON.parse(stored));
-      }
+      setDisplayJobs(getAllJobsFromStorage());
     };
 
     window.addEventListener("storage", handleSync);

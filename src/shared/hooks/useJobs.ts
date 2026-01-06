@@ -6,6 +6,7 @@ import {
   removeSavedJob as removeJobStorage,
   applyJob as applyJobStorage,
   editJob as editJobStorage,
+  removeJobFromAllJobs,
 } from "../utils/localStorageJobs";
 
 import type { Job } from "../../types/jobTypes";
@@ -15,15 +16,9 @@ export const useJobs = (user: UserProfile | null) => {
   const [savedJobs, setSavedJobs] = useState<Job[]>(getSavedJobs());
   const [appliedJobs, setAppliedJobs] = useState<Job[]>(getAppliedJobs());
 
-  const syncServerData = (serverJobs: Job[]) => {
-    localStorage.setItem("all_jobs", JSON.stringify(serverJobs));
-    window.dispatchEvent(new Event("storage"));
-  };
-
   const syncStorage = () => {
     setSavedJobs(getSavedJobs());
     setAppliedJobs(getAppliedJobs());
-    window.dispatchEvent(new Event("storage"));
   };
 
   useEffect(() => {
@@ -49,6 +44,7 @@ export const useJobs = (user: UserProfile | null) => {
     editJobStorage(updatedJob);
     syncStorage();
   };
+  
   const onApply = (job: Job) => {
     if (!appliedJobs.some((j) => j.id === job.id)) {
       applyJobStorage(job);
@@ -56,12 +52,12 @@ export const useJobs = (user: UserProfile | null) => {
     }
   };
 
-  const removeJob = (job: string) => {
+  const removeJob = (jobId: string) => {
     if (!user) return;
 
-    removeJobStorage(job);
+    removeJobFromAllJobs(jobId);
+    removeJobStorage(jobId);
     syncStorage();
-    window.dispatchEvent(new Event("storage"));
   };
 
   return {
@@ -71,6 +67,5 @@ export const useJobs = (user: UserProfile | null) => {
     onApply,
     updateJob,
     removeJob,
-    syncServerData,
   };
 };

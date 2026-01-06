@@ -10,13 +10,17 @@ import type { Job } from "../../types/jobTypes";
 
 import style from "./style.module.scss";
 import RemoveJobItem from "../../components/remove-job/RemoveJobItem";
+import {
+  getAllJobsFromStorage,
+  removeSavedJob,
+  saveAllJobs,
+} from "../../shared/utils/localStorageJobs";
 
 const JobsPage = () => {
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
-  const { savedJobs, appliedJobs, toggleSave, onApply, syncServerData } =
-    useJobs(user);
+  const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
   const { openEditModal, openRemoveModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
     openRemoveModal: (job: Job) => void;
@@ -26,10 +30,9 @@ const JobsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
   const searchTerm = searchParams.get("search") || "";
-  const [displayJobs, setDisplayJobs] = useState<Job[]>(() => {
-    const stored = localStorage.getItem("jobs_list");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [displayJobs, setDisplayJobs] = useState<Job[]>(
+    getAllJobsFromStorage()
+  );
   const {
     searchText,
     setSearchText,
@@ -57,32 +60,28 @@ const JobsPage = () => {
   const positions = ["Intern", "Junior", "Middle", "Senior", "Team Lead"];
 
   const handleConfirmDelete = () => {
-    if (jobToDelete) {
-      setIsDeleteModalOpen(false);
-      setJobToDelete(null);
-      setModalType("success");
-      setShowModal(true);
-    }
+    if (!jobToDelete) return;
+
+    removeSavedJob(jobToDelete.id);
+    setDisplayJobs((prev) => prev.filter((job) => job.id !== jobToDelete.id));
+
+    setIsDeleteModalOpen(false);
+    setJobToDelete(null);
+    setModalType("success");
+    setShowModal(true);
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("jobs_list");
-
-    if (!stored && jobs.length > 0) {
-      localStorage.setItem("jobs_list", JSON.stringify(jobs));
+    if (jobs.length > 0) {
+      saveAllJobs(jobs);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplayJobs(jobs);
-      syncServerData(jobs);
-    } else if (stored) {
-      setDisplayJobs(JSON.parse(stored));
     }
   }, [jobs]);
+
   useEffect(() => {
     const handleSync = () => {
-      const stored = localStorage.getItem("jobs_list");
-      if (stored) {
-        setDisplayJobs(JSON.parse(stored));
-      }
+      setDisplayJobs(getAllJobsFromStorage());
     };
 
     window.addEventListener("storage", handleSync);
@@ -93,6 +92,7 @@ const JobsPage = () => {
       window.removeEventListener("local-jobs-updated", handleSync);
     };
   }, []);
+
   if (isLoading) return <p>Loading...</p>;
 
   return (

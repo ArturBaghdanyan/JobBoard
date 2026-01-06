@@ -52,21 +52,16 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
     setSelectedJob(job);
     setModalType("remove");
   };
+
   const handleConfirmDelete = () => {
-    if (selectedJob) {
-      removeJob(selectedJob.id);
-      const storedJobs = localStorage.getItem("jobs_list");
-      if (storedJobs) {
-        const parsedJobs: Job[] = JSON.parse(storedJobs);
-        const filteredJobs = parsedJobs.filter(
-          (item) => item.id !== selectedJob.id
-        );
-        localStorage.setItem("jobs_list", JSON.stringify(filteredJobs));
-      }
-    }
+    if (!selectedJob) return;
+    
+    removeJob(selectedJob.id);
+    setSelectedJob(null);
+
     closeModal();
-    window.dispatchEvent(new Event("local-jobs-updated"));
   };
+
   const handleClose = () => navigate("/");
 
   return (
