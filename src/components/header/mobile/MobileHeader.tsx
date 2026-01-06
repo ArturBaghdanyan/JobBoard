@@ -30,18 +30,20 @@ const MobileHeader = ({
   };
 
   return (
-    <header className={styles.mobileHeader}>
-      <div className={styles.top}>
-        <h2>Job Board</h2>
+    <header className={`${darkMode ? styles.headerDark : styles.headerLight}`}>
+      <div className={styles.mobileHeader}>
+        <div className={styles.top}>
+          <h2>Job Board</h2>
 
-        <button onClick={() => setOpen(!open)}>
-          {open ? <IoClose /> : <IoMenu />}
-        </button>
+          <button onClick={() => setOpen(!open)} className={`${darkMode ? styles.darkIcon : styles.lightIcon}`}>
+            {open ? <IoClose /> : <IoMenu />}
+          </button>
+        </div>
       </div>
 
       {open && (
         <>
-          <nav className={styles.menu}>
+          <nav className={`${darkMode ? styles.headerDark : styles.headerLight} ${styles.menu}`}>
             <button
               onClick={() => setDarkMode((prev) => !prev)}
               className={styles.menu_mode}
@@ -49,7 +51,7 @@ const MobileHeader = ({
               {darkMode ? (
                 <MdOutlineLightMode color="white" />
               ) : (
-                <MdDarkMode color="white" />
+                <MdDarkMode color="black" />
               )}
             </button>
             <NavLink to="/" onClick={() => setOpen(false)}>
