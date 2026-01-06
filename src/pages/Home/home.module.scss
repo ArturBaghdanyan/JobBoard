@@ -40,6 +40,8 @@
         height: auto;
         border: none;
         background: none;
+        background: var(--input-bg);
+        color: var(--input-text);
       }
       input:focus {
         outline: none;
@@ -78,8 +80,8 @@
       color: white;
     }
     &_dark {
-      background: #595959;
-      color: white;
+      background: var(--input-bg);
+      color: var(--input-text);
     }
     &_light {
       background: #f2f2f2;

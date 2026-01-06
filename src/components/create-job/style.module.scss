@@ -37,7 +37,8 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       font-family: "Montserrat", sans-serif;
-      background: white;
+      background: var(--input-bg);
+      color: var(--input-text);
     }
   }
   .actions {
