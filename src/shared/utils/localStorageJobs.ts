@@ -61,6 +61,12 @@ export const removeJobFromAllJobs = (jobId: string): void => {
   window.dispatchEvent(new Event("local-jobs-updated"));
 };
 
+export const removeAppliedJob = (jobId: string) => {
+    const applied = getAppliedJobs();
+    const updated = applied.filter((job: Job) => job.id !== jobId);
+    localStorage.setItem(APPLIED, JSON.stringify(updated));
+}
+
 export const removeSavedJob = (jobId: string): void => {
   const saved = getSavedJobs();
   const filtered = saved.filter((job) => job.id !== jobId);

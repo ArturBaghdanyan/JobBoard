@@ -7,6 +7,7 @@ import {
   applyJob as applyJobStorage,
   editJob as editJobStorage,
   removeJobFromAllJobs,
+  removeAppliedJob,
 } from "../utils/localStorageJobs";
 
 import type { Job } from "../../types/jobTypes";
@@ -44,7 +45,7 @@ export const useJobs = (user: UserProfile | null) => {
     editJobStorage(updatedJob);
     syncStorage();
   };
-  
+
   const onApply = (job: Job) => {
     if (!appliedJobs.some((j) => j.id === job.id)) {
       applyJobStorage(job);
@@ -57,6 +58,8 @@ export const useJobs = (user: UserProfile | null) => {
 
     removeJobFromAllJobs(jobId);
     removeJobStorage(jobId);
+    removeAppliedJob(jobId);
+
     syncStorage();
   };
 

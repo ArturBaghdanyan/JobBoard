@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import type { Job } from "../../types/jobTypes";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 interface JobCardProps {
   job: Job;
@@ -28,6 +29,23 @@ export const JobCard = ({
 }: JobCardProps) => {
   const [showDescription, setShowDescription] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchUrl = () => {
+      if (
+        location.pathname === "/applied-jobs" ||
+        location.pathname === "/saved-jobs"
+      ) {
+        setIsModalOpen(false);
+      }
+    };
+    searchUrl();
+  }, [location.pathname]);
+
+  const locationType =
+    location.pathname === "/applied-jobs" ||
+    location.pathname === "/saved-jobs";
 
   return (
     <div className="jobs_container">
@@ -40,50 +58,72 @@ export const JobCard = ({
 
       <div className="jobs-right">
         <div className="jobs-left">
-          <AiFillHeart
-            className="jobs_container_save"
-            onClick={() => onToggleSave?.(job)}
-            style={{
-              fill: saved ? "red" : "white",
-              stroke: "red",
-              strokeWidth: "50px",
-              cursor: "pointer",
-            }}
-          />
-
-          <button
-            disabled={applied}
-            onClick={() => onApply?.(job)}
-            className={`${applied ? "applied" : "jobs_container_apply"}`}
-          >
-            {applied ? "Applied" : "Apply"}
-          </button>
-
-          <button
-            onClick={() => setIsModalOpen(!isModalOpen)}
-            className="jobs_container_menu"
-          >
-            <HiDotsHorizontal />
-          </button>
-
-          {isModalOpen && (
-            <div className="jobs_modal">
-              <div className="jobs_modal_row" onClick={() => onEdit?.(job)}>
-                <MdEdit />
-                <span>Edit</span>
-              </div>
-
-              <div
-                className="jobs_modal_row"
-                onClick={() => {
-                  onRemove?.(job);
-                  setIsModalOpen(false);
+          {locationType ? (
+            <div className="jobs-locationType">
+              <AiFillHeart
+                className="jobs_container_save"
+                onClick={() => onToggleSave?.(job)}
+                style={{
+                  fill: saved ? "red" : "white",
+                  stroke: "red",
+                  strokeWidth: "50px",
+                  cursor: "pointer",
                 }}
+              />
+              <button
+                disabled={applied}
+                onClick={() => onApply?.(job)}
+                className={`${applied ? "applied" : "jobs_container_apply"}`}
               >
-                <MdDelete />
-                <span>Delete</span>
-              </div>
+                {applied ? "Applied" : "Apply"}
+              </button>
             </div>
+          ) : (
+            <>
+              <AiFillHeart
+                className="jobs_container_save"
+                onClick={() => onToggleSave?.(job)}
+                style={{
+                  fill: saved ? "red" : "white",
+                  stroke: "red",
+                  strokeWidth: "50px",
+                  cursor: "pointer",
+                }}
+              />
+              <button
+                disabled={applied}
+                onClick={() => onApply?.(job)}
+                className={`${applied ? "applied" : "jobs_container_apply"}`}
+              >
+                {applied ? "Applied" : "Apply"}
+              </button>
+              <button
+                onClick={() => setIsModalOpen(!isModalOpen)}
+                className="jobs_container_menu"
+              >
+                <HiDotsHorizontal />
+              </button>
+
+              {isModalOpen && (
+                <div className="jobs_modal">
+                  <div className="jobs_modal_row" onClick={() => onEdit?.(job)}>
+                    <MdEdit />
+                    <span>Edit</span>
+                  </div>
+
+                  <div
+                    className="jobs_modal_row"
+                    onClick={() => {
+                      onRemove?.(job);
+                      setIsModalOpen(false);
+                    }}
+                  >
+                    <MdDelete />
+                    <span>Delete</span>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           <button

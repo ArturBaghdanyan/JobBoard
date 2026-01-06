@@ -9,12 +9,13 @@ interface Props {
 }
 
 const AppliedJobsPage = ({ user }: Props) => {
-  const { appliedJobs, savedJobs, toggleSave, onApply } = useJobs(user);
+  const { appliedJobs, savedJobs, toggleSave, onApply } =
+    useJobs(user);
   const [showModal, setShowModal] = useState(false);
   const [modalType] = useState<"login" | "success" | null>(null);
 
-  
   if (!appliedJobs.length) return <p>No applied jobs yet</p>;
+
 
   const reversed = [...appliedJobs].reverse();
 
@@ -28,7 +29,6 @@ const AppliedJobsPage = ({ user }: Props) => {
           applied={true}
           onToggleSave={toggleSave}
           onApply={onApply}
-          
         />
       ))}
       {showModal && (
@@ -43,4 +43,3 @@ const AppliedJobsPage = ({ user }: Props) => {
 };
 
 export default AppliedJobsPage;
-

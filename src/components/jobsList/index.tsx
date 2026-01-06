@@ -1,10 +1,8 @@
 import { useAuth } from "../../shared/hooks/useAuth";
 import { JobCard } from "../../shared/hooks/JobCard";
 import type { Job } from "../../types/jobTypes";
-
-import type React from "react";
-import "./jobs.css";
 import ShowModal from "../../shared/components/showModal";
+import "./jobs.css";
 
 interface JobListProps {
   jobs: Job[];
