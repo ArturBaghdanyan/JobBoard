@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import HomePage from "./pages/Home/HomePage";
 import JobsPage from "./pages/Jobs/JobsPage";
@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 
 function App() {
   const { user } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -19,7 +22,14 @@ function App() {
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
-  
+
+  useEffect(() => {
+    if (!user && location.pathname !== "/") {
+      alert("You can't open page, please You need to be login");
+      navigate("/", { replace: true });
+    }
+  }, [user, location.pathname, navigate]);
+
   return (
     <Routes>
       <Route
