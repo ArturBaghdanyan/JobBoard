@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AppHeader } from "../components/header/AppHeader";
 import Footer from "../components/footer/Footer";
@@ -17,11 +17,17 @@ import style from "./layout.module.scss";
 interface MainLayoutProps {
   darkMode: boolean;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoginOpen: boolean;
+  isRegisterOpen: boolean;
 }
 
-const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
+const MainLayout = ({
+  darkMode,
+  setDarkMode,
+  isLoginOpen,
+  isRegisterOpen,
+}: MainLayoutProps) => {
   const { user } = useAuth();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const { updateJob, removeJob } = useJobs(user);
@@ -29,9 +35,6 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
     "create" | "edit" | "remove" | null
   >(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-
-  const isLoginOpen = location.pathname === "/login";
-  const isRegisterOpen = location.pathname === "/register";
 
   const openCreateModal = () => {
     setSelectedJob(null);
@@ -55,7 +58,7 @@ const MainLayout = ({ darkMode, setDarkMode }: MainLayoutProps) => {
 
   const handleConfirmDelete = () => {
     if (!selectedJob) return;
-    
+
     removeJob(selectedJob.id);
     setSelectedJob(null);
 

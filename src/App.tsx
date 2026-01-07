@@ -19,21 +19,34 @@ function App() {
     return localStorage.getItem("theme") === "dark";
   });
 
+  const isLoginOpen = location.pathname === "/login";
+  const isRegisterOpen = location.pathname === "/register";
+
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
   useEffect(() => {
-    if (!user && location.pathname !== "/") {
-      alert("You can't open page, please You need to be login");
-      navigate("/", { replace: true });
+    if (!user) {
+      const publicRoutes = ["/", "/login", "/register"];
+      if (!publicRoutes.includes(location.pathname)) {
+        alert("You need to be logged in to access this page");
+        navigate("/", { replace: true });
+      }
     }
   }, [user, location.pathname, navigate]);
 
   return (
     <Routes>
       <Route
-        element={<MainLayout darkMode={darkMode} setDarkMode={setDarkMode} />}
+        element={
+          <MainLayout
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            isLoginOpen={isLoginOpen}
+            isRegisterOpen={isRegisterOpen}
+          />
+        }
       >
         <Route path="/" element={<HomePage darkMode={darkMode} />} />
         <Route path="/login" element={<Login />} />
