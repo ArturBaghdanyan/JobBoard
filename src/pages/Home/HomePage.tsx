@@ -16,9 +16,10 @@ import {
 
 interface HomePageProps {
   darkMode: boolean;
+  requireAuth: (action: () => void) => void;
 }
 
-const HomePage = ({ darkMode }: HomePageProps) => {
+const HomePage = ({ darkMode, requireAuth }: HomePageProps) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
@@ -43,10 +44,14 @@ const HomePage = ({ darkMode }: HomePageProps) => {
     toggleSave(job);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!searchText.trim()) navigate("/jobs");
-    navigate(`/jobs?search=${encodeURIComponent(searchText)}`);
+  const handleSubmit = () => {
+    requireAuth(() => {
+      if (!searchText.trim()) {
+        navigate("/jobs");
+      } else {
+        navigate(`/jobs?search=${encodeURIComponent(searchText)}`);
+      }
+    });
   };
 
   useEffect(() => {

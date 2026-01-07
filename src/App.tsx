@@ -26,6 +26,16 @@ function App() {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
+  const requireAuth = (action: () => void) => {
+    if (!user) {
+      alert("You need to be logged in to access this page");
+      navigate("/", { replace: true });
+      return;
+    }
+
+    action();
+  };
+
   useEffect(() => {
     if (!user) {
       const publicRoutes = ["/", "/login", "/register"];
@@ -45,10 +55,14 @@ function App() {
             setDarkMode={setDarkMode}
             isLoginOpen={isLoginOpen}
             isRegisterOpen={isRegisterOpen}
+            requireAuth={requireAuth}
           />
         }
       >
-        <Route path="/" element={<HomePage darkMode={darkMode} />} />
+        <Route
+          path="/"
+          element={<HomePage darkMode={darkMode} requireAuth={requireAuth} />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/jobs" element={<JobsPage />} />

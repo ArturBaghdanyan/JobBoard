@@ -19,6 +19,7 @@ interface MainLayoutProps {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   isLoginOpen: boolean;
   isRegisterOpen: boolean;
+  requireAuth: (action: () => void) => void;
 }
 
 const MainLayout = ({
@@ -26,6 +27,7 @@ const MainLayout = ({
   setDarkMode,
   isLoginOpen,
   isRegisterOpen,
+  requireAuth,
 }: MainLayoutProps) => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -37,8 +39,10 @@ const MainLayout = ({
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   const openCreateModal = () => {
-    setSelectedJob(null);
-    setModalType("create");
+    requireAuth(() => {
+      setSelectedJob(null);
+      setModalType("create");
+    });
   };
 
   const openEditModal = (job: Job) => {
