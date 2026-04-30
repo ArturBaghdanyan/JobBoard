@@ -5,7 +5,6 @@ import { useOutletContext, useSearchParams } from "react-router-dom";
 import { useJobFilters } from "../../shared/hooks/useFilterJob";
 import { useGetJobsQuery } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
-import { CiSearch } from "react-icons/ci";
 import type { Job } from "../../types/jobTypes";
 
 import style from "./style.module.scss";
@@ -25,14 +24,18 @@ const JobsPage = () => {
     openEditModal: (job: Job) => void;
     openRemoveModal: (job: Job) => void;
   }>();
+
   const [jobToDelete, setJobToDelete] = useState<Job | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"login" | "success" | null>(null);
-  const searchTerm = searchParams.get("search") || "";
+
   const [displayJobs, setDisplayJobs] = useState<Job[]>(
-    getAllJobsFromStorage()
+    getAllJobsFromStorage(),
   );
+
+  const searchTerm = searchParams.get("search") || "";
+
   const {
     searchText,
     setSearchText,
@@ -40,7 +43,8 @@ const JobsPage = () => {
     setSelectedCategory,
     selectedPosition,
     setSelectedPosition,
-  } = useJobFilters(jobs, searchTerm);
+    filteredJobs,
+  } = useJobFilters(displayJobs, searchTerm);
 
   const selectList = [
     "Frontend Developer",
@@ -64,7 +68,6 @@ const JobsPage = () => {
 
     removeSavedJob(jobToDelete.id);
     setDisplayJobs((prev) => prev.filter((job) => job.id !== jobToDelete.id));
-
     setIsDeleteModalOpen(false);
     setJobToDelete(null);
     setModalType("success");
@@ -80,9 +83,7 @@ const JobsPage = () => {
   }, [jobs]);
 
   useEffect(() => {
-    const handleSync = () => {
-      setDisplayJobs(getAllJobsFromStorage());
-    };
+    const handleSync = () => setDisplayJobs(getAllJobsFromStorage());
 
     window.addEventListener("storage", handleSync);
     window.addEventListener("local-jobs-updated", handleSync);
@@ -124,21 +125,16 @@ const JobsPage = () => {
           onChange={(e) => setSelectedPosition(e.target.value)}
         >
           <option value="select position">All Positions</option>
-
           {positions.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
           ))}
         </select>
-
-        <button type="submit">
-          <CiSearch />
-        </button>
       </form>
 
       <JobList
-        jobs={displayJobs}
+        jobs={filteredJobs}
         savedJobs={savedJobs}
         appliedJobs={appliedJobs}
         onToggleSave={toggleSave}
@@ -150,6 +146,7 @@ const JobsPage = () => {
         setShowModal={setShowModal}
         onRemove={openRemoveModal}
       />
+
       {isDeleteModalOpen && jobToDelete && (
         <RemoveJobItem
           selectedJob={jobToDelete}
