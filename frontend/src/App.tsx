@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 function App() {
   const { user } = useAuth();
   const location = useLocation();
-//   const navigate = useNavigate();
 
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem("theme") === "dark";
@@ -27,24 +26,8 @@ function App() {
   }, [darkMode]);
 
   const requireAuth = (action: () => void) => {
-    // if (!user) {
-    // //   alert("You need to be logged in to access this page");
-    //   navigate("/", { replace: true });
-    //   return;
-    // }
-
     action();
   };
-
-//   useEffect(() => {
-//     if (!user) {
-//       const publicRoutes = ["/", "/login", "/register"];
-//       if (!publicRoutes.includes(location.pathname)) {
-//         // alert("You need to be logged in to access this page");
-//         navigate("/", { replace: true });
-//       }
-//     }
-//   }, [user, location.pathname, navigate]);
 
   return (
     <Routes>
