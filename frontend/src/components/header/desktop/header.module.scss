@@ -1,0 +1,232 @@
+header {
+  background-color: rgb(44, 44, 44);
+  padding: 10px 0;
+  color: white;
+}
+.headerDark {
+  background: rgb(44, 44, 44);
+  > .header h2 {
+    color: white;
+  }
+}
+
+.headerLight {
+  background: whitesmoke;
+  > .header h2 {
+    color: black;
+  }
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Montserrat", sans-serif;
+
+  .nav {
+    display: flex;
+    align-items: center;
+    column-gap: 60px;
+    > a {
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        color: rgb(103, 250, 62);
+      }
+    }
+    .active {
+      color: #ffee08;
+    }
+
+    .notActive {
+      color: white;
+    }
+  }
+  .darkLink {
+    a,
+    button {
+      color: white;
+    }
+  }
+  .lightLink {
+    a,
+    button {
+      color: black !important;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      &:hover {
+        color: #67fa3e !important;
+      }
+    }
+    a.active {
+      color: #dd0c0c !important;
+    }
+  }
+  &_account {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &_title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+
+      > :nth-of-type(2) {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+      button {
+        height: 20px;
+        > svg {
+          font-size: 20px;
+        }
+      }
+
+      .popup {
+        min-width: 180px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        background: #ffffff;
+        border-radius: 14px;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        z-index: 100;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12),
+          0 4px 10px rgba(0, 0, 0, 0.06);
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+        animation: popupFade 0.2s ease forwards;
+
+        a,
+        button {
+          all: unset;
+          cursor: pointer;
+          padding: 10px 12px;
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #1f2937;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        a:hover {
+          background: #f3f4f6;
+          color: #111827;
+        }
+
+        button:hover {
+          background: #fee2e2;
+          color: #b91c1c;
+        }
+      }
+    }
+    &_user {
+      border-radius: 50%;
+      border: 1px solid;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      > svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @keyframes popupFade {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    &_log {
+      &:hover {
+        color: red !important;
+      }
+    }
+    &_mode {
+      height: 20px;
+      > svg {
+        font-size: 20px;
+      }
+    }
+  }
+  &_buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  button {
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+
+    &:hover {
+      color: #67fa3e;
+    }
+  }
+  .burger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+  }
+  @media (max-width: 768px) {
+    .burger {
+      display: flex;
+      z-index: 10;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 260px;
+      background: rgb(44, 44, 44);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 80px 20px 20px;
+      gap: 20px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-out;
+      z-index: 1;
+    }
+
+    .nav.open {
+      transform: translateX(0);
+    }
+
+    .header_account,
+    .header_buttons {
+      display: none;
+    }
+  }
+}
+.darkIcon {
+  color: white !important;
+  svg {
+    font-size: 20px;
+  }
+}
+
+.lightIcon {
+  color: black !important;
+
+  &:hover {
+    color: #67fa3e;
+  }
+}

@@ -1,0 +1,77 @@
+import { Routes, Route, useLocation } from "react-router-dom";
+import MainLayout from "./layout/MainLayout";
+import HomePage from "./pages/Home/HomePage";
+import JobsPage from "./pages/Jobs/JobsPage";
+import { Login } from "./AuthLayout/Login/Login";
+import { Register } from "./AuthLayout/Register/Register";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import AppliedJobsPage from "./pages/applied-jobs/ApplyJobsPage";
+import SavedJobs from "./pages/saved-jobs/SavedJobs";
+import { useAuth } from "./shared/hooks/useAuth";
+import { useEffect, useState } from "react";
+
+function App() {
+  const { user } = useAuth();
+  const location = useLocation();
+//   const navigate = useNavigate();
+
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  const isLoginOpen = location.pathname === "/login";
+  const isRegisterOpen = location.pathname === "/register";
+
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
+  const requireAuth = (action: () => void) => {
+    // if (!user) {
+    // //   alert("You need to be logged in to access this page");
+    //   navigate("/", { replace: true });
+    //   return;
+    // }
+
+    action();
+  };
+
+//   useEffect(() => {
+//     if (!user) {
+//       const publicRoutes = ["/", "/login", "/register"];
+//       if (!publicRoutes.includes(location.pathname)) {
+//         // alert("You need to be logged in to access this page");
+//         navigate("/", { replace: true });
+//       }
+//     }
+//   }, [user, location.pathname, navigate]);
+
+  return (
+    <Routes>
+      <Route
+        element={
+          <MainLayout
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            isLoginOpen={isLoginOpen}
+            isRegisterOpen={isRegisterOpen}
+            requireAuth={requireAuth}
+          />
+        }
+      >
+        <Route
+          path="/"
+          element={<HomePage darkMode={darkMode} requireAuth={requireAuth} />}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/applied-jobs" element={<AppliedJobsPage user={user} />} />
+        <Route path="/saved-jobs" element={<SavedJobs user={user} />} />
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;
