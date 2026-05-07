@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# 💼 JobBoard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern job listing web application built with React and TypeScript. Users can search and filter jobs by category and location, view detailed job pages, and authenticate to access personalized features.
 
-Currently, two official plugins are available:
+## 🔗 **Live Demo:** [View on Netlify](https://your-dream-job.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- 🔍 **Search** — Find jobs by keyword in real time
+- 🗂 **Filtering** — Filter by category and location
+- 📄 **Job Details Page** — View full job description on a dedicated page
+- 🔐 **Authentication** — User login / registration
+- 📡 **Real Job Data** — Powered by external Job API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Technology       | Purpose             |
+| ---------------- | ------------------- |
+| React 18         | UI library          |
+| TypeScript       | Type safety         |
+| React Router     | Client-side routing |
+| Redux / Zustand  | State management    |
+| SCSS             | Styling             |
+| External Job API | Live job data       |
+| Vite             | Build tool          |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Clone the repository
+git clone https://github.com/ArturBaghdanyan/JobBoard.git
+
+# Navigate into the project
+cd JobBoard
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Project Structure
+
 ```
+src/
+├── components/       # Reusable UI components
+├── pages/            # Route-level page components
+├── store/            # Redux / Zustand state management
+├── services/         # API calls
+├── types/            # TypeScript interfaces
+└── styles/           # SCSS files
+```
+
+---
+
+## 📸 Screenshots
+
+![alt text](image.png)
+
+> Coming soon
+
+---
+
+## 👤 Author
+
+**Artur Baghdanyan**
+
+- GitHub: [@ArturBaghdanyan](https://github.com/ArturBaghdanyan)
+- LinkedIn: (https://www.linkedin.com/in/artur-baghdanyan)
