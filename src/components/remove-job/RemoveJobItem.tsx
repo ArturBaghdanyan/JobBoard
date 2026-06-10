@@ -14,7 +14,11 @@ const RemoveJobItem = ({
   handleConfirmDelete,
 }: RemoveJobItemProps) => {
   return (
-    <div onClick={closeModal} className={style.modal_overlay}>
+    <div
+      onClick={closeModal}
+      className={style.modal_overlay}
+      data-testid="modal-overlay"
+    >
       <div className={style.modal_content} onClick={(e) => e.stopPropagation()}>
         <h2>Confirm Deletion</h2>
         <p>Are you sure you want to delete the job "{selectedJob.title}"?</p>

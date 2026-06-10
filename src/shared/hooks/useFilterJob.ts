@@ -9,9 +9,8 @@ export const useJobFilters = (jobs: Job[], initialSearch: string = "") => {
   const filteredJobs = useMemo(() => {
     return jobs.filter((job) => {
       const matchesSearch =
-        job.title.toLowerCase().includes(searchText.toLowerCase()) ||
-        job.company.toLowerCase().includes(searchText.toLowerCase());
-
+        (job.title ?? "").toLowerCase().includes(searchText.toLowerCase()) ||
+        (job.company ?? "").toLowerCase().includes(searchText.toLowerCase());
       const matchesCategory =
         selectedCategory === "select category" ||
         job.title === selectedCategory;
