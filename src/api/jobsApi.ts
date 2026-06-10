@@ -42,13 +42,13 @@ export const jobsApi = createApi({
       transformResponse: (
         response: JobQueryResponse | Job | JobsQueryResponse,
         _meta,
-        arg
+        arg,
       ) => {
         if (!isProduction) {
           return (response as JobQueryResponse).job || (response as Job);
         }
         return (response as JobsQueryResponse).jobs?.find(
-          (j: Job) => j.id === arg
+          (j: Job) => j.id === arg,
         );
       },
       providesTags: (_result, _error, id) => [{ type: "Jobs", id }],
@@ -66,7 +66,7 @@ export const jobsApi = createApi({
           const patchResult = dispatch(
             jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
               draft.push({ ...newJob, id: tempId, applied: false } as Job);
-            })
+            }),
           );
           try {
             await queryFulfilled;
@@ -103,7 +103,7 @@ export const jobsApi = createApi({
           jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
             const job = draft.find((j) => j.id === id);
             if (job) job.applied = true;
-          })
+          }),
         );
         try {
           await queryFulfilled;
@@ -127,7 +127,7 @@ export const jobsApi = createApi({
           jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
             const job = draft.find((j) => j.id === id);
             if (job) job.saved = saved;
-          })
+          }),
         );
         try {
           await queryFulfilled;
@@ -135,6 +135,31 @@ export const jobsApi = createApi({
           patchResult.undo();
         }
       },
+    }),
+
+    removeJobItem: builder.mutation<void, string>({
+      query: (id) => {
+        return {
+          url: isProduction ? "jobs.json" : `/jobs/${id}`,
+          method: isProduction ? "GET" : "DELETE",
+        };
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(
+            jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
+              const index = draft.findIndex((j) => j.id === id);
+              if (index !== -1) {
+                draft.splice(index, 1);
+              }
+            }),
+          );
+        } catch {
+          // do nothing on error
+        }
+      },
+      invalidatesTags: isProduction ? [] : [{ type: "Jobs", id: "LIST" }],
     }),
   }),
 });
@@ -146,4 +171,5 @@ export const {
   useEditJobMutation,
   useApplyJobMutation,
   useToggleSavedJobMutation,
+  useRemoveJobItemMutation,
 } = jobsApi;

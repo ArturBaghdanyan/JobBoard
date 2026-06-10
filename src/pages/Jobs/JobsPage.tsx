@@ -3,7 +3,7 @@ import { useAuth } from "../../shared/hooks/useAuth";
 import { useJobs } from "../../shared/hooks/useJobs";
 import { useOutletContext, useSearchParams } from "react-router-dom";
 import { useJobFilters } from "../../shared/hooks/useFilterJob";
-import { useGetJobsQuery } from "../../api/jobsApi";
+import { useGetJobsQuery, useRemoveJobItemMutation } from "../../api/jobsApi";
 import { JobList } from "../../components/jobsList";
 import type { Job } from "../../types/jobTypes";
 
@@ -18,11 +18,12 @@ import {
 const JobsPage = () => {
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
+  const [removeJobItem] = useRemoveJobItemMutation();
   const { data: jobs = [], isLoading } = useGetJobsQuery();
   const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
-  const { openEditModal, openRemoveModal } = useOutletContext<{
+  const { openEditModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
-    openRemoveModal: (job: Job) => void;
+    // handleOpenRemoveModal: (job: Job) => void;
   }>();
 
   const [jobToDelete, setJobToDelete] = useState<Job | null>(null);
@@ -33,6 +34,11 @@ const JobsPage = () => {
   const [displayJobs, setDisplayJobs] = useState<Job[]>(
     getAllJobsFromStorage(),
   );
+
+  const handleOpenRemoveModal = (job: Job) => {
+    setJobToDelete(job);
+    setIsDeleteModalOpen(true);
+  };
 
   const searchTerm = searchParams.get("search") || "";
 
@@ -63,9 +69,10 @@ const JobsPage = () => {
   ];
   const positions = ["Intern", "Junior", "Middle", "Senior", "Team Lead"];
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!jobToDelete) return;
 
+    await removeJobItem(jobToDelete.id).unwrap();
     removeSavedJob(jobToDelete.id);
     setDisplayJobs((prev) => prev.filter((job) => job.id !== jobToDelete.id));
     setIsDeleteModalOpen(false);
@@ -144,7 +151,7 @@ const JobsPage = () => {
         setModalType={setModalType}
         showModal={showModal}
         setShowModal={setShowModal}
-        onRemove={openRemoveModal}
+        onRemove={handleOpenRemoveModal}
       />
 
       {isDeleteModalOpen && jobToDelete && (
