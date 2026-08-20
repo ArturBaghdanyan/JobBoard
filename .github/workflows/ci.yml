@@ -3,16 +3,49 @@ name: CI/CD pipeline
 on:
   push:
     branches: ["master"]
-  pull-requests:
+  pull-request:
     branches: ["master"]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@4
+        with:
+        node-version: "20"
+        cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run tests (Vitest)
+        run: npm run test -- --run
+
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: docker/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project (Vite + TypeScript)
+        run: npm run build
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -23,3 +56,11 @@ jobs:
           context: .
           push: false
           tags: jobboard-latest
+
+    deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deployment notification
+          run: |
+            echo "🚀 Frontend successfully tested, built, and containerized!"
