@@ -20,7 +20,6 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        uses: actions/setup-node@v4 # Կամ ուղղակի npm ci
         run: npm ci
 
       - name: Run Linter
