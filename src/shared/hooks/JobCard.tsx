@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { AiFillHeart } from "react-icons/ai";
+import { useLocation } from "react-router-dom";
 import type { Job } from "../../types/jobTypes";
+import { AiFillHeart } from "react-icons/ai";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdEdit, MdDelete } from "react-icons/md";
-import { useLocation } from "react-router-dom";
 
 interface JobCardProps {
   job: Job;

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import CreateJob from "./CreateJob";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, type Mock } from "vitest";
 
 import * as jobsApi from "../../api/jobsApi";
 
@@ -11,7 +11,7 @@ vi.mock("../../api/jobsApi", () => ({
 describe("renders create job modal", () => {
   it("should render the form correctly", () => {
     const mockAddJob = vi.fn();
-    (jobsApi.useAddJobMutation as any).mockReturnValue([
+    (jobsApi.useAddJobMutation as Mock).mockReturnValue([
       mockAddJob,
       { isLoading: false },
     ]);

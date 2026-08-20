@@ -11,7 +11,7 @@
 // Apply Success: Verify that calling handleApply sets the modalType to "success" and opens the modal.
 // Modal Visibility: Verify that the ShowModal component is only rendered when showModal is true.
 
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, type Mock } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { JobList } from "./index";
 import { useAuth } from "../../shared/hooks/useAuth";
@@ -78,7 +78,7 @@ const renderJobList = (props = {}) => {
 
 describe("JobList Component", () => {
   it("renders jobs in reverse order", () => {
-    (useAuth as any).mockReturnValue({ user: null });
+    (useAuth as Mock).mockReturnValue({ user: null });
     renderJobList();
 
     const cards = screen.getAllByTestId("job-card");
@@ -87,7 +87,7 @@ describe("JobList Component", () => {
   });
 
   it("triggers login modal when unauthenticated user clicks apply", async () => {
-    (useAuth as any).mockReturnValue({
+    (useAuth as Mock).mockReturnValue({
       user: null,
     });
     const setModalType = vi.fn();
@@ -102,7 +102,7 @@ describe("JobList Component", () => {
   });
 
   it("triggers onApply when authenticated user clicks apply", async () => {
-    (useAuth as any).mockReturnValue({ user: { id: "user1" } });
+    (useAuth as Mock).mockReturnValue({ user: { id: "user1" } });
 
     const user = userEvent.setup();
     const onApply = vi.fn();

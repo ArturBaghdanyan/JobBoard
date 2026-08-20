@@ -1,13 +1,15 @@
-import { describe, vi, it, expect } from "vitest";
+import { describe, vi, it, expect, type Mock } from "vitest";
 import React from "react";
 import JobsPage from "./JobsPage";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { render, screen } from "@testing-library/react";
 import { TestWrapper } from "../../mocks/testWrapper";
 import { useAuth } from "../../shared/hooks/useAuth";
+import type { Job } from "../../types/jobTypes";
+import type { AuthContextType } from "../../types/context";
 
 vi.mock("../../shared/hooks/useAuth", () => ({
-  useAuth: vi.fn().mockReturnValue({ user: null }),
+  useAuth: vi.fn(),
 }));
 
 vi.mock("../../shared/hooks/useJobs", () => ({
@@ -26,11 +28,23 @@ vi.mock("../../shared/utils/localStorageJobs", () => ({
 }));
 
 vi.mock("../../shared/hooks/JobCard", () => ({
-  JobCard: ({ job, onApply, onToggleSave, onEdit, onRemove }: any) => (
+  JobCard: ({
+    job,
+    onApply,
+    onToggleSave,
+    onEdit,
+    onRemove,
+  }: {
+    job: Job;
+    onApply?: (job: Job) => void;
+    onToggleSave?: (job: Job) => void;
+    onEdit?: (job: Job) => void;
+    onRemove?: (job: Job) => void;
+  }) => (
     <div data-testid="job-card">
       <span>{job.title}</span>
-      <button onClick={() => onApply(job)}>Apply</button>
-      <button onClick={() => onToggleSave(job)}>Save</button>
+      <button onClick={() => onApply?.(job)}>Apply</button>
+      <button onClick={() => onToggleSave?.(job)}>Save</button>
       <button onClick={() => onEdit?.(job)}>Edit</button>
       <button onClick={() => onRemove?.(job)}>Remove</button>
     </div>
@@ -39,7 +53,12 @@ vi.mock("../../shared/hooks/JobCard", () => ({
 
 describe("JobsPage", () => {
   it("shows job list after loading", async () => {
-    (useAuth as any).mockReturnValue({ user: null });
+    (useAuth as Mock).mockReturnValue({
+      user: null,
+      loading: false,
+      error: null,
+    } as Partial<AuthContextType>);
+
     render(React.createElement(JobsPage), { wrapper: TestWrapper });
 
     expect(screen.getByText(/Loading/i)).toBeDefined();
@@ -50,7 +69,12 @@ describe("JobsPage", () => {
   });
 
   it("filters jobs by search text", async () => {
-    (useAuth as any).mockReturnValue({ user: null });
+    (useAuth as Mock).mockReturnValue({
+      user: null,
+      loading: false,
+      error: null,
+    } as Partial<AuthContextType>);
+
     render(React.createElement(JobsPage), { wrapper: TestWrapper });
 
     await waitFor(() => screen.getAllByTestId("job-card"));
@@ -65,8 +89,11 @@ describe("JobsPage", () => {
   });
 
   it("removes job from list after confirming delete", async () => {
-    // 👈 user must be logged in
-    (useAuth as any).mockReturnValue({ user: { id: "user1" } });
+    (useAuth as Mock).mockReturnValue({
+      user: { username: "Artur", email: "test@test.com", password: "123" },
+      loading: false,
+      error: null,
+    } as Partial<AuthContextType>);
 
     render(React.createElement(JobsPage), { wrapper: TestWrapper });
 

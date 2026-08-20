@@ -4,7 +4,7 @@
 // 4.Loading state appears(if exist api)
 // 5.Error message shows if request fails
 
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, type Mock } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as jobsApi from "../../api/jobsApi";
@@ -32,7 +32,7 @@ describe("UpdateJob Component", () => {
       unwrap: vi.fn().mockResolvedValue({}),
     });
     const mockOnUpdate = vi.fn();
-    (jobsApi.useEditJobMutation as any).mockReturnValue([
+    (jobsApi.useEditJobMutation as Mock).mockReturnValue([
       mockEditJob,
       { isLoading: false },
     ]);
@@ -49,7 +49,7 @@ describe("UpdateJob Component", () => {
   });
 
   it("shows loading state, when API pending", async () => {
-    (jobsApi.useEditJobMutation as any).mockReturnValue([
+    (jobsApi.useEditJobMutation as Mock).mockReturnValue([
       vi.fn(),
       { isLoading: true },
     ]);

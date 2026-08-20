@@ -23,7 +23,6 @@ const JobsPage = () => {
   const { savedJobs, appliedJobs, toggleSave, onApply } = useJobs(user);
   const { openEditModal } = useOutletContext<{
     openEditModal: (job: Job) => void;
-    // handleOpenRemoveModal: (job: Job) => void;
   }>();
 
   const [jobToDelete, setJobToDelete] = useState<Job | null>(null);
