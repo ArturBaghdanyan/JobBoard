@@ -71,11 +71,12 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Navigate to your project directory on the server
-            cd /home/ubuntu/jobboard-deploy
+            export PATH=$PATH:/usr/bin:/usr/local/bin:/snap/bin
+            cd /home/ubuntu/jobboard
             git pull origin master
             docker compose down
             docker compose up -d --build
+
       - name: Deployment notification
         run: |
           echo "🚀 Frontend successfully tested, built, and containerized!"
