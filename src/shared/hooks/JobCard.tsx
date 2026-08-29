@@ -101,7 +101,12 @@ export const JobCard = ({
                 onClick={() => setIsModalOpen(!isModalOpen)}
                 className="jobs_container_menu"
               >
-                <HiDotsHorizontal />
+                <HiDotsHorizontal
+                  style={{
+                    stroke: "var(--bg-primary)",
+                    fill: "var(--text-primary)",
+                  }}
+                />{" "}
               </button>
 
               {isModalOpen && (

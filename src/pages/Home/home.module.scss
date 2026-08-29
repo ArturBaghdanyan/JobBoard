@@ -7,7 +7,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       url("../../assets/images/bg.jpg");
     background-repeat: no-repeat;
     background-position: top center;
@@ -25,7 +26,7 @@
     &_jobs {
       display: flex;
       align-items: center;
-      padding: 15px;
+      padding: 5px;
       width: 40%;
       border: 1px solid #f2f2f2;
       border-radius: 30px;
@@ -63,18 +64,22 @@
     display: flex;
     justify-content: center;
     margin: 1.5rem auto;
-    padding: 10px;
+    padding: 15px 10px;
     border: none;
     border-radius: 12px;
     background: #d8d8d8;
     color: white;
     text-transform: uppercase;
     cursor: pointer;
-    font: 500 13px "Poppins", sans-serif;
+    text-align: center;
+    font-weight: 600;
+    font:
+      700 12px "Montserrat",
+      sans-serif;
     text-decoration: none;
 
     &:hover {
-      background-color: rgb(59, 186, 59);
+      background-color: lightseagreen;
       transition: 1s ease-in;
       color: white;
     }

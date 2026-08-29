@@ -1,12 +1,14 @@
-import "./footer.css"
+import "./footer.css";
 
 interface FooterProps {
   darkMode: boolean;
 }
-const Footer = ({darkMode}: FooterProps) => {
+const Footer = ({ darkMode }: FooterProps) => {
+  const date = new Date();
+
   return (
     <footer className={`${darkMode ? "footerDark" : "footerLight"} footer`}>
-      <p>© 2025 Job Board</p>
+      <p>© {date.getFullYear()} Job Board</p>
     </footer>
   );
 };

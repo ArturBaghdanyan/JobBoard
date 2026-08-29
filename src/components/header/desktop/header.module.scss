@@ -53,7 +53,7 @@ header {
     button {
       color: black !important;
       font-weight: 500;
-      font-family: "Poppins", sans-serif;
+      font-family: "Montserrat", sans-serif;
       &:hover {
         color: #67fa3e !important;
       }
@@ -96,7 +96,8 @@ header {
         top: calc(100% + 8px);
         right: 0;
         z-index: 100;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12),
+        box-shadow:
+          0 10px 25px rgba(0, 0, 0, 0.12),
           0 4px 10px rgba(0, 0, 0, 0.06);
         opacity: 0;
         transform: translateY(-6px) scale(0.98);
@@ -111,7 +112,9 @@ header {
           font-size: 14px;
           font-weight: 500;
           color: #1f2937;
-          transition: background 0.2s ease, color 0.2s ease;
+          transition:
+            background 0.2s ease,
+            color 0.2s ease;
         }
 
         a:hover {
