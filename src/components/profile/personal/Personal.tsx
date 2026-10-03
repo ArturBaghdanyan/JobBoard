@@ -30,7 +30,7 @@ const Personal = ({
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [setShowUserDetails]);
 
   const handleSaveDetails = (details: UserProfile["details"]) => {
     const updatedUser = { ...user, details };
