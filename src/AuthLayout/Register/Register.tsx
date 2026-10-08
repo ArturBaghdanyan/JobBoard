@@ -21,7 +21,7 @@ export const Register = () => {
     const success = await registerAction(data);
 
     if (success) {
-      alert("Registration successful! You can now login.");
+      alert("Registration successful! You can now login!");
       navigate("/login");
     }
   };
