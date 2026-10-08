@@ -44,10 +44,6 @@ resource "aws_route_table_association" "public_assoc" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-data "http" "my_ip" {
-  url = "https://api.ipify.org"
-}
-
 resource "aws_security_group" "ec2_sg" {
   name        = "jobboard-ec2-sg"
   description = "Allow SSH and HTTP inbound traffic"
@@ -60,7 +56,7 @@ resource "aws_security_group" "ec2_sg" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
   security_group_id = aws_security_group.ec2_sg.id
-  cidr_ipv4         = "${chomp(data.http.my_ip.response_body)}/32"
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
@@ -98,7 +94,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "jobboard-deploy-key"
-  public_key = file("~/.ssh/jobboard_deploy_key.pub")
+  public_key = file("${path.module}/jobboard_deploy_key.pub")
 }
 
 resource "aws_instance" "jobboard_server" {
@@ -122,5 +118,5 @@ output "ec2_public_ip" {
 
 output "ssh_connection_command" {
   description = "Command to connect to the EC2 instance"
-  value       = "ssh -i ~/.ssh/id_rsa ubuntu@${aws_instance.jobboard_server.public_ip}"
+  value       = "ssh -i ~/.ssh/jobboard_deploy_key ubuntu@${aws_instance.jobboard_server.public_ip}"
 }
